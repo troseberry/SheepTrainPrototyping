@@ -88,6 +88,8 @@
     <Compile Include="Assets\Scripts\MiniGameManager.cs" />
     <Compile Include="Assets\Scripts\PlayerBehavior.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
+    <Compile Include="Assets\Scripts\PressureValve.cs" />
+    <Compile Include="Assets\Scripts\RotateValve.cs" />
     <Compile Include="Assets\Scripts\SpeedLevers.cs" />
     <Compile Include="Assets\Scripts\TransitionScreen.cs" />
     <Compile Include="Assets\Yurowm\DebugPanel\DebugPanel.cs" />

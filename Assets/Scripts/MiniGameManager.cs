@@ -8,6 +8,9 @@ public class MiniGameManager : MonoBehaviour
 {
     public static MiniGameManager ManagerReference;
 
+    public enum GameName { NONE, SPEED_LEVERS, PRESSURE_VALVE};
+    public GameName currentGame;
+
     bool inGame;
 
 	public float timer;
@@ -21,15 +24,18 @@ public class MiniGameManager : MonoBehaviour
     public GameObject failText;
 
     public GameObject speedLevers;
+    public GameObject pressureValveGame;
 
 	void Start () 
 	{
         ManagerReference = this;
+
+        currentGame = GameName.NONE;
+
         inGame = false;
         didWin = false;
 
-        //taskTimerText = transform.Find("TaskTimer").GetComponent<Text>();
-        timer = 5f;
+        timer = 3f;
 	}
 	
 	void Update () 
@@ -59,7 +65,7 @@ public class MiniGameManager : MonoBehaviour
     void StartGeneralTasks()
     {
         generalElements.SetActive(true);
-        timer = 5.0f;
+        timer = 3.0f;
     }
 
     public void EndMiniGame()
@@ -82,14 +88,31 @@ public class MiniGameManager : MonoBehaviour
         passText.SetActive(false);
         failText.SetActive(false);
 
-        SpeedLevers.SpeedLeversReference.ResetGame();
+        if (currentGame == GameName.SPEED_LEVERS)
+        {
+            SpeedLevers.SpeedLeversReference.ResetGame();
+        }
+        else if (currentGame == GameName.PRESSURE_VALVE)
+        {
+            PressureValve.PressureValveReference.ResetGame();
+        }
     }
 
-    public void OpenSpeedMiniGame()
+    public void OpenSpeedLevers()
     {
         StartGeneralTasks();
-        
+
+        currentGame = GameName.SPEED_LEVERS;
         speedLevers.SetActive(true);
+        inGame = true;
+    }
+
+    public void OpenPressureValve()
+    {
+        StartGeneralTasks();
+
+        currentGame = GameName.PRESSURE_VALVE;
+        pressureValveGame.SetActive(true);
         inGame = true;
     }
 
