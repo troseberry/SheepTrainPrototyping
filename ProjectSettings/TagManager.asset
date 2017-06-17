@@ -48,3 +48,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: MiniGame_Background
+    uniqueID: 3830729647
+    locked: 0
+  - name: MiniGame_MidGround
+    uniqueID: 220601323
+    locked: 0
+  - name: MiniGame_Foreground
+    uniqueID: 4294068043
+    locked: 0
