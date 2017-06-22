@@ -90,6 +90,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\DragRigidBody2D\Examples\Scripts\BlockDragEvents.cs" />
+    <Compile Include="Assets\DragRigidBody2D\Examples\Scripts\CameraFollow.cs" />
+    <Compile Include="Assets\DragRigidBody2D\Scripts\DragRigidBody2D.cs" />
+    <Compile Include="Assets\Scripts\CoalBehavior.cs" />
+    <Compile Include="Assets\Scripts\FlickFuel.cs" />
+    <Compile Include="Assets\Scripts\FurnaceBehavior.cs" />
     <Compile Include="Assets\Scripts\Interact.cs" />
     <Compile Include="Assets\Scripts\MiniGameManager.cs" />
     <Compile Include="Assets\Scripts\PlayerBehavior.cs" />
@@ -195,6 +201,7 @@
     <Compile Include="Assets\Yurowm\DebugPanel\DebugPanelViewport.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\DragRigidBody2D\readme_v0.6.txt" />
     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
     <None Include="Assets\Standard Assets\Fonts\OpenSans\License!.txt" />
     <None Include="Assets\TouchScript\Examples\_misc\Shaders\BorderDiffuse.shader" />

@@ -8,7 +8,7 @@ public class MiniGameManager : MonoBehaviour
 {
     public static MiniGameManager ManagerReference;
 
-    public enum GameName { NONE, SPEED_LEVERS, PRESSURE_VALVE};
+    public enum GameName { NONE, SPEED_LEVERS, PRESSURE_VALVE, FLICK_FUEL};
     public GameName currentGame;
 
     bool inGame;
@@ -23,8 +23,9 @@ public class MiniGameManager : MonoBehaviour
     public GameObject passText;
     public GameObject failText;
 
-    public GameObject speedLevers;
+    public GameObject speedLeversGame;
     public GameObject pressureValveGame;
+    public GameObject flickFuelGame;
 
 	void Start () 
 	{
@@ -96,6 +97,10 @@ public class MiniGameManager : MonoBehaviour
         {
             PressureValve.PressureValveReference.ResetGame();
         }
+        else if (currentGame == GameName.FLICK_FUEL)
+        {
+            FlickFuel.FlickFuelReference.ResetGame();
+        }
     }
 
     public void OpenSpeedLevers()
@@ -103,7 +108,7 @@ public class MiniGameManager : MonoBehaviour
         StartGeneralTasks();
 
         currentGame = GameName.SPEED_LEVERS;
-        speedLevers.SetActive(true);
+        speedLeversGame.SetActive(true);
         inGame = true;
     }
 
@@ -116,5 +121,18 @@ public class MiniGameManager : MonoBehaviour
         inGame = true;
     }
 
-    
+    public void OpenFlickFuel()
+    {
+        StartGeneralTasks();
+
+        currentGame = GameName.FLICK_FUEL;
+        flickFuelGame.SetActive(true);
+        inGame = true;
+    }
+
+    public bool IsInGame()
+    {
+        return inGame;
+    }
+
 }
