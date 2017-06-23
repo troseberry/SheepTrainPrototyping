@@ -25,7 +25,7 @@ public class PlayerBehavior : MonoBehaviour
 		return inTransitionZone;
 	}
 
-	void OnTriggerEnter(Collider other)
+	void OnTriggerEnter2D(Collider2D other)
 	{
 		//if (other.tag == "TransitionZone") inTransitionZone = true;
 
@@ -53,7 +53,7 @@ public class PlayerBehavior : MonoBehaviour
         }
 	}
 
-	void OnTriggerExit(Collider other)
+	void OnTriggerExit2D(Collider2D other)
 	{
         //if (other.tag == "TransitionZone") inTransitionZone = false;
 
