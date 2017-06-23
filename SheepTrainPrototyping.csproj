@@ -97,11 +97,13 @@
     <Compile Include="Assets\Scripts\FlickFuel.cs" />
     <Compile Include="Assets\Scripts\FurnaceBehavior.cs" />
     <Compile Include="Assets\Scripts\Interact.cs" />
+    <Compile Include="Assets\Scripts\JumpingSheepBehavior.cs" />
     <Compile Include="Assets\Scripts\MiniGameManager.cs" />
     <Compile Include="Assets\Scripts\PlayerBehavior.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\PressureValve.cs" />
     <Compile Include="Assets\Scripts\RotateValve.cs" />
+    <Compile Include="Assets\Scripts\SheepJump.cs" />
     <Compile Include="Assets\Scripts\SpeedLevers.cs" />
     <Compile Include="Assets\Scripts\TransitionScreen.cs" />
     <Compile Include="Assets\TouchScript\Examples\Camera\Scripts\CameraController.cs" />

@@ -8,7 +8,7 @@ public class MiniGameManager : MonoBehaviour
 {
     public static MiniGameManager ManagerReference;
 
-    public enum GameName { NONE, SPEED_LEVERS, PRESSURE_VALVE, FLICK_FUEL};
+    public enum GameName { NONE, SPEED_LEVERS, PRESSURE_VALVE, FLICK_FUEL, SHEEP_JUMP};
     public GameName currentGame;
 
     bool inGame;
@@ -26,6 +26,8 @@ public class MiniGameManager : MonoBehaviour
     public GameObject speedLeversGame;
     public GameObject pressureValveGame;
     public GameObject flickFuelGame;
+
+    public GameObject sheepJumpGame;
 
 	void Start () 
 	{
@@ -101,6 +103,10 @@ public class MiniGameManager : MonoBehaviour
         {
             FlickFuel.FlickFuelReference.ResetGame();
         }
+        else if (currentGame == GameName.SHEEP_JUMP)
+        {
+            SheepJump.SheepJumpReference.ResetGame();
+        }
     }
 
     public void OpenSpeedLevers()
@@ -129,6 +135,17 @@ public class MiniGameManager : MonoBehaviour
         flickFuelGame.SetActive(true);
         inGame = true;
     }
+
+    public void OpenSheepJump()
+    {
+        StartGeneralTasks();
+
+        currentGame = GameName.SHEEP_JUMP;
+        sheepJumpGame.SetActive(true);
+        inGame = true;
+    }
+
+
 
     public bool IsInGame()
     {
