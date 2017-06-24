@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class SpeedLevers : MonoBehaviour 
 {
     public static SpeedLevers SpeedLeversReference;
+    public static float timeLimit = 3.0f;
 
 	int matchPos_01 = 0;
 	int matchPos_02 = 0;

@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+//Rename to TimerManager
 public class TaskManager : MonoBehaviour 
 {
 	float timer;

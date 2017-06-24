@@ -23,17 +23,12 @@ public class JumpingSheepBehavior : MonoBehaviour
     {
         if (other.gameObject.name == "SheepCatcher")
         {
-            //transform.localPosition = startingPosition;
-            //currentMoveTime = 0;
             gameObject.SetActive(false);
-            ResetPositon();
         }
         else if (other.gameObject.name == "Passenger")
         {
             gameObject.SetActive(false);
-            ResetPositon();
             SheepJump.SheepJumpReference.failedEarly = true;
-            //Failed minigame
         }
     }
 
@@ -53,7 +48,7 @@ public class JumpingSheepBehavior : MonoBehaviour
         doJump = true;
     }
 
-    public void ResetPositon()
+    public void ResetPosition()
     {
         transform.localPosition = startingPosition;
         currentMoveTime = 0;

@@ -38,7 +38,7 @@ public class MiniGameManager : MonoBehaviour
         inGame = false;
         didWin = false;
 
-        timer = 3f;
+        //timer = 3f;
 	}
 	
 	void Update () 
@@ -68,7 +68,7 @@ public class MiniGameManager : MonoBehaviour
     void StartGeneralTasks()
     {
         generalElements.SetActive(true);
-        timer = 3.0f;
+        //timer = 3.0f;
     }
 
     public void EndMiniGame()
@@ -111,6 +111,7 @@ public class MiniGameManager : MonoBehaviour
 
     public void OpenSpeedLevers()
     {
+        timer = SpeedLevers.timeLimit;
         StartGeneralTasks();
 
         currentGame = GameName.SPEED_LEVERS;
@@ -120,6 +121,7 @@ public class MiniGameManager : MonoBehaviour
 
     public void OpenPressureValve()
     {
+        timer = PressureValve.timeLimit;
         StartGeneralTasks();
 
         currentGame = GameName.PRESSURE_VALVE;
@@ -129,6 +131,7 @@ public class MiniGameManager : MonoBehaviour
 
     public void OpenFlickFuel()
     {
+        timer = FlickFuel.timeLimit;
         StartGeneralTasks();
 
         currentGame = GameName.FLICK_FUEL;
@@ -138,13 +141,13 @@ public class MiniGameManager : MonoBehaviour
 
     public void OpenSheepJump()
     {
+        timer = SheepJump.timeLimit;
         StartGeneralTasks();
-
+    
         currentGame = GameName.SHEEP_JUMP;
         sheepJumpGame.SetActive(true);
         inGame = true;
     }
-
 
 
     public bool IsInGame()

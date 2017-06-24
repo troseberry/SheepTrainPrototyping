@@ -5,6 +5,7 @@ using UnityEngine;
 public class FlickFuel : MonoBehaviour
 {
     public static FlickFuel FlickFuelReference;
+    public static float timeLimit = 5.0f;
 
     int coalCaughtAmount = 0;
 

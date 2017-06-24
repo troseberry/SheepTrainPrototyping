@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class PressureValve : MonoBehaviour
 {
     public static PressureValve PressureValveReference;
+    public static float timeLimit = 3.0f;
 
     public Slider currentPressureSlider;
     public Slider matchPressureSlider;
