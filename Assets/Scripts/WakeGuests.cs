@@ -8,9 +8,9 @@ public class WakeGuests : MonoBehaviour
 	public static WakeGuests WakeGuestsReference;
 	public static float timeLimit = 7.5f;
 
-	float horzAcceleration;
-	float vertAcceleration;
-	float depthAcceleration;
+	float horzAcceleration = 0;
+	float vertAcceleration = 0;
+	float depthAcceleration = 0;
 
 	public Transform guestGroup;
 
@@ -19,6 +19,13 @@ public class WakeGuests : MonoBehaviour
 	Transform guest_03;
 	Transform guest_04;
 	Transform guest_05;
+
+	int currentGuest = 0;
+	int guest01Rand;
+	int guest02Rand;
+	int guest03Rand;
+	int guest04Rand;
+	int guest05Rand;
 
 	bool doStartGame = true;
 	public bool failedEarly = false;
@@ -29,6 +36,24 @@ public class WakeGuests : MonoBehaviour
 	Vector3 initialHorzPos;
 	Vector3 nextHorzPos;
 
+
+
+
+	public float avrgTime = 0.5f;
+	public float peakLevel = 0.6f;
+	public float endCountTime = 0.6f;
+	public int shakeDir;
+	public int shakeCount;
+		
+	Vector3 avrgAcc = Vector3.zero;
+	int countPos;
+	int countNeg;
+	int lastPeak;
+	int firstPeak;
+	bool counting;
+	float timer;
+
+
 	void Start () 
 	{
 		WakeGuestsReference = this;
@@ -36,6 +61,8 @@ public class WakeGuests : MonoBehaviour
 		horzAcceleration = Input.acceleration.x;
 		vertAcceleration = Input.acceleration.y;
 		depthAcceleration = Input.acceleration.z;
+
+		
 
 		guest_01 = guestGroup.GetChild(0);
 		guest_02 = guestGroup.GetChild(1);
@@ -48,18 +75,13 @@ public class WakeGuests : MonoBehaviour
 	
 	void Update () 
 	{
-		horzAcceleration = Input.acceleration.x;
-		vertAcceleration = Input.acceleration.y;
-		depthAcceleration = Input.acceleration.z;
+		if (Mathf.Abs(Input.acceleration.x) > Mathf.Abs(horzAcceleration)) horzAcceleration = Input.acceleration.x;
+		if (Mathf.Abs(Input.acceleration.y) > Mathf.Abs(vertAcceleration)) vertAcceleration = Input.acceleration.y;
+		if (Mathf.Abs(Input.acceleration.z) > Mathf.Abs(depthAcceleration)) depthAcceleration = Input.acceleration.z;
 
 		DebugPanel.Log("Acceleration X: ", horzAcceleration);
 		DebugPanel.Log("Acceleration Y: ", vertAcceleration);
-		DebugPanel.Log("Acceleration Z: ", depthAcceleration);	
-
-		DebugPanel.Log("Move Duration: ", moveDuration);
-		DebugPanel.Log("Current Move Time: ", currentMoveTime);
-		DebugPanel.Log("Inital Horz: ", initialHorzPos.x);
-		DebugPanel.Log("Next Horz: ", nextHorzPos.x);
+		DebugPanel.Log("Acceleration Z: ", depthAcceleration);
 
 		if (MiniGameManager.ManagerReference.IsInGame() && doStartGame)
 		{
@@ -73,6 +95,7 @@ public class WakeGuests : MonoBehaviour
 
 		if (doLerpGuestGroup)
 		{
+			
 			if (currentMoveTime < moveDuration) currentMoveTime += Time.deltaTime / .25f*moveDuration;
 			guestGroup.localPosition = Vector3.Lerp(initialHorzPos, nextHorzPos, currentMoveTime);
 
@@ -80,7 +103,13 @@ public class WakeGuests : MonoBehaviour
         	{
 				guestGroup.localPosition = nextHorzPos;
 				currentMoveTime = 0;
+
+				vertAcceleration = 0;
+				depthAcceleration = 0;
+
 				doLerpGuestGroup = false;
+
+				//check failure here. right at end of lerp? or right before lerping to next?
 			}
 		}
 	}
@@ -99,41 +128,112 @@ public class WakeGuests : MonoBehaviour
 		// guestGroup.localPosition = new Vector3(guestGroup.localPosition.x -1500, 0, 0);
 		initialHorzPos = guestGroup.localPosition;
 		nextHorzPos = new Vector3(-1250, 0, 0);
+		currentGuest = 1;
 		doLerpGuestGroup = true;
 
 		yield return new WaitForSeconds(1.5f);
+		CheckFailure();
 		// guestGroup.localPosition = new Vector3(guestGroup.localPosition.x -1500, 0, 0);
 		initialHorzPos = guestGroup.localPosition;
 		nextHorzPos = new Vector3(-2500, 0, 0);
+		currentGuest = 2;
 		doLerpGuestGroup = true;
 
 		yield return new WaitForSeconds(1.5f);
+		CheckFailure();
 		// guestGroup.localPosition = new Vector3(guestGroup.localPosition.x -1500, 0, 0);
 		initialHorzPos = guestGroup.localPosition;
 		nextHorzPos = new Vector3(-3750, 0, 0);
+		currentGuest = 3;
 		doLerpGuestGroup = true;
 
 		yield return new WaitForSeconds(1.5f);
+		CheckFailure();
 		// guestGroup.localPosition = new Vector3(guestGroup.localPosition.x -1500, 0, 0);
 		initialHorzPos = guestGroup.localPosition;
 		nextHorzPos = new Vector3(-5000, 0, 0);
+		currentGuest = 4;
 		doLerpGuestGroup = true;
 
 		yield return new WaitForSeconds(1.5f);
+		CheckFailure();
 		// guestGroup.localPosition = new Vector3(guestGroup.localPosition.x -1500, 0, 0);
 		initialHorzPos = guestGroup.localPosition;
 		nextHorzPos = new Vector3(-6250, 0, 0);
+		currentGuest = 5;
 		doLerpGuestGroup = true;
+
+		yield return new WaitForSeconds(1.5f);
+		CheckFailure();
 	}
 
 	void RandomizeGuestTimes()
 	{
-		guest_01.GetChild((int)Mathf.Round(Random.Range(0f, 1f))).GetComponent<RawImage>().enabled = true;
-		guest_02.GetChild((int)Mathf.Round(Random.Range(0f, 1f))).GetComponent<RawImage>().enabled = true;
-		guest_03.GetChild((int)Mathf.Round(Random.Range(0f, 1f))).GetComponent<RawImage>().enabled = true;
-		guest_04.GetChild((int)Mathf.Round(Random.Range(0f, 1f))).GetComponent<RawImage>().enabled = true;
-		guest_05.GetChild((int)Mathf.Round(Random.Range(0f, 1f))).GetComponent<RawImage>().enabled = true;
+		guest01Rand = (int)Mathf.Round(Random.Range(0f, 1f));
+		guest_01.GetChild(guest01Rand).GetComponent<RawImage>().enabled = true;
+
+		guest02Rand = (int)Mathf.Round(Random.Range(0f, 1f));
+		guest_02.GetChild(guest02Rand).GetComponent<RawImage>().enabled = true;
+
+		guest03Rand = (int)Mathf.Round(Random.Range(0f, 1f));
+		guest_03.GetChild(guest03Rand).GetComponent<RawImage>().enabled = true;
+
+		guest04Rand = (int)Mathf.Round(Random.Range(0f, 1f));
+		guest_04.GetChild(guest04Rand).GetComponent<RawImage>().enabled = true;
+
+		guest05Rand = (int)Mathf.Round(Random.Range(0f, 1f));
+		guest_05.GetChild(guest05Rand).GetComponent<RawImage>().enabled = true;
 	}
+
+
+	void CheckFailure()
+	{
+		// if (currentGuest == 1)
+		// {
+		// 	failedEarly = (guest01Rand == 0) ? (Mathf.Abs(vertAcceleration) < 2.5f || Mathf.Abs(depthAcceleration) < 2.5f) : (Mathf.Abs(vertAcceleration) >= 2.5f || Mathf.Abs(depthAcceleration) >= 2.5f);
+		// }
+		// else if (currentGuest == 2)
+		// {
+		// 	failedEarly = (guest02Rand == 0) ? (Mathf.Abs(vertAcceleration) < 2.5f || Mathf.Abs(depthAcceleration) < 2.5f) : (Mathf.Abs(vertAcceleration) >= 2.5f || Mathf.Abs(depthAcceleration) >= 2.5f);
+		// }
+		// else if (currentGuest == 3)
+		// {
+		// 	failedEarly = (guest03Rand == 0) ? (Mathf.Abs(vertAcceleration) < 2.5f || Mathf.Abs(depthAcceleration) < 2.5f) : (Mathf.Abs(vertAcceleration) >= 2.5f || Mathf.Abs(depthAcceleration) >= 2.5f);
+		// }
+		// else if (currentGuest == 4)
+		// {
+		// 	failedEarly = (guest04Rand == 0) ? (Mathf.Abs(vertAcceleration) < 2.5f || Mathf.Abs(depthAcceleration) < 2.5f) : (Mathf.Abs(vertAcceleration) >= 2.5f || Mathf.Abs(depthAcceleration) >= 2.5f);
+		// }
+		// else if (currentGuest == 5)
+		// {
+		// 	failedEarly = (guest05Rand == 0) ? (Mathf.Abs(vertAcceleration) < 2.5f || Mathf.Abs(depthAcceleration) < 2.5f) : (Mathf.Abs(vertAcceleration) >= 2.5f || Mathf.Abs(depthAcceleration) >= 2.5f);
+		// }
+
+
+		if (currentGuest == 1)
+		{
+			failedEarly = (guest01Rand == 0) ? !ShakeDetector() : ShakeDetector();
+		}
+		else if (currentGuest == 2)
+		{
+			failedEarly = (guest02Rand == 0) ? !ShakeDetector() : ShakeDetector();
+		}
+		else if (currentGuest == 3)
+		{
+			failedEarly = (guest03Rand == 0) ? !ShakeDetector() : ShakeDetector();
+		}
+		else if (currentGuest == 4)
+		{
+			failedEarly = (guest04Rand == 0) ? !ShakeDetector() : ShakeDetector();
+		}
+		else if (currentGuest == 5)
+		{
+			failedEarly = (guest05Rand == 0) ? !ShakeDetector() : ShakeDetector();
+		}
+	}
+
+
+
 
 	void CloseGame()
 	{
@@ -148,6 +248,8 @@ public class WakeGuests : MonoBehaviour
 		
 		doStartGame = true;
 		failedEarly = false;
+
+		currentGuest = 0;
 
 		guestGroup.localPosition = new Vector3(0,0,0);
 
@@ -166,4 +268,75 @@ public class WakeGuests : MonoBehaviour
 		guest_05.GetChild(0).GetComponent<RawImage>().enabled = false;
 		guest_05.GetChild(1).GetComponent<RawImage>().enabled = false;
 	}
+
+
+
+
+
+
+
+
+
+	bool ShakeDetector()
+	{
+		// read acceleration:
+		Vector3 curAcc = Input.acceleration; 
+		// update average value:
+		avrgAcc = Vector3.Lerp(avrgAcc, curAcc, avrgTime * Time.deltaTime);
+		// calculate peak size:
+		curAcc -= avrgAcc;
+		// variable peak is zero when no peak detected...
+		int peak = 0;
+		// or +/- 1 according to the peak polarity:
+		if (curAcc.y > peakLevel) peak = 1;
+		if (curAcc.y < -peakLevel) peak = -1;
+		// do nothing if peak is the same of previous frame:
+		if (peak == lastPeak) return false;
+		// peak changed state: process it
+		lastPeak = peak; // update lastPeak
+		if (peak != 0)
+		{ // if a peak was detected...
+			timer = 0; // clear end count timer...
+			if (peak > 0) // and increment corresponding count
+			{
+				countPos++;
+			}
+			else
+			{
+				countNeg++;
+			}
+			if (!counting)
+			{ // if it's the first peak...
+				counting = true; // start shake counting
+				firstPeak = peak; // save the first peak direction
+			}
+		} 
+		else // but if no peak detected...
+		{
+			if (counting)
+			{ // and it was counting...
+				timer += Time.deltaTime; // increment timer
+				if (timer > endCountTime)
+				{ // if endCountTime reached...
+					counting = false; // finish counting...
+					shakeDir = firstPeak; // inform direction of first shake...
+					if (countPos > countNeg) // and return the higher count
+					{
+						shakeCount = countPos;
+					}
+					else
+					{
+						shakeCount = countNeg;
+					}
+					// zero counters and become ready for next shake count
+					countPos = 0;
+					countNeg = 0;
+					return true; // count finished
+				}
+			}
+		}
+		return false;
+	}
+
+
 }

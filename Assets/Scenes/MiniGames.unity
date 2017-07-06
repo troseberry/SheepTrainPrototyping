@@ -3501,7 +3501,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hideInEditMode: 0
-  visible: 0
+  visible: 1
   hideOnAwake: 1
   showFPS: 1
   lockAlphaMultiplier: 0.5
