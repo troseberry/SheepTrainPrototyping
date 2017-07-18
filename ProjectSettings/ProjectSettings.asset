@@ -140,7 +140,7 @@ PlayerSettings:
     Android: com.LionCollective.SheepTrain
     Standalone: unity.LionCollective.SheepTrainPrototyping
     Tizen: com.LionCollective.SheepTrain
-    iOS: com.LionCollective.SheepTrain
+    iOS: com.LionCollective.SheepTrainTest
     tvOS: com.LionCollective.SheepTrain
   buildNumber:
     iOS: 0
