@@ -8,15 +8,15 @@ public class Wrinkle : MonoBehaviour
 	bool startedPinching;
 	bool wrinkleDone;
 
-	public Color startingWrinkleColor;
-	public Color notStartedWrinkleColor;
-	public Color progressingWrinkleColor;
-	public Color passedWrinkleColor;
+	RawImage wrinkleImage;
+	
+	float pinchThreshold = -5.0f;
 
 	void Start () 
 	{
 		startedPinching = false;
 		wrinkleDone = false;
+		wrinkleImage = GetComponent<RawImage>();
 	}
 	
 	void Update () 
@@ -44,18 +44,11 @@ public class Wrinkle : MonoBehaviour
 				float deltaMagnitudeDiff = prevTouchDeltaMag - touchDeltaMag;
 
 
-				if (deltaMagnitudeDiff >= 1.0f)
-				{
-					GetComponent<RawImage>().color = notStartedWrinkleColor;
-				}
-				else if (deltaMagnitudeDiff >= 2.5f)
-				{
-					GetComponent<RawImage>().color = progressingWrinkleColor;
-				}
-				else if (deltaMagnitudeDiff >= 5.0f)
+				if (deltaMagnitudeDiff <= pinchThreshold)
 				{
 					wrinkleDone = true;
-					GetComponent<RawImage>().color = passedWrinkleColor;
+					wrinkleImage.enabled = false;
+					// completedCheckText.text = "True";
 				}
 			}
 			
