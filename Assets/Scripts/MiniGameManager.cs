@@ -8,7 +8,7 @@ public class MiniGameManager : MonoBehaviour
 {
     public static MiniGameManager ManagerReference;
 
-    public enum GameName { NONE, SPEED_LEVERS, PRESSURE_VALVE, FLICK_FUEL, SHEEP_JUMP, WAKE_GUESTS};
+    public enum GameName { NONE, SPEED_LEVERS, PRESSURE_VALVE, FLICK_FUEL, SHEEP_JUMP, WAKE_GUESTS, MAKE_BEDS};
     public GameName currentGame;
 
     bool inGame;
@@ -29,6 +29,7 @@ public class MiniGameManager : MonoBehaviour
 
     public GameObject sheepJumpGame;
     public GameObject wakeGuestsGame;
+    public GameObject makeBedsGame;
 
 	void Start () 
 	{
@@ -112,6 +113,10 @@ public class MiniGameManager : MonoBehaviour
         {
             WakeGuests.WakeGuestsReference.ResetGame();
         }
+        else if (currentGame == GameName.MAKE_BEDS)
+        {
+            MakeBeds.MakeBedsReference.ResetGame();
+        }
     }
 
     public void OpenSpeedLevers()
@@ -161,6 +166,16 @@ public class MiniGameManager : MonoBehaviour
 
         currentGame = GameName.WAKE_GUESTS;
         wakeGuestsGame.SetActive(true);
+        inGame = true;
+    }
+
+    public void OpenMakeBeds()
+    {
+        timer = MakeBeds.timeLimit;
+        StartGeneralTasks();
+
+        currentGame = GameName.MAKE_BEDS;
+        makeBedsGame.SetActive(true);
         inGame = true;
     }
 

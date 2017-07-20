@@ -61,8 +61,23 @@ public class Wrinkle : MonoBehaviour
 		startedPinching = true;
 	}
 
-	public void blockPinching()
+	public void BlockPinching()
 	{
 		startedPinching = false;
+	}
+
+	public bool isWrinkleDone()
+	{
+		return wrinkleDone;
+	}
+
+	public void SetWrinkleDone(bool state)
+	{
+		wrinkleDone = state;
+	}
+
+	public void EnableImage()
+	{
+		wrinkleImage.enabled = true;
 	}
 }
