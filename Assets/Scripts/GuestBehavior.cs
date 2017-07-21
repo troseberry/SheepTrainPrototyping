@@ -5,9 +5,13 @@ using UnityEngine;
 public class GuestBehavior : MonoBehaviour 
 {
 
+	GameObject daytime;
+	GameObject nighttime;
+
 	void Start () 
 	{
-		
+		daytime = transform.GetChild(0).gameObject;
+		nighttime = transform.GetChild(1).gameObject;
 	}
 	
 	void Update () 

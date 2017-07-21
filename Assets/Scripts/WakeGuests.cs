@@ -8,9 +8,9 @@ public class WakeGuests : MonoBehaviour
 	public static WakeGuests WakeGuestsReference;
 	public static float timeLimit = 7.5f;
 
-	float horzAcceleration = 0;
-	float vertAcceleration = 0;
-	float depthAcceleration = 0;
+	float peakHorzAcceleration = 0;
+	float peakVertAcceleration = 0;
+	float peakDepthAcceleration = 0;
 
 	public Transform guestGroup;
 
@@ -37,8 +37,6 @@ public class WakeGuests : MonoBehaviour
 	Vector3 nextHorzPos;
 
 
-
-
 	public float avrgTime = 0.5f;
 	public float peakLevel = 0.6f;
 	public float endCountTime = 0.6f;
@@ -58,11 +56,9 @@ public class WakeGuests : MonoBehaviour
 	{
 		WakeGuestsReference = this;
 
-		horzAcceleration = Input.acceleration.x;
-		vertAcceleration = Input.acceleration.y;
-		depthAcceleration = Input.acceleration.z;
-
-		
+		peakHorzAcceleration = Input.acceleration.x;
+		peakVertAcceleration = Input.acceleration.y;
+		peakDepthAcceleration = Input.acceleration.z;
 
 		guest_01 = guestGroup.GetChild(0);
 		guest_02 = guestGroup.GetChild(1);
@@ -75,13 +71,13 @@ public class WakeGuests : MonoBehaviour
 	
 	void Update () 
 	{
-		if (Mathf.Abs(Input.acceleration.x) > Mathf.Abs(horzAcceleration)) horzAcceleration = Input.acceleration.x;
-		if (Mathf.Abs(Input.acceleration.y) > Mathf.Abs(vertAcceleration)) vertAcceleration = Input.acceleration.y;
-		if (Mathf.Abs(Input.acceleration.z) > Mathf.Abs(depthAcceleration)) depthAcceleration = Input.acceleration.z;
+		if (Mathf.Abs(Input.acceleration.x) > Mathf.Abs(peakHorzAcceleration)) peakHorzAcceleration = -Input.acceleration.x;
+		if (Mathf.Abs(Input.acceleration.y) > Mathf.Abs(peakVertAcceleration)) peakVertAcceleration = -Input.acceleration.y;
+		if (Mathf.Abs(Input.acceleration.z) > Mathf.Abs(peakDepthAcceleration)) peakDepthAcceleration = -Input.acceleration.z;
 
-		DebugPanel.Log("Acceleration X: ", horzAcceleration);
-		DebugPanel.Log("Acceleration Y: ", vertAcceleration);
-		DebugPanel.Log("Acceleration Z: ", depthAcceleration);
+		DebugPanel.Log("Acceleration X: ", peakHorzAcceleration);
+		DebugPanel.Log("Acceleration Y: ", peakVertAcceleration);
+		DebugPanel.Log("Acceleration Z: ", peakDepthAcceleration);
 
 		if (MiniGameManager.ManagerReference.IsInGame() && doStartGame)
 		{
@@ -104,12 +100,11 @@ public class WakeGuests : MonoBehaviour
 				guestGroup.localPosition = nextHorzPos;
 				currentMoveTime = 0;
 
-				vertAcceleration = 0;
-				depthAcceleration = 0;
+				peakHorzAcceleration = 0;
+				peakVertAcceleration = 0;
+				peakDepthAcceleration = 0;
 
 				doLerpGuestGroup = false;
-
-				//check failure here. right at end of lerp? or right before lerping to next?
 			}
 		}
 	}
@@ -125,7 +120,7 @@ public class WakeGuests : MonoBehaviour
 	IEnumerator CycleGuestGroup()
 	{
 		yield return new WaitForSeconds(0.25f);
-		// guestGroup.localPosition = new Vector3(guestGroup.localPosition.x -1500, 0, 0);
+		
 		initialHorzPos = guestGroup.localPosition;
 		nextHorzPos = new Vector3(-1250, 0, 0);
 		currentGuest = 1;
@@ -133,7 +128,7 @@ public class WakeGuests : MonoBehaviour
 
 		yield return new WaitForSeconds(1.5f);
 		CheckFailure();
-		// guestGroup.localPosition = new Vector3(guestGroup.localPosition.x -1500, 0, 0);
+		
 		initialHorzPos = guestGroup.localPosition;
 		nextHorzPos = new Vector3(-2500, 0, 0);
 		currentGuest = 2;
@@ -141,7 +136,7 @@ public class WakeGuests : MonoBehaviour
 
 		yield return new WaitForSeconds(1.5f);
 		CheckFailure();
-		// guestGroup.localPosition = new Vector3(guestGroup.localPosition.x -1500, 0, 0);
+		
 		initialHorzPos = guestGroup.localPosition;
 		nextHorzPos = new Vector3(-3750, 0, 0);
 		currentGuest = 3;
@@ -149,7 +144,7 @@ public class WakeGuests : MonoBehaviour
 
 		yield return new WaitForSeconds(1.5f);
 		CheckFailure();
-		// guestGroup.localPosition = new Vector3(guestGroup.localPosition.x -1500, 0, 0);
+		
 		initialHorzPos = guestGroup.localPosition;
 		nextHorzPos = new Vector3(-5000, 0, 0);
 		currentGuest = 4;
@@ -157,7 +152,7 @@ public class WakeGuests : MonoBehaviour
 
 		yield return new WaitForSeconds(1.5f);
 		CheckFailure();
-		// guestGroup.localPosition = new Vector3(guestGroup.localPosition.x -1500, 0, 0);
+		
 		initialHorzPos = guestGroup.localPosition;
 		nextHorzPos = new Vector3(-6250, 0, 0);
 		currentGuest = 5;
@@ -188,51 +183,40 @@ public class WakeGuests : MonoBehaviour
 
 	void CheckFailure()
 	{
-		// if (currentGuest == 1)
-		// {
-		// 	failedEarly = (guest01Rand == 0) ? (Mathf.Abs(vertAcceleration) < 2.5f || Mathf.Abs(depthAcceleration) < 2.5f) : (Mathf.Abs(vertAcceleration) >= 2.5f || Mathf.Abs(depthAcceleration) >= 2.5f);
-		// }
-		// else if (currentGuest == 2)
-		// {
-		// 	failedEarly = (guest02Rand == 0) ? (Mathf.Abs(vertAcceleration) < 2.5f || Mathf.Abs(depthAcceleration) < 2.5f) : (Mathf.Abs(vertAcceleration) >= 2.5f || Mathf.Abs(depthAcceleration) >= 2.5f);
-		// }
-		// else if (currentGuest == 3)
-		// {
-		// 	failedEarly = (guest03Rand == 0) ? (Mathf.Abs(vertAcceleration) < 2.5f || Mathf.Abs(depthAcceleration) < 2.5f) : (Mathf.Abs(vertAcceleration) >= 2.5f || Mathf.Abs(depthAcceleration) >= 2.5f);
-		// }
-		// else if (currentGuest == 4)
-		// {
-		// 	failedEarly = (guest04Rand == 0) ? (Mathf.Abs(vertAcceleration) < 2.5f || Mathf.Abs(depthAcceleration) < 2.5f) : (Mathf.Abs(vertAcceleration) >= 2.5f || Mathf.Abs(depthAcceleration) >= 2.5f);
-		// }
-		// else if (currentGuest == 5)
-		// {
-		// 	failedEarly = (guest05Rand == 0) ? (Mathf.Abs(vertAcceleration) < 2.5f || Mathf.Abs(depthAcceleration) < 2.5f) : (Mathf.Abs(vertAcceleration) >= 2.5f || Mathf.Abs(depthAcceleration) >= 2.5f);
-		// }
-
-
 		if (currentGuest == 1)
 		{
-			failedEarly = (guest01Rand == 0) ? !ShakeDetector() : ShakeDetector();
+			failedEarly = (guest01Rand == 0) ? !PeakShakeDetected() : PeakShakeDetected();
 		}
 		else if (currentGuest == 2)
 		{
-			failedEarly = (guest02Rand == 0) ? !ShakeDetector() : ShakeDetector();
+			failedEarly = (guest02Rand == 0) ? !PeakShakeDetected() : PeakShakeDetected();
 		}
 		else if (currentGuest == 3)
 		{
-			failedEarly = (guest03Rand == 0) ? !ShakeDetector() : ShakeDetector();
+			failedEarly = (guest03Rand == 0) ? !PeakShakeDetected() : PeakShakeDetected();
 		}
 		else if (currentGuest == 4)
 		{
-			failedEarly = (guest04Rand == 0) ? !ShakeDetector() : ShakeDetector();
+			failedEarly = (guest04Rand == 0) ? !PeakShakeDetected() : PeakShakeDetected();
 		}
 		else if (currentGuest == 5)
 		{
-			failedEarly = (guest05Rand == 0) ? !ShakeDetector() : ShakeDetector();
+			failedEarly = (guest05Rand == 0) ? !PeakShakeDetected() : PeakShakeDetected();
 		}
+		ResetAccelerometerPeaks();
 	}
 
+	bool PeakShakeDetected()
+	{
+		return peakHorzAcceleration >= 3.0f || peakVertAcceleration >= 3.0f || peakDepthAcceleration >= 3.0f;
+	}
 
+	void ResetAccelerometerPeaks()
+	{
+		peakHorzAcceleration = 0;
+		peakVertAcceleration = 0;
+		peakDepthAcceleration = 0;
+	}
 
 
 	void CloseGame()
@@ -268,75 +252,4 @@ public class WakeGuests : MonoBehaviour
 		guest_05.GetChild(0).GetComponent<RawImage>().enabled = false;
 		guest_05.GetChild(1).GetComponent<RawImage>().enabled = false;
 	}
-
-
-
-
-
-
-
-
-
-	bool ShakeDetector()
-	{
-		// read acceleration:
-		Vector3 curAcc = Input.acceleration; 
-		// update average value:
-		avrgAcc = Vector3.Lerp(avrgAcc, curAcc, avrgTime * Time.deltaTime);
-		// calculate peak size:
-		curAcc -= avrgAcc;
-		// variable peak is zero when no peak detected...
-		int peak = 0;
-		// or +/- 1 according to the peak polarity:
-		if (curAcc.y > peakLevel) peak = 1;
-		if (curAcc.y < -peakLevel) peak = -1;
-		// do nothing if peak is the same of previous frame:
-		if (peak == lastPeak) return false;
-		// peak changed state: process it
-		lastPeak = peak; // update lastPeak
-		if (peak != 0)
-		{ // if a peak was detected...
-			timer = 0; // clear end count timer...
-			if (peak > 0) // and increment corresponding count
-			{
-				countPos++;
-			}
-			else
-			{
-				countNeg++;
-			}
-			if (!counting)
-			{ // if it's the first peak...
-				counting = true; // start shake counting
-				firstPeak = peak; // save the first peak direction
-			}
-		} 
-		else // but if no peak detected...
-		{
-			if (counting)
-			{ // and it was counting...
-				timer += Time.deltaTime; // increment timer
-				if (timer > endCountTime)
-				{ // if endCountTime reached...
-					counting = false; // finish counting...
-					shakeDir = firstPeak; // inform direction of first shake...
-					if (countPos > countNeg) // and return the higher count
-					{
-						shakeCount = countPos;
-					}
-					else
-					{
-						shakeCount = countNeg;
-					}
-					// zero counters and become ready for next shake count
-					countPos = 0;
-					countNeg = 0;
-					return true; // count finished
-				}
-			}
-		}
-		return false;
-	}
-
-
 }
