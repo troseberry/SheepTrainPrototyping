@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 public class MakeBeds : MonoBehaviour 
 {
 	public static MakeBeds MakeBedsReference;
-	public static float timeLimit = 2.0f;
+	public static float timeLimit = 10.0f;
 	bool isComplete;
 
 	public Transform wrinkle_01;
@@ -19,17 +19,20 @@ public class MakeBeds : MonoBehaviour
 	Vector2 randomWrinklePos_02 = Vector2.zero;
 	Vector2 randomWrinklePos_03 = Vector2.zero;	
 
+	bool doStartGame;
+
 	void Start () 
 	{
 		MakeBedsReference = this;
-		randomizeWrinklePositions();
+		doStartGame = true;
 	}
 	
 	void Update () 
 	{
-		if (!isComplete && MiniGameManager.ManagerReference.inGame)
+		if (!isComplete && MiniGameManager.ManagerReference.IsInGame() && doStartGame)
 		{
-			
+			randomizeWrinklePositions();
+			doStartGame = false;
 		}
 
 		isComplete = (wrinkle_01.GetComponent<Wrinkle>().isWrinkleDone() && wrinkle_02.GetComponent<Wrinkle>().isWrinkleDone() && wrinkle_03.GetComponent<Wrinkle>().isWrinkleDone());
@@ -58,14 +61,16 @@ public class MakeBeds : MonoBehaviour
 
 	public void ResetGame()
 	{
-		wrinkle_01.GetComponent<Wrinkle>().SetWrinkleDone(false);
-		wrinkle_02.GetComponent<Wrinkle>().SetWrinkleDone(false);
-		wrinkle_03.GetComponent<Wrinkle>().SetWrinkleDone(false);
+		wrinkle_01.GetComponent<Wrinkle>().ResetWrinkle();
+		wrinkle_02.GetComponent<Wrinkle>().ResetWrinkle();
+		wrinkle_03.GetComponent<Wrinkle>().ResetWrinkle();
 
 		randomizeWrinklePositions();
 
 		wrinkle_01.GetComponent<Wrinkle>().EnableImage();
 		wrinkle_02.GetComponent<Wrinkle>().EnableImage();
 		wrinkle_03.GetComponent<Wrinkle>().EnableImage();
+
+		doStartGame = true;
 	}
 }

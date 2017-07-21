@@ -5506,6 +5506,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5139d42a233774732bfb95c30fcae311, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wrinkleDone: 0
 --- !u!1 &762741487
 GameObject:
   m_ObjectHideFlags: 0
@@ -5938,6 +5939,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5139d42a233774732bfb95c30fcae311, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wrinkleDone: 0
 --- !u!1 &800661411
 GameObject:
   m_ObjectHideFlags: 0
@@ -12731,6 +12733,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5139d42a233774732bfb95c30fcae311, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wrinkleDone: 0
 --- !u!1 &1641562186
 GameObject:
   m_ObjectHideFlags: 0

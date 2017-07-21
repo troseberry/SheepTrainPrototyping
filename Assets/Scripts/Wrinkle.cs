@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Wrinkle : MonoBehaviour 
 {
 	bool startedPinching;
-	bool wrinkleDone;
+	public bool wrinkleDone;
 
 	RawImage wrinkleImage;
 	
@@ -48,7 +48,7 @@ public class Wrinkle : MonoBehaviour
 				{
 					wrinkleDone = true;
 					wrinkleImage.enabled = false;
-					// completedCheckText.text = "True";
+					startedPinching = false;
 				}
 			}
 			
@@ -71,9 +71,9 @@ public class Wrinkle : MonoBehaviour
 		return wrinkleDone;
 	}
 
-	public void SetWrinkleDone(bool state)
+	public void ResetWrinkle ()
 	{
-		wrinkleDone = state;
+		wrinkleDone = false;
 	}
 
 	public void EnableImage()
