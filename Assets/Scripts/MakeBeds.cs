@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 public class MakeBeds : MonoBehaviour 
 {
 	public static MakeBeds MakeBedsReference;
-	public static float timeLimit = 10.0f;
+	public static float timeLimit = 2.5f;
 	bool isComplete;
 
 	public Transform wrinkle_01;
@@ -36,7 +36,7 @@ public class MakeBeds : MonoBehaviour
 		}
 
 		isComplete = (wrinkle_01.GetComponent<Wrinkle>().isWrinkleDone() && wrinkle_02.GetComponent<Wrinkle>().isWrinkleDone() && wrinkle_03.GetComponent<Wrinkle>().isWrinkleDone());
-		if (isComplete || MiniGameManager.ManagerReference.timer == 0f) CloseGame();
+		if (isComplete || MiniGameManager.ManagerReference.timer == 0f) Invoke("CloseGame", 0.25f);
 
 	}
 

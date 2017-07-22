@@ -27,7 +27,7 @@ public class FlickFuel : MonoBehaviour
     {
         isComplete = (coalCaughtAmount >= 3);
 
-        if (isComplete || MiniGameManager.ManagerReference.timer == 0f) CloseGame();
+        if (isComplete || MiniGameManager.ManagerReference.timer == 0f) Invoke("CloseGame", 0.25f);
 
         DebugPanel.Log("Coal Count: ", coalCaughtAmount);
     }

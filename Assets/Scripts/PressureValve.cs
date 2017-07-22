@@ -36,7 +36,7 @@ public class PressureValve : MonoBehaviour
 
         isComplete = (currentPressureSlider.value <= matchPressureSlider.value);
 
-        if (isComplete || MiniGameManager.ManagerReference.timer == 0f) CloseGame();
+        if (isComplete || MiniGameManager.ManagerReference.timer == 0f) Invoke("CloseGame", 0.25f);
     }
 
     void CloseGame()

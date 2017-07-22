@@ -86,7 +86,7 @@ public class WakeGuests : MonoBehaviour
 			doStartGame = false;
 		}
 
-		if (failedEarly || MiniGameManager.ManagerReference.timer == 0) CloseGame();
+		if (failedEarly || MiniGameManager.ManagerReference.timer == 0) Invoke("CloseGame", 0.25f);
 
 
 		if (doLerpGuestGroup)
@@ -126,32 +126,69 @@ public class WakeGuests : MonoBehaviour
 		currentGuest = 1;
 		doLerpGuestGroup = true;
 
-		yield return new WaitForSeconds(1.5f);
+		yield return new WaitForSeconds(1.25f);
 		CheckFailure();
-		
+		if (failedEarly)
+		{
+			guest_01.GetChild(3).GetComponent<RawImage>().enabled = true;
+		}
+		else
+		{
+			guest_01.GetChild(2).GetComponent<RawImage>().enabled = true;
+		}
+		yield return new WaitForSeconds(0.25f);
+
 		initialHorzPos = guestGroup.localPosition;
 		nextHorzPos = new Vector3(-2500, 0, 0);
 		currentGuest = 2;
 		doLerpGuestGroup = true;
 
-		yield return new WaitForSeconds(1.5f);
+		yield return new WaitForSeconds(1.25f);
 		CheckFailure();
+		if (failedEarly)
+		{
+			guest_02.GetChild(3).GetComponent<RawImage>().enabled = true;
+		}
+		else
+		{
+			guest_02.GetChild(2).GetComponent<RawImage>().enabled = true;
+		}
+		yield return new WaitForSeconds(0.25f);
 		
 		initialHorzPos = guestGroup.localPosition;
 		nextHorzPos = new Vector3(-3750, 0, 0);
 		currentGuest = 3;
 		doLerpGuestGroup = true;
 
-		yield return new WaitForSeconds(1.5f);
+		yield return new WaitForSeconds(1.25f);
 		CheckFailure();
+		if (failedEarly)
+		{
+			guest_03.GetChild(3).GetComponent<RawImage>().enabled = true;
+		}
+		else
+		{
+			guest_03.GetChild(2).GetComponent<RawImage>().enabled = true;
+		}
+		yield return new WaitForSeconds(0.25f);
+
 		
 		initialHorzPos = guestGroup.localPosition;
 		nextHorzPos = new Vector3(-5000, 0, 0);
 		currentGuest = 4;
 		doLerpGuestGroup = true;
 
-		yield return new WaitForSeconds(1.5f);
+		yield return new WaitForSeconds(1.25f);
 		CheckFailure();
+		if (failedEarly)
+		{
+			guest_04.GetChild(3).GetComponent<RawImage>().enabled = true;
+		}
+		else
+		{
+			guest_04.GetChild(2).GetComponent<RawImage>().enabled = true;
+		}
+		yield return new WaitForSeconds(0.25f);
 		
 		initialHorzPos = guestGroup.localPosition;
 		nextHorzPos = new Vector3(-6250, 0, 0);
@@ -160,6 +197,15 @@ public class WakeGuests : MonoBehaviour
 
 		yield return new WaitForSeconds(1.5f);
 		CheckFailure();
+		if (failedEarly)
+		{
+			guest_05.GetChild(3).GetComponent<RawImage>().enabled = true;
+		}
+		else
+		{
+			guest_05.GetChild(2).GetComponent<RawImage>().enabled = true;
+		}
+		yield return new WaitForSeconds(0.25f);
 	}
 
 	void RandomizeGuestTimes()
@@ -185,7 +231,7 @@ public class WakeGuests : MonoBehaviour
 	{
 		if (currentGuest == 1)
 		{
-			failedEarly = (guest01Rand == 0) ? !PeakShakeDetected() : PeakShakeDetected();
+			failedEarly = (guest01Rand == 0) ? !PeakShakeDetected() : PeakShakeDetected();	
 		}
 		else if (currentGuest == 2)
 		{
@@ -239,17 +285,27 @@ public class WakeGuests : MonoBehaviour
 
 		guest_01.GetChild(0).GetComponent<RawImage>().enabled = false;
 		guest_01.GetChild(1).GetComponent<RawImage>().enabled = false;
+		guest_01.GetChild(2).GetComponent<RawImage>().enabled = false;
+		guest_01.GetChild(3).GetComponent<RawImage>().enabled = false;
 
 		guest_02.GetChild(0).GetComponent<RawImage>().enabled = false;
 		guest_02.GetChild(1).GetComponent<RawImage>().enabled = false;
+		guest_02.GetChild(2).GetComponent<RawImage>().enabled = false;
+		guest_02.GetChild(3).GetComponent<RawImage>().enabled = false;
 
 		guest_03.GetChild(0).GetComponent<RawImage>().enabled = false;
 		guest_03.GetChild(1).GetComponent<RawImage>().enabled = false;
+		guest_03.GetChild(2).GetComponent<RawImage>().enabled = false;
+		guest_03.GetChild(3).GetComponent<RawImage>().enabled = false;
 
 		guest_04.GetChild(0).GetComponent<RawImage>().enabled = false;
 		guest_04.GetChild(1).GetComponent<RawImage>().enabled = false;
+		guest_04.GetChild(2).GetComponent<RawImage>().enabled = false;
+		guest_04.GetChild(3).GetComponent<RawImage>().enabled = false;
 
 		guest_05.GetChild(0).GetComponent<RawImage>().enabled = false;
 		guest_05.GetChild(1).GetComponent<RawImage>().enabled = false;
+		guest_05.GetChild(2).GetComponent<RawImage>().enabled = false;
+		guest_05.GetChild(3).GetComponent<RawImage>().enabled = false;
 	}
 }

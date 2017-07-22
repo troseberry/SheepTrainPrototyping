@@ -67,7 +67,7 @@ public class SpeedLevers : MonoBehaviour
 
 		DebugPanel.Log("Game Complete: ", isComplete);
 
-        if (isComplete || MiniGameManager.ManagerReference.timer == 0f) CloseGame();
+        if (isComplete || MiniGameManager.ManagerReference.timer == 0f) Invoke("CloseGame", 0.25f);
 	}
 
     void CloseGame()

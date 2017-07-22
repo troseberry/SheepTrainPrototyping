@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class MiniGameManager : MonoBehaviour 
 {
     public static MiniGameManager ManagerReference;
@@ -33,6 +34,7 @@ public class MiniGameManager : MonoBehaviour
 
 	void Start () 
 	{
+        //Camera.main.orthographicSize = (20f / Screen.width * Screen.height / 2.25f);
         ManagerReference = this;
 
         currentGame = GameName.NONE;

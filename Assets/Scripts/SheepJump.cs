@@ -31,7 +31,7 @@ public class SheepJump : MonoBehaviour
             moveSheep = false;
         }
 
-        if (failedEarly || MiniGameManager.ManagerReference.timer == 0) CloseGame();
+        if (failedEarly || MiniGameManager.ManagerReference.timer == 0) Invoke("CloseGame", 0.25f);
 	}
 
 
