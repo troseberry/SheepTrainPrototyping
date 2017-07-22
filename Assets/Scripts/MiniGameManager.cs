@@ -9,7 +9,8 @@ public class MiniGameManager : MonoBehaviour
 {
     public static MiniGameManager ManagerReference;
 
-    public enum GameName { NONE, SPEED_LEVERS, PRESSURE_VALVE, FLICK_FUEL, SHEEP_JUMP, WAKE_GUESTS, MAKE_BEDS};
+    public enum GameName { NONE, SPEED_LEVERS, PRESSURE_VALVE, FLICK_FUEL, SHEEP_JUMP, WAKE_GUESTS, MAKE_BEDS,
+    CHECK_INVENTORY};
     public GameName currentGame;
 
     bool inGame;
@@ -31,6 +32,8 @@ public class MiniGameManager : MonoBehaviour
     public GameObject sheepJumpGame;
     public GameObject wakeGuestsGame;
     public GameObject makeBedsGame;
+
+    public GameObject checkInventoryGame;
 
 	void Start () 
 	{
@@ -64,15 +67,9 @@ public class MiniGameManager : MonoBehaviour
 		DebugPanel.Log("Timer: ", timer);
 	}
 
-    public void OpenMiniGame ()
-    {
-        //uiEventSystem.currentSelectedGameObject.name;
-    }
-
     void StartGeneralTasks()
     {
         generalElements.SetActive(true);
-        //timer = 3.0f;
     }
 
     public void EndMiniGame()
@@ -118,6 +115,10 @@ public class MiniGameManager : MonoBehaviour
         else if (currentGame == GameName.MAKE_BEDS)
         {
             MakeBeds.MakeBedsReference.ResetGame();
+        }
+        else if (currentGame == GameName.CHECK_INVENTORY)
+        {
+            CheckInventory.CheckInventoryReference.ResetGame();
         }
     }
 
@@ -178,6 +179,16 @@ public class MiniGameManager : MonoBehaviour
 
         currentGame = GameName.MAKE_BEDS;
         makeBedsGame.SetActive(true);
+        inGame = true;
+    }
+
+    public void OpenCheckInventory()
+    {
+        timer = CheckInventory.timeLimit;
+        StartGeneralTasks();
+
+        currentGame = GameName.CHECK_INVENTORY;
+        checkInventoryGame.SetActive(true);
         inGame = true;
     }
 

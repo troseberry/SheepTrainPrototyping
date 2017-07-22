@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class SpeedLevers : MonoBehaviour 
 {
     public static SpeedLevers SpeedLeversReference;
@@ -67,7 +68,13 @@ public class SpeedLevers : MonoBehaviour
 
 		DebugPanel.Log("Game Complete: ", isComplete);
 
-        if (isComplete || MiniGameManager.ManagerReference.timer == 0f) Invoke("CloseGame", 0.25f);
+        if (isComplete || MiniGameManager.ManagerReference.timer == 0f) 
+        {
+            CloseGame();
+
+            //Invoking EndMiniGame() on any kind of delay causes Up/Down texts to not get reset correctly and overlap
+            //Invoke("DelayedEndMiniGame", 0.25f);
+        }
 	}
 
     void CloseGame()
@@ -79,13 +86,13 @@ public class SpeedLevers : MonoBehaviour
         MiniGameManager.ManagerReference.didWin = isComplete;
         MiniGameManager.ManagerReference.EndMiniGame();
         gameObject.SetActive(false);
-        //Invoke("CloseGameOverlay", 0.5f);
     }
 
-    //void CloseGameOverlay()
-    //{
-    //    gameObject.SetActive(false);
-    //}
+    // void DelayedEndMiniGame()
+    // {
+    //      MiniGameManager.ManagerReference.EndMiniGame();
+    // }
+
 
     public void ResetGame ()
     {

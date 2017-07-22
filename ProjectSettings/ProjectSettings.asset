@@ -137,10 +137,10 @@ PlayerSettings:
   protectGraphicsMemory: 0
   useHDRDisplay: 0
   applicationIdentifier:
-    Android: com.LionCollective.SheepTrain
+    Android: com.LionCollective.SheepTrainPrototyping
     Standalone: unity.LionCollective.SheepTrainPrototyping
     Tizen: com.LionCollective.SheepTrain
-    iOS: com.LionCollective.SheepTrainTest
+    iOS: com.LionCollective.SheepTrainPrototyping
     tvOS: com.LionCollective.SheepTrain
   buildNumber:
     iOS: 0
