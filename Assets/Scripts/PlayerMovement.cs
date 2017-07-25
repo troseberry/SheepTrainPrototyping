@@ -14,6 +14,8 @@ public class PlayerMovement : MonoBehaviour
 
 	void Start () 
 	{
+		DebugPanel.Log("Accel: ", Input.acceleration);
+		
 		playerTransform = transform;
 
 		horizontalInput = 0;

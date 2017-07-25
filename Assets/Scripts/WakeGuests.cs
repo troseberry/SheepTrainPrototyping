@@ -37,21 +37,6 @@ public class WakeGuests : MonoBehaviour
 	Vector3 nextHorzPos;
 
 
-	public float avrgTime = 0.5f;
-	public float peakLevel = 0.6f;
-	public float endCountTime = 0.6f;
-	public int shakeDir;
-	public int shakeCount;
-		
-	Vector3 avrgAcc = Vector3.zero;
-	int countPos;
-	int countNeg;
-	int lastPeak;
-	int firstPeak;
-	bool counting;
-	float timer;
-
-
 	void Start () 
 	{
 		WakeGuestsReference = this;
@@ -71,9 +56,9 @@ public class WakeGuests : MonoBehaviour
 	
 	void Update () 
 	{
-		if (Mathf.Abs(Input.acceleration.x) > Mathf.Abs(peakHorzAcceleration)) peakHorzAcceleration = -Input.acceleration.x;
-		if (Mathf.Abs(Input.acceleration.y) > Mathf.Abs(peakVertAcceleration)) peakVertAcceleration = -Input.acceleration.y;
-		if (Mathf.Abs(Input.acceleration.z) > Mathf.Abs(peakDepthAcceleration)) peakDepthAcceleration = -Input.acceleration.z;
+		if (Mathf.Abs(Input.acceleration.x) > Mathf.Abs(peakHorzAcceleration)) peakHorzAcceleration = Mathf.Abs(Input.acceleration.x);
+		if (Mathf.Abs(Input.acceleration.y) > Mathf.Abs(peakVertAcceleration)) peakVertAcceleration = Mathf.Abs(Input.acceleration.y);
+		if (Mathf.Abs(Input.acceleration.z) > Mathf.Abs(peakDepthAcceleration)) peakDepthAcceleration = Mathf.Abs(Input.acceleration.z);
 
 		DebugPanel.Log("Acceleration X: ", peakHorzAcceleration);
 		DebugPanel.Log("Acceleration Y: ", peakVertAcceleration);
@@ -231,30 +216,36 @@ public class WakeGuests : MonoBehaviour
 	{
 		if (currentGuest == 1)
 		{
-			failedEarly = (guest01Rand == 0) ? !PeakShakeDetected() : PeakShakeDetected();	
+			failedEarly = (guest01Rand == 0) ? !PeakShakeDetected() : !HoldingStill(Input.acceleration);	
 		}
 		else if (currentGuest == 2)
 		{
-			failedEarly = (guest02Rand == 0) ? !PeakShakeDetected() : PeakShakeDetected();
+			failedEarly = (guest02Rand == 0) ? !PeakShakeDetected() : !HoldingStill(Input.acceleration);
 		}
 		else if (currentGuest == 3)
 		{
-			failedEarly = (guest03Rand == 0) ? !PeakShakeDetected() : PeakShakeDetected();
+			failedEarly = (guest03Rand == 0) ? !PeakShakeDetected() : !HoldingStill(Input.acceleration);
 		}
 		else if (currentGuest == 4)
 		{
-			failedEarly = (guest04Rand == 0) ? !PeakShakeDetected() : PeakShakeDetected();
+			failedEarly = (guest04Rand == 0) ? !PeakShakeDetected() : !HoldingStill(Input.acceleration);
 		}
 		else if (currentGuest == 5)
 		{
-			failedEarly = (guest05Rand == 0) ? !PeakShakeDetected() : PeakShakeDetected();
+			failedEarly = (guest05Rand == 0) ? !PeakShakeDetected() : !HoldingStill(Input.acceleration);
 		}
 		ResetAccelerometerPeaks();
 	}
 
 	bool PeakShakeDetected()
 	{
-		return peakHorzAcceleration >= 3.0f || peakVertAcceleration >= 3.0f || peakDepthAcceleration >= 3.0f;
+		return peakHorzAcceleration >= 0.5f || peakVertAcceleration >= 0.5f || peakDepthAcceleration >= 0.5f;
+		// return peakVertAcceleration >= 1.0f;
+	}
+
+	bool HoldingStill(Vector3 startAccel)
+	{
+		return (Mathf.Abs(startAccel.x) < peakHorzAcceleration + 0.3f) && (Mathf.Abs(startAccel.y) < peakVertAcceleration + 0.3f) && (Mathf.Abs(startAccel.z) < peakDepthAcceleration + 0.3f);
 	}
 
 	void ResetAccelerometerPeaks()

@@ -18,6 +18,7 @@ public class MiniGameManager : MonoBehaviour
 	public float timer;
 	public Text taskTimerText;
 	String formattedTimer;
+    bool stopTimer;
 
     public bool didWin;
 
@@ -37,20 +38,18 @@ public class MiniGameManager : MonoBehaviour
 
 	void Start () 
 	{
-        //Camera.main.orthographicSize = (20f / Screen.width * Screen.height / 2.25f);
         ManagerReference = this;
 
         currentGame = GameName.NONE;
 
         inGame = false;
         didWin = false;
-
-        //timer = 3f;
+        stopTimer = false;
 	}
 	
 	void Update () 
 	{
-        if (inGame)
+        if (inGame && !stopTimer)
         {
             if (timer > 0)
             {
@@ -65,6 +64,7 @@ public class MiniGameManager : MonoBehaviour
         }
 
 		DebugPanel.Log("Timer: ", timer);
+        DebugPanel.Log("Is In Game: ", inGame);
 	}
 
     void StartGeneralTasks()
@@ -74,7 +74,7 @@ public class MiniGameManager : MonoBehaviour
 
     public void EndMiniGame()
     {
-        inGame = false;
+        stopTimer = true;
         if (didWin)
         {
             passText.SetActive(true);
@@ -94,6 +94,7 @@ public class MiniGameManager : MonoBehaviour
 
         if (currentGame == GameName.SPEED_LEVERS)
         {
+            speedLeversGame.SetActive(false);
             SpeedLevers.SpeedLeversReference.ResetGame();
         }
         else if (currentGame == GameName.PRESSURE_VALVE)
@@ -120,16 +121,22 @@ public class MiniGameManager : MonoBehaviour
         {
             CheckInventory.CheckInventoryReference.ResetGame();
         }
+        inGame = false;
+        didWin = false;
+        stopTimer = false;
     }
 
     public void OpenSpeedLevers()
     {
-        timer = SpeedLevers.timeLimit;
-        StartGeneralTasks();
+        if (!inGame)
+        {
+            timer = SpeedLevers.timeLimit;
+            StartGeneralTasks();
 
-        currentGame = GameName.SPEED_LEVERS;
-        speedLeversGame.SetActive(true);
-        inGame = true;
+            currentGame = GameName.SPEED_LEVERS;
+            speedLeversGame.SetActive(true);
+            inGame = true;
+        }
     }
 
     public void OpenPressureValve()

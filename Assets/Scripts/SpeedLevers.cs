@@ -1,4 +1,10 @@
-﻿using System.Collections;
+﻿/*
+** Encounters issues when the mini game is opened immediately after closing. Up/Down texts not being correctly reset
+** Immediately being you spam the mini game button as soon as the mini game itself closes
+** In a real game situation, logic would not allow for the mini game to be reinitiated so soon after being completed.
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,23 +33,15 @@ public class SpeedLevers : MonoBehaviour
 	bool leverTwoDone;
 	bool leverThreeDone;
 
+    bool doStartGame = true;
+
 	void Start () 
 	{
         SpeedLeversReference = this;
 
-        //pick 3 random lever positions
-        matchPos_01 = (int)Mathf.Round(Random.Range(0f, 1f));
-        matchPos_02 = (int)Mathf.Round(Random.Range(0f, 1f));
-        matchPos_03 = (int)Mathf.Round(Random.Range(0f, 1f));
-
         matchText_01 = transform.Find("MatchPositions/Position_01");
-		matchText_01.GetChild(matchPos_01).GetComponent<Text>().enabled = true;
-
 		matchText_02 = transform.Find("MatchPositions/Position_02");
-		matchText_02.GetChild(matchPos_02).GetComponent<Text>().enabled = true;
-
 		matchText_03 = transform.Find("MatchPositions/Position_03");
-		matchText_03.GetChild(matchPos_03).GetComponent<Text>().enabled = true;
 
 		lever_01 = transform.Find("Lever_01").GetComponent<Slider>();
 		lever_02 = transform.Find("Lever_02").GetComponent<Slider>();
@@ -52,54 +50,76 @@ public class SpeedLevers : MonoBehaviour
 	
 	void Update () 
 	{
+
+        if (!isComplete && MiniGameManager.ManagerReference.IsInGame() && doStartGame)
+        {
+            RandomizeMatchLeverPosition();
+            doStartGame = false;
+        }
+
 		leverOneDone = (lever_01.value == matchPos_01);
 		leverTwoDone = (lever_02.value == matchPos_02);
 		leverThreeDone = (lever_03.value == matchPos_03);
 
 		isComplete = (leverOneDone && leverTwoDone && leverThreeDone);
 
-		DebugPanel.Log("Match 01: ", matchPos_01);
-		DebugPanel.Log("Match 02: ", matchPos_02);
-		DebugPanel.Log("Match 03: ", matchPos_03);
+        if (isComplete || MiniGameManager.ManagerReference.timer == 0f) EndGame();
 
-		DebugPanel.Log("Lever 01 Done: ", leverOneDone);
-		DebugPanel.Log("Lever 02 Done: ", leverTwoDone);
-		DebugPanel.Log("Lever 03 Done: ", leverThreeDone);
 
-		DebugPanel.Log("Game Complete: ", isComplete);
+        // DebugPanel.Log("Match 01: ", matchPos_01);
+		// DebugPanel.Log("Match 02: ", matchPos_02);
+		// DebugPanel.Log("Match 03: ", matchPos_03);
 
-        if (isComplete || MiniGameManager.ManagerReference.timer == 0f) 
-        {
-            CloseGame();
-
-            //Invoking EndMiniGame() on any kind of delay causes Up/Down texts to not get reset correctly and overlap
-            //Invoke("DelayedEndMiniGame", 0.25f);
-        }
+		// DebugPanel.Log("Lever 01 Done: ", leverOneDone);
+		// DebugPanel.Log("Lever 02 Done: ", leverTwoDone);
+		// DebugPanel.Log("Lever 03 Done: ", leverThreeDone);
 	}
 
-    void CloseGame()
+    void RandomizeMatchLeverPosition()
     {
-        matchText_01.GetChild(matchPos_01).GetComponent<Text>().enabled = false;
-        matchText_02.GetChild(matchPos_02).GetComponent<Text>().enabled = false;
-        matchText_03.GetChild(matchPos_03).GetComponent<Text>().enabled = false;
+        matchPos_01 = (int)Mathf.Round(Random.Range(0f, 1f));
+        matchPos_02 = (int)Mathf.Round(Random.Range(0f, 1f));
+        matchPos_03 = (int)Mathf.Round(Random.Range(0f, 1f));
 
-        MiniGameManager.ManagerReference.didWin = isComplete;
-        MiniGameManager.ManagerReference.EndMiniGame();
-        gameObject.SetActive(false);
+        if (matchPos_01 == 0 && matchPos_02 == 0 && matchPos_03 == 0)
+        {
+            int changeRandomPos = (int)Mathf.Round(Random.Range(0f, 2f));
+            switch (changeRandomPos)
+            {
+                case 0:
+                    matchPos_01 = 1;
+                    return;
+                case 1:
+                    matchPos_02 = 1;
+                    return;
+                case 2:
+                    matchPos_03 = 1;
+                    return;
+            }
+        }
+
+        matchText_01.GetChild(matchPos_01).GetComponent<Text>().enabled = true;
+		matchText_02.GetChild(matchPos_02).GetComponent<Text>().enabled = true;
+		matchText_03.GetChild(matchPos_03).GetComponent<Text>().enabled = true;
     }
 
-    // void DelayedEndMiniGame()
-    // {
-    //      MiniGameManager.ManagerReference.EndMiniGame();
-    // }
+    void EndGame()
+    {
+        MiniGameManager.ManagerReference.didWin = isComplete;
+        MiniGameManager.ManagerReference.EndMiniGame();
+    }
 
 
     public void ResetGame ()
     {
+        matchText_01.GetChild(0).GetComponent<Text>().enabled = false;
+        matchText_01.GetChild(1).GetComponent<Text>().enabled = false;
+        matchText_02.GetChild(0).GetComponent<Text>().enabled = false;
+        matchText_02.GetChild(1).GetComponent<Text>().enabled = false;
+        matchText_03.GetChild(0).GetComponent<Text>().enabled = false;
+        matchText_03.GetChild(1).GetComponent<Text>().enabled = false;
+
         isComplete = false;
-        matchPos_01 = (int)Mathf.Round(Random.Range(0f, 1f));
-        matchPos_02 = (int)Mathf.Round(Random.Range(0f, 1f));
-        matchPos_03 = (int)Mathf.Round(Random.Range(0f, 1f));
 
         lever_01.value = 0;
         lever_02.value = 0;
@@ -109,9 +129,6 @@ public class SpeedLevers : MonoBehaviour
         leverTwoDone = false;
         leverThreeDone = false;
 
-        matchText_01.GetChild(matchPos_01).GetComponent<Text>().enabled = true;
-        matchText_02.GetChild(matchPos_02).GetComponent<Text>().enabled = true;
-        matchText_03.GetChild(matchPos_03).GetComponent<Text>().enabled = true;
-
+        doStartGame = true;
     }
 }
