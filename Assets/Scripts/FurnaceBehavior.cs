@@ -9,7 +9,7 @@ public class FurnaceBehavior : MonoBehaviour
     public IEnumerator movementCoroutine;
 
     public float moveDuration;
-    float currentMoveTime;
+    float currentMoveTime = 0;
 
     public Vector3 rightPosition;
     public Vector3 leftPosition;
@@ -21,22 +21,16 @@ public class FurnaceBehavior : MonoBehaviour
     void Start ()
     {
         FurnaceBehaviorReference = this;
-
-        currentMoveTime = 0;
-        doMove = true;
-
-        movementCoroutine = MoveFurnace();
-        StartCoroutine(movementCoroutine);
-
     }
 
 
     void Update ()
     {
-        if (MiniGameManager.ManagerReference.IsInGame() && doMove == false)
+        if (MiniGameManager.ManagerReference.IsInGame() && FlickFuel.doStartGame)
         {
             doMove = true;
-            StartCoroutine(MoveFurnace());
+            StartCoroutine("MoveFurnace");
+            FlickFuel.doStartGame = false;
         }
 
         if (moveLeft)
@@ -94,7 +88,10 @@ public class FurnaceBehavior : MonoBehaviour
     public void StopFurnaceMovement()
     {
         currentMoveTime = 0;
-        StopCoroutine(movementCoroutine);
+        doMove = false;
+        moveLeft = false;
+        moveRight = false;
+        StopCoroutine("MoveFurnace");
     }
 
     void OnTriggerEnter2D(Collider2D other)

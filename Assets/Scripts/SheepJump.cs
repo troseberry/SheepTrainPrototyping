@@ -13,7 +13,7 @@ public class SheepJump : MonoBehaviour
     public GameObject sheep_04;
     public GameObject sheep_05;
 
-    bool moveSheep = true;
+    bool doStartGame = true;
 
     public bool failedEarly = false;
 
@@ -25,10 +25,10 @@ public class SheepJump : MonoBehaviour
 
     void Update ()
     {
-        if (MiniGameManager.ManagerReference.IsInGame() && moveSheep)
+        if (MiniGameManager.ManagerReference.IsInGame() && doStartGame)
         {
             StartCoroutine(StartSpawnSheep());
-            moveSheep = false;
+            doStartGame = false;
         }
 
         if (failedEarly || MiniGameManager.ManagerReference.timer == 0) Invoke("CloseGame", 0.25f);
@@ -76,7 +76,7 @@ public class SheepJump : MonoBehaviour
 
     public void ResetGame()
     {
-        moveSheep = true;
+        doStartGame = true;
         failedEarly = false;
 
         sheep_01.SetActive(true);

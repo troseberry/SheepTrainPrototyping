@@ -178,9 +178,9 @@ public class CheckInventory : MonoBehaviour
 		int randomColor = Random.Range(0, 2);
 		int randomSize = Random.Range(0, 2);
 
-		Debug.Log("Random Shape:" + randomShape);
-		Debug.Log("Random Color:" + randomColor);
-		Debug.Log("Random Size:" + randomSize);
+		// Debug.Log("Random Shape:" + randomShape);
+		// Debug.Log("Random Color:" + randomColor);
+		// Debug.Log("Random Size:" + randomSize);
 
 		if (randomShape == 0)
 		{

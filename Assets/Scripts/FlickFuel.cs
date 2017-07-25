@@ -16,6 +16,7 @@ public class FlickFuel : MonoBehaviour
     public CoalBehavior coal_05;
 
     bool isComplete;
+    public static bool doStartGame = true;
 
     void Start ()
     {
@@ -39,7 +40,7 @@ public class FlickFuel : MonoBehaviour
 
     void CloseGame()
     {
-        FurnaceBehavior.FurnaceBehaviorReference.doMove = false;
+        FurnaceBehavior.FurnaceBehaviorReference.StopFurnaceMovement();
 
         MiniGameManager.ManagerReference.didWin = isComplete;
         MiniGameManager.ManagerReference.EndMiniGame();
@@ -48,8 +49,9 @@ public class FlickFuel : MonoBehaviour
 
     public void ResetGame()
     {
+        doStartGame = true;
+
         coalCaughtAmount = 0;
-        FurnaceBehavior.FurnaceBehaviorReference.StopFurnaceMovement();
 
         coal_01.ResetPosition();
         coal_01.ShowCoal();

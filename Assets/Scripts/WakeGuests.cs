@@ -107,7 +107,7 @@ public class WakeGuests : MonoBehaviour
 		yield return new WaitForSeconds(0.25f);
 		
 		initialHorzPos = guestGroup.localPosition;
-		nextHorzPos = new Vector3(-1250, 0, 0);
+		nextHorzPos = new Vector3(-1475, 0, 0);
 		currentGuest = 1;
 		doLerpGuestGroup = true;
 
@@ -124,7 +124,7 @@ public class WakeGuests : MonoBehaviour
 		yield return new WaitForSeconds(0.25f);
 
 		initialHorzPos = guestGroup.localPosition;
-		nextHorzPos = new Vector3(-2500, 0, 0);
+		nextHorzPos = new Vector3(-2950, 0, 0);
 		currentGuest = 2;
 		doLerpGuestGroup = true;
 
@@ -141,7 +141,7 @@ public class WakeGuests : MonoBehaviour
 		yield return new WaitForSeconds(0.25f);
 		
 		initialHorzPos = guestGroup.localPosition;
-		nextHorzPos = new Vector3(-3750, 0, 0);
+		nextHorzPos = new Vector3(-4425, 0, 0);
 		currentGuest = 3;
 		doLerpGuestGroup = true;
 
@@ -159,7 +159,7 @@ public class WakeGuests : MonoBehaviour
 
 		
 		initialHorzPos = guestGroup.localPosition;
-		nextHorzPos = new Vector3(-5000, 0, 0);
+		nextHorzPos = new Vector3(-5900, 0, 0);
 		currentGuest = 4;
 		doLerpGuestGroup = true;
 
@@ -176,7 +176,7 @@ public class WakeGuests : MonoBehaviour
 		yield return new WaitForSeconds(0.25f);
 		
 		initialHorzPos = guestGroup.localPosition;
-		nextHorzPos = new Vector3(-6250, 0, 0);
+		nextHorzPos = new Vector3(-7375, 0, 0);
 		currentGuest = 5;
 		doLerpGuestGroup = true;
 

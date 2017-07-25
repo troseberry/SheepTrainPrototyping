@@ -6,8 +6,8 @@ public class JumpingSheepBehavior : MonoBehaviour
 {
     Rigidbody2D sheepRigidbody;
 
-    Vector2 startingPosition = new Vector2(-670, 0);
-    Vector2 endingPosition = new Vector2(790, 0);
+    Vector2 startingPosition = new Vector2(-1050, 0);
+    Vector2 endingPosition = new Vector2(1050, 0);
 
     float currentMoveTime = 0;
     float moveDuration = 3.0f;

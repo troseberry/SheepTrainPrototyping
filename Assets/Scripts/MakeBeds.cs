@@ -42,9 +42,9 @@ public class MakeBeds : MonoBehaviour
 
 	void randomizeWrinklePositions()
 	{
-		randomWrinklePos_01 = new Vector2(Random.Range(-500, -300), Random.Range(-200, 200));
-		randomWrinklePos_02 = new Vector2(Random.Range(-150, 150), Random.Range(-200, 200));
-		randomWrinklePos_03 = new Vector2(Random.Range(300, 500), Random.Range(-200, 200));
+		randomWrinklePos_01 = new Vector2(Random.Range(-700, -450), Random.Range(-300, 300));
+		randomWrinklePos_02 = new Vector2(Random.Range(-250, 250), Random.Range(-300, 300));
+		randomWrinklePos_03 = new Vector2(Random.Range(450, 700), Random.Range(-300, 300));
 
 	
 		wrinkle_01.localPosition = randomWrinklePos_01;
