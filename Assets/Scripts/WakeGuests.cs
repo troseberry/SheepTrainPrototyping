@@ -60,23 +60,19 @@ public class WakeGuests : MonoBehaviour
 		if (Mathf.Abs(Input.acceleration.y) > Mathf.Abs(peakVertAcceleration)) peakVertAcceleration = Mathf.Abs(Input.acceleration.y);
 		if (Mathf.Abs(Input.acceleration.z) > Mathf.Abs(peakDepthAcceleration)) peakDepthAcceleration = Mathf.Abs(Input.acceleration.z);
 
-		DebugPanel.Log("Acceleration X: ", peakHorzAcceleration);
-		DebugPanel.Log("Acceleration Y: ", peakVertAcceleration);
-		DebugPanel.Log("Acceleration Z: ", peakDepthAcceleration);
 
 		if (MiniGameManager.ManagerReference.IsInGame() && doStartGame)
 		{
 			RandomizeGuestTimes();
-			StartCoroutine(StartGuestCycle());
+			StartCoroutine("StartGuestCycle");
 			doStartGame = false;
 		}
 
-		if (failedEarly || MiniGameManager.ManagerReference.timer == 0) Invoke("CloseGame", 0.25f);
+		if (failedEarly || MiniGameManager.ManagerReference.timer == 0) EndGame();
 
 
 		if (doLerpGuestGroup)
 		{
-			
 			if (currentMoveTime < moveDuration) currentMoveTime += Time.deltaTime / .25f*moveDuration;
 			guestGroup.localPosition = Vector3.Lerp(initialHorzPos, nextHorzPos, currentMoveTime);
 
@@ -92,6 +88,10 @@ public class WakeGuests : MonoBehaviour
 				doLerpGuestGroup = false;
 			}
 		}
+
+		DebugPanel.Log("Acceleration X: ", peakHorzAcceleration);
+		DebugPanel.Log("Acceleration Y: ", peakVertAcceleration);
+		DebugPanel.Log("Acceleration Z: ", peakDepthAcceleration);
 	}
 
 	IEnumerator StartGuestCycle()
@@ -240,7 +240,6 @@ public class WakeGuests : MonoBehaviour
 	bool PeakShakeDetected()
 	{
 		return peakHorzAcceleration >= 0.5f || peakVertAcceleration >= 0.5f || peakDepthAcceleration >= 0.5f;
-		// return peakVertAcceleration >= 1.0f;
 	}
 
 	bool HoldingStill(Vector3 startAccel)
@@ -256,11 +255,12 @@ public class WakeGuests : MonoBehaviour
 	}
 
 
-	void CloseGame()
+	void EndGame()
 	{
+		StopCoroutine("StartGuestCycle");
+
 		MiniGameManager.ManagerReference.didWin = !failedEarly;
         MiniGameManager.ManagerReference.EndMiniGame();
-        gameObject.SetActive(false);
 	}
 
 	public void ResetGame()

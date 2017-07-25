@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SheepJump : MonoBehaviour
 {
@@ -13,8 +14,12 @@ public class SheepJump : MonoBehaviour
     public GameObject sheep_04;
     public GameObject sheep_05;
 
-    bool doStartGame = true;
+    public SpriteRenderer passenger;
+    public SpriteRenderer ground;
+    public RawImage fakePassenger;
+    public RawImage fakeGround;
 
+    bool doStartGame = true;
     public bool failedEarly = false;
 
     void Start ()
@@ -31,7 +36,7 @@ public class SheepJump : MonoBehaviour
             doStartGame = false;
         }
 
-        if (failedEarly || MiniGameManager.ManagerReference.timer == 0) Invoke("CloseGame", 0.25f);
+        if (failedEarly || MiniGameManager.ManagerReference.timer == 0) EndGame();
 	}
 
 
@@ -67,17 +72,28 @@ public class SheepJump : MonoBehaviour
     }
 
 
-    void CloseGame()
+    void EndGame()
     {
+        passenger.enabled = false;
+        ground.enabled = false;
+
+        fakePassenger.enabled = true;
+        fakeGround.enabled = true;
+
         MiniGameManager.ManagerReference.didWin = !failedEarly;
         MiniGameManager.ManagerReference.EndMiniGame();
-        gameObject.SetActive(false);
     }
 
     public void ResetGame()
     {
         doStartGame = true;
         failedEarly = false;
+
+        passenger.enabled = true;
+        ground.enabled = true;
+
+        fakePassenger.enabled = false;
+        fakeGround.enabled = false;
 
         sheep_01.SetActive(true);
         sheep_01.GetComponent<JumpingSheepBehavior>().ResetPosition();

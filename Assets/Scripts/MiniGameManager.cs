@@ -112,14 +112,17 @@ public class MiniGameManager : MonoBehaviour
         }
         else if (currentGame == GameName.SHEEP_JUMP)
         {
+            sheepJumpGame.SetActive(false);
             SheepJump.SheepJumpReference.ResetGame();
         }
         else if (currentGame == GameName.WAKE_GUESTS)
         {
+            wakeGuestsGame.SetActive(false);
             WakeGuests.WakeGuestsReference.ResetGame();
         }
         else if (currentGame == GameName.MAKE_BEDS)
         {
+            makeBedsGame.SetActive(false);
             MakeBeds.MakeBedsReference.ResetGame();
         }
         else if (currentGame == GameName.CHECK_INVENTORY)

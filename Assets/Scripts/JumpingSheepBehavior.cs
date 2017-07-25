@@ -34,12 +34,15 @@ public class JumpingSheepBehavior : MonoBehaviour
 
     void FixedUpdate()
     {
-        sheepRigidbody.velocity = new Vector2(6.5f, sheepRigidbody.velocity.y);
-
-        if (doJump)
+        if (!SheepJump.SheepJumpReference.failedEarly)
         {
-            sheepRigidbody.AddForce(new Vector2(-8, 10), ForceMode2D.Impulse);
-            doJump = false;
+            sheepRigidbody.velocity = new Vector2(6.5f, sheepRigidbody.velocity.y);
+
+            if (doJump)
+            {
+                sheepRigidbody.AddForce(new Vector2(-8, 10), ForceMode2D.Impulse);
+                doJump = false;
+            }
         }
     }
 

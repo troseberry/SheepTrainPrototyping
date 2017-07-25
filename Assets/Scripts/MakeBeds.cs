@@ -35,15 +35,19 @@ public class MakeBeds : MonoBehaviour
 			doStartGame = false;
 		}
 
-		isComplete = (wrinkle_01.GetComponent<Wrinkle>().isWrinkleDone() && wrinkle_02.GetComponent<Wrinkle>().isWrinkleDone() && wrinkle_03.GetComponent<Wrinkle>().isWrinkleDone());
-		if (isComplete || MiniGameManager.ManagerReference.timer == 0f) Invoke("CloseGame", 0.25f);
+		if (MiniGameManager.ManagerReference.timer > 0) 
+		{
+			isComplete = (wrinkle_01.GetComponent<Wrinkle>().isWrinkleDone() && wrinkle_02.GetComponent<Wrinkle>().isWrinkleDone() && wrinkle_03.GetComponent<Wrinkle>().isWrinkleDone());
+		}
+
+		if (isComplete || MiniGameManager.ManagerReference.timer == 0f) EndGame();
 
 	}
 
 	void randomizeWrinklePositions()
 	{
 		randomWrinklePos_01 = new Vector2(Random.Range(-700, -450), Random.Range(-300, 300));
-		randomWrinklePos_02 = new Vector2(Random.Range(-250, 250), Random.Range(-300, 300));
+		randomWrinklePos_02 = new Vector2(Random.Range(-250, 250), Random.Range(-300, 250));
 		randomWrinklePos_03 = new Vector2(Random.Range(450, 700), Random.Range(-300, 300));
 
 	
@@ -52,11 +56,10 @@ public class MakeBeds : MonoBehaviour
 		wrinkle_03.localPosition = randomWrinklePos_03;
 	}
 
-	void CloseGame()
+	void EndGame()
 	{
 		MiniGameManager.ManagerReference.didWin = isComplete;
         MiniGameManager.ManagerReference.EndMiniGame();
-        gameObject.SetActive(false);
 	}
 
 	public void ResetGame()
