@@ -26,11 +26,9 @@ public class FlickFuel : MonoBehaviour
 
     void Update ()
     {
-        isComplete = (coalCaughtAmount >= 3);
+        if (MiniGameManager.ManagerReference.timer > 0) isComplete = (coalCaughtAmount >= 3);
 
-        if (isComplete || MiniGameManager.ManagerReference.timer == 0f) Invoke("CloseGame", 0.25f);
-
-        DebugPanel.Log("Coal Count: ", coalCaughtAmount);
+        if (isComplete || MiniGameManager.ManagerReference.timer == 0f) EndGame();
     }
 
     public void CaughtCoal()
@@ -38,13 +36,12 @@ public class FlickFuel : MonoBehaviour
         coalCaughtAmount++;
     }
 
-    void CloseGame()
+    void EndGame()
     {
         FurnaceBehavior.FurnaceBehaviorReference.StopFurnaceMovement();
 
         MiniGameManager.ManagerReference.didWin = isComplete;
         MiniGameManager.ManagerReference.EndMiniGame();
-        gameObject.SetActive(false);
     }
 
     public void ResetGame()

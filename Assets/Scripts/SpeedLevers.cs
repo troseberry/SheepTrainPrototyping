@@ -61,7 +61,7 @@ public class SpeedLevers : MonoBehaviour
 		leverTwoDone = (lever_02.value == matchPos_02);
 		leverThreeDone = (lever_03.value == matchPos_03);
 
-		isComplete = (leverOneDone && leverTwoDone && leverThreeDone);
+		if (MiniGameManager.ManagerReference.timer > 0) isComplete = (leverOneDone && leverTwoDone && leverThreeDone);
 
         if (isComplete || MiniGameManager.ManagerReference.timer == 0f) EndGame();
 

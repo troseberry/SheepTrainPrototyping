@@ -25,6 +25,7 @@ public class MiniGameManager : MonoBehaviour
     public GameObject generalElements;
     public GameObject passText;
     public GameObject failText;
+    public GameObject endGameOverlay;
 
     public GameObject speedLeversGame;
     public GameObject pressureValveGame;
@@ -75,6 +76,7 @@ public class MiniGameManager : MonoBehaviour
     public void EndMiniGame()
     {
         stopTimer = true;
+        endGameOverlay.SetActive(true);
         if (didWin)
         {
             passText.SetActive(true);
@@ -91,6 +93,7 @@ public class MiniGameManager : MonoBehaviour
         generalElements.SetActive(false);
         passText.SetActive(false);
         failText.SetActive(false);
+        endGameOverlay.SetActive(false);
 
         if (currentGame == GameName.SPEED_LEVERS)
         {
@@ -99,10 +102,12 @@ public class MiniGameManager : MonoBehaviour
         }
         else if (currentGame == GameName.PRESSURE_VALVE)
         {
+            pressureValveGame.SetActive(false);
             PressureValve.PressureValveReference.ResetGame();
         }
         else if (currentGame == GameName.FLICK_FUEL)
         {
+            flickFuelGame.SetActive(false);
             FlickFuel.FlickFuelReference.ResetGame();
         }
         else if (currentGame == GameName.SHEEP_JUMP)

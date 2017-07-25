@@ -14,46 +14,52 @@ public class PressureValve : MonoBehaviour
     int startingPressureAmount;
     int matchPressureAmount;
 
-    bool isComplete;
+    bool isComplete = false;
+    bool doStartGame = true;
 
     void Start()
     {
         PressureValveReference = this;
-
-
-        //Pick a random value for starting pressure
-        startingPressureAmount = 200;// (int)Mathf.Round(Random.Range(30f, 200f));
-        //pick a lower random value for match pressure
-        matchPressureAmount = (int)Mathf.Round(Random.Range(0f, (float)startingPressureAmount - 75f));
-
-        currentPressureSlider.value = startingPressureAmount;
-        matchPressureSlider.value = matchPressureAmount;
     }
 
     void Update()
     {
+
+        if (!isComplete && MiniGameManager.ManagerReference.IsInGame() && doStartGame)
+        {
+            RandomizePressure();
+            doStartGame = false;
+        }
+
         currentPressureSlider.value += (RotateValve.rotationAmount / 25.0f);
 
-        isComplete = (currentPressureSlider.value <= matchPressureSlider.value);
+        if (MiniGameManager.ManagerReference.timer > 0) isComplete = (currentPressureSlider.value <= matchPressureSlider.value);
 
-        if (isComplete || MiniGameManager.ManagerReference.timer == 0f) Invoke("CloseGame", 0.25f);
+        if (isComplete || MiniGameManager.ManagerReference.timer == 0f) EndGame();
     }
 
-    void CloseGame()
+    void RandomizePressure()
     {
-        MiniGameManager.ManagerReference.didWin = isComplete;
-        MiniGameManager.ManagerReference.EndMiniGame();
-        gameObject.SetActive(false);
-    }
-
-    public void ResetGame()
-    {
-        startingPressureAmount = 200;// (int)Mathf.Round(Random.Range(30f, 100f));
-        matchPressureAmount = (int)Mathf.Round(Random.Range(0f, (float)startingPressureAmount - 30f));
+        startingPressureAmount = 200;
+        matchPressureAmount = (int)Mathf.Round(Random.Range(0f, (float)startingPressureAmount - 75f));
 
         currentPressureSlider.value = startingPressureAmount;
         matchPressureSlider.value = matchPressureAmount;
 
         RotateValve.rotationAmount = 0f;
+    }
+
+    void EndGame()
+    {
+        MiniGameManager.ManagerReference.didWin = isComplete;
+        MiniGameManager.ManagerReference.EndMiniGame();
+    }
+
+    public void ResetGame()
+    {
+        doStartGame = true;
+        isComplete = false;
+
+        RandomizePressure();
     }
 }
