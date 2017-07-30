@@ -8,9 +8,10 @@ public class WakeGuests : MonoBehaviour
 	public static WakeGuests WakeGuestsReference;
 	public static float timeLimit = 7.5f;
 
-	float peakHorzAcceleration = 0;
-	float peakVertAcceleration = 0;
-	float peakDepthAcceleration = 0;
+	float previousDepthAccel = 0;
+	float currentDepthAccel = 0;
+	float deltaDepthAccel = 0;
+	int depthShakeCount = 0;
 
 	public Transform guestGroup;
 
@@ -41,10 +42,6 @@ public class WakeGuests : MonoBehaviour
 	{
 		WakeGuestsReference = this;
 
-		peakHorzAcceleration = Input.acceleration.x;
-		peakVertAcceleration = Input.acceleration.y;
-		peakDepthAcceleration = Input.acceleration.z;
-
 		guest_01 = guestGroup.GetChild(0);
 		guest_02 = guestGroup.GetChild(1);
 		guest_03 = guestGroup.GetChild(2);
@@ -56,10 +53,7 @@ public class WakeGuests : MonoBehaviour
 	
 	void Update () 
 	{
-		if (Mathf.Abs(Input.acceleration.x) > Mathf.Abs(peakHorzAcceleration)) peakHorzAcceleration = Mathf.Abs(Input.acceleration.x);
-		if (Mathf.Abs(Input.acceleration.y) > Mathf.Abs(peakVertAcceleration)) peakVertAcceleration = Mathf.Abs(Input.acceleration.y);
-		if (Mathf.Abs(Input.acceleration.z) > Mathf.Abs(peakDepthAcceleration)) peakDepthAcceleration = Mathf.Abs(Input.acceleration.z);
-
+		UpdateDepthShakeCount();
 
 		if (MiniGameManager.ManagerReference.IsInGame() && doStartGame)
 		{
@@ -81,17 +75,14 @@ public class WakeGuests : MonoBehaviour
 				guestGroup.localPosition = nextHorzPos;
 				currentMoveTime = 0;
 
-				peakHorzAcceleration = 0;
-				peakVertAcceleration = 0;
-				peakDepthAcceleration = 0;
-
 				doLerpGuestGroup = false;
 			}
 		}
 
-		DebugPanel.Log("Acceleration X: ", peakHorzAcceleration);
-		DebugPanel.Log("Acceleration Y: ", peakVertAcceleration);
-		DebugPanel.Log("Acceleration Z: ", peakDepthAcceleration);
+		DebugPanel.Log("Prev Depth Accel: ", previousDepthAccel);
+		DebugPanel.Log("Current Depth Accel: ", currentDepthAccel);
+		DebugPanel.Log("Delta Depth Accel: ", deltaDepthAccel);
+		DebugPanel.Log("Depth Shake Count: ", depthShakeCount);
 	}
 
 	IEnumerator StartGuestCycle()
@@ -216,42 +207,39 @@ public class WakeGuests : MonoBehaviour
 	{
 		if (currentGuest == 1)
 		{
-			failedEarly = (guest01Rand == 0) ? !PeakShakeDetected() : !HoldingStill(Input.acceleration);	
+			failedEarly = (guest01Rand == 0) ? !DepthShakeDetected() : DepthShakeDetected();	
 		}
 		else if (currentGuest == 2)
 		{
-			failedEarly = (guest02Rand == 0) ? !PeakShakeDetected() : !HoldingStill(Input.acceleration);
+			failedEarly = (guest02Rand == 0) ? !DepthShakeDetected() : DepthShakeDetected();
 		}
 		else if (currentGuest == 3)
 		{
-			failedEarly = (guest03Rand == 0) ? !PeakShakeDetected() : !HoldingStill(Input.acceleration);
+			failedEarly = (guest03Rand == 0) ? !DepthShakeDetected() : DepthShakeDetected();
 		}
 		else if (currentGuest == 4)
 		{
-			failedEarly = (guest04Rand == 0) ? !PeakShakeDetected() : !HoldingStill(Input.acceleration);
+			failedEarly = (guest04Rand == 0) ? !DepthShakeDetected() : DepthShakeDetected();
 		}
 		else if (currentGuest == 5)
 		{
-			failedEarly = (guest05Rand == 0) ? !PeakShakeDetected() : !HoldingStill(Input.acceleration);
+			failedEarly = (guest05Rand == 0) ? !DepthShakeDetected() : DepthShakeDetected();
 		}
-		ResetAccelerometerPeaks();
 	}
 
-	bool PeakShakeDetected()
+	void UpdateDepthShakeCount()
 	{
-		return peakHorzAcceleration >= 0.5f || peakVertAcceleration >= 0.5f || peakDepthAcceleration >= 0.5f;
+		previousDepthAccel = currentDepthAccel;
+		currentDepthAccel = Input.acceleration.z;
+		deltaDepthAccel = currentDepthAccel - previousDepthAccel;
+		if (Mathf.Abs(deltaDepthAccel) > 0.5f) depthShakeCount++;
 	}
-
-	bool HoldingStill(Vector3 startAccel)
+	
+	bool DepthShakeDetected()
 	{
-		return (Mathf.Abs(startAccel.x) < peakHorzAcceleration + 0.3f) && (Mathf.Abs(startAccel.y) < peakVertAcceleration + 0.3f) && (Mathf.Abs(startAccel.z) < peakDepthAcceleration + 0.3f);
-	}
-
-	void ResetAccelerometerPeaks()
-	{
-		peakHorzAcceleration = 0;
-		peakVertAcceleration = 0;
-		peakDepthAcceleration = 0;
+		bool result = depthShakeCount > 10;
+		depthShakeCount = 0;
+		return result;
 	}
 
 

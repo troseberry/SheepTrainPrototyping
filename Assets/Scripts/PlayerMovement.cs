@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
 
 	void Start () 
 	{
-		DebugPanel.Log("Accel: ", Input.acceleration);
+		
 		
 		playerTransform = transform;
 
@@ -26,9 +26,6 @@ public class PlayerMovement : MonoBehaviour
 	
 	void Update () 
 	{
-		// horizontalInput = CrossPlatformInputManager.GetAxisRaw("Horizontal");
-		// verticalInput = CrossPlatformInputManager.GetAxisRaw("Vertical");
-
 		horizontalInput = Input.GetAxisRaw("Horizontal");
 		verticalInput = Input.GetAxisRaw("Vertical");
 
