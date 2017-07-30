@@ -68,20 +68,17 @@ public class CheckInventory : MonoBehaviour
 		colorCountText.text = currentColorCount;
 		sizeCountText.text = currentSizeCount;
 
-		if (MiniGameManager.ManagerReference.IsInGame() && doStartGame)
+		if (!isComplete && MiniGameManager.ManagerReference.IsInGame() && doStartGame)
 		{
 			RandomizeItems();
 			RandomizeButtons();
 			doStartGame = false;
 		}
-
 		CheckCounts();
-		isComplete = (correctShape && correctColor && correctSize);
 
-		if (isComplete || MiniGameManager.ManagerReference.timer == 0f)
-		{
-			Invoke("CloseGame", 0.25f);
-		}
+		if (MiniGameManager.ManagerReference.timer > 0) isComplete = (correctShape && correctColor && correctSize);
+
+		if (isComplete || MiniGameManager.ManagerReference.timer == 0f) EndGame();
 
 		DebugPanel.Log("Squares: ", countedSquare);
 		DebugPanel.Log("Circles: ", countedCircle);
@@ -283,11 +280,10 @@ public class CheckInventory : MonoBehaviour
 
 
 
-	void CloseGame()
+	void EndGame()
 	{
 		MiniGameManager.ManagerReference.didWin = isComplete;
         MiniGameManager.ManagerReference.EndMiniGame();
-        gameObject.SetActive(false);
 	}
 
 	public void ResetGame()

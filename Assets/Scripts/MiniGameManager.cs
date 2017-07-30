@@ -127,6 +127,7 @@ public class MiniGameManager : MonoBehaviour
         }
         else if (currentGame == GameName.CHECK_INVENTORY)
         {
+            checkInventoryGame.SetActive(false);
             CheckInventory.CheckInventoryReference.ResetGame();
         }
         inGame = false;
