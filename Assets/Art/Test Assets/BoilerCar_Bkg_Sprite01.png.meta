@@ -1,11 +1,14 @@
 fileFormatVersion: 2
-guid: 235017e3ef71b434bbf471358c3403e3
-timeCreated: 1502687005
+guid: 9f2a020300fe74943b640d6471c62e7c
+timeCreated: 1505684375
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: BoilerCar_Background
-    21300002: BoilerCar_Mat_01
+    21300000: Boiler_Background
+    21300002: BoilerCar_Bkg_Sprite01 (1)_0
+    21300004: BoilerCar_Bkg_Sprite01 (1)_1
+    21300006: Coal
+    21300008: PressureWheel
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -41,7 +44,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spriteBorder: {x: 64, y: 918, z: 64, w: 51}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -88,7 +91,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BoilerCar_Background
+      name: Boiler_Background
       rect:
         serializedVersion: 2
         x: 64
@@ -101,15 +104,54 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: BoilerCar_Mat_01
+      name: BoilerCar_Bkg_Sprite01 (1)_0
       rect:
         serializedVersion: 2
-        x: 41
-        y: 378
-        width: 914
-        height: 517
+        x: 26
+        y: 385
+        width: 939
+        height: 499
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: BoilerCar_Bkg_Sprite01 (1)_1
+      rect:
+        serializedVersion: 2
+        x: 1027
+        y: 381
+        width: 727
+        height: 501
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Coal
+      rect:
+        serializedVersion: 2
+        x: 826
+        y: 26
+        width: 400
+        height: 350
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: PressureWheel
+      rect:
+        serializedVersion: 2
+        x: 1721
+        y: 51
+        width: 273
+        height: 274
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0

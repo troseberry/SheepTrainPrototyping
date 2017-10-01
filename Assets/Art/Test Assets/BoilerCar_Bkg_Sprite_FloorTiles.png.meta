@@ -1,14 +1,12 @@
 fileFormatVersion: 2
-guid: ae7b1a29e986a4a13b9b2974147a77bd
-timeCreated: 1505682053
+guid: e1347cb84d2394d06a0e89057640a96b
+timeCreated: 1505687485
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: UpperGrate
-    21300002: Furnace
-    21300004: BoilerCar_Bkg_Sprite02_0
-    21300006: SpeedLevers
-    21300008: LowerGrate
+    21300000: LeftMat
+    21300002: RightMat
+    21300004: MiddleMat
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -91,67 +89,41 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: UpperGrate
+      name: LeftMat
       rect:
         serializedVersion: 2
-        x: 56
-        y: 1986
-        width: 1920
-        height: 40
+        x: 130
+        y: 1467
+        width: 713
+        height: 478
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Furnace
+      name: RightMat
       rect:
         serializedVersion: 2
-        x: 78
-        y: 103
-        width: 754
-        height: 405
+        x: 1153
+        y: 1465
+        width: 777
+        height: 481
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: BoilerCar_Bkg_Sprite02_0
+      name: MiddleMat
       rect:
         serializedVersion: 2
-        x: 1070
-        y: 56
-        width: 928
-        height: 502
+        x: 366
+        y: 790
+        width: 713
+        height: 463
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: SpeedLevers
-      rect:
-        serializedVersion: 2
-        x: 55
-        y: 1025
-        width: 630
-        height: 959
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: LowerGrate
-      rect:
-        serializedVersion: 2
-        x: 56
-        y: 950
-        width: 1920
-        height: 40
-      alignment: 0
-      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
