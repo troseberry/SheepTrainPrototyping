@@ -25,12 +25,6 @@ public class CheckTickets : MonoBehaviour
 	{
 		if (!isComplete && MiniGameManager.ManagerReference.IsInGame() && doStartGame)
 		{
-			// for (int i = 0; i < 16; i++)
-			// {
-			// 	TicketBehavior currentTicker = ticketObjects.GetChild(i).gameObject.GetComponent<TicketBehavior>();
-			// 	currentTicker.RandomizeStart();
-			// 	currentTicker.StartMoveTicket();
-			// }
 			doStartGame = false;
 		}
 
@@ -55,7 +49,7 @@ public class CheckTickets : MonoBehaviour
 
 	void EndGame()
 	{
-		MiniGameManager.ManagerReference.didWin = (failedEarly) ? failedEarly : isComplete;
+		MiniGameManager.ManagerReference.didWin = ((failedEarly) ? false : isComplete);
 		MiniGameManager.ManagerReference.EndMiniGame();
 	}
 
@@ -64,9 +58,10 @@ public class CheckTickets : MonoBehaviour
 		goodCounter = 0;
 		badCounter = 0;
 
-		for (int i = 0; i < 16; i++)
+		for (int i = 0; i < ticketObjects.childCount; i++)
 		{
 			ticketObjects.GetChild(i).gameObject.SetActive(true);
+			ticketObjects.GetChild(i).gameObject.GetComponent<TicketBehavior>().StartMoveTicket();
 		}
 
 		isComplete = false;
