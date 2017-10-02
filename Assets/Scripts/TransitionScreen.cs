@@ -4,6 +4,7 @@ using System.Collections;
 public class TransitionScreen : MonoBehaviour 
 {
 	float transitionDuration = 0.5f;
+    float carDistance = 25f;
 	Vector3 updatedCameraPos;
 
 	public PlayerMovement playerMovement;
@@ -12,37 +13,37 @@ public class TransitionScreen : MonoBehaviour
 
     public void SetCameraRight()
 	{
-        updatedCameraPos = new Vector3(transform.position.x + 18, transform.position.y, transform.position.z);
+        updatedCameraPos = new Vector3(transform.position.x + carDistance, transform.position.y, transform.position.z);
         StartCoroutine(MoveCamera(updatedCameraPos, updatedCameraPos.x - 7, 0));
     }
 
 	public void SetCameraLeft()
 	{
-        updatedCameraPos = new Vector3(transform.position.x - 18, transform.position.y, transform.position.z);
+        updatedCameraPos = new Vector3(transform.position.x - carDistance, transform.position.y, transform.position.z);
         StartCoroutine(MoveCamera(updatedCameraPos, updatedCameraPos.x + 7, 0));
     }
 
 	public void SetCameraUpRight()
 	{
-        updatedCameraPos = new Vector3(transform.position.x + 18, transform.position.y + 8.5f, transform.position.z);
+        updatedCameraPos = new Vector3(transform.position.x + carDistance, transform.position.y + 8.5f, transform.position.z);
         StartCoroutine(MoveCamera(updatedCameraPos, updatedCameraPos.x - 5, updatedCameraPos.y - 3.35f));
     }
 
     public void SetCameraUpLeft()
     {
-        updatedCameraPos = new Vector3(transform.position.x - 18, transform.position.y + 8.5f, transform.position.z);
+        updatedCameraPos = new Vector3(transform.position.x - carDistance, transform.position.y + 8.5f, transform.position.z);
         StartCoroutine(MoveCamera(updatedCameraPos, updatedCameraPos.x + 5, updatedCameraPos.y - 3.35f));
     }
 
     public void SetCameraDownLeft()
 	{
-        updatedCameraPos = new Vector3(transform.position.x - 18, transform.position.y - 8.5f, transform.position.z);
+        updatedCameraPos = new Vector3(transform.position.x - carDistance, transform.position.y - 8.5f, transform.position.z);
         StartCoroutine(MoveCamera(updatedCameraPos, updatedCameraPos.x + 5, updatedCameraPos.y + 3.5f));
     }
 
     public void SetCameraDownRight()
     {
-        updatedCameraPos = new Vector3(transform.position.x + 18, transform.position.y - 8.5f, transform.position.z);
+        updatedCameraPos = new Vector3(transform.position.x + carDistance, transform.position.y - 8.5f, transform.position.z);
         StartCoroutine(MoveCamera(updatedCameraPos, updatedCameraPos.x - 5, updatedCameraPos.y + 3.5f));
     }
 

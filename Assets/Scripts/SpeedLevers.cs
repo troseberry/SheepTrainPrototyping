@@ -4,6 +4,9 @@
 ** In a real game situation, logic would not allow for the mini game to be reinitiated so soon after being completed.
  */
 
+
+ //levers currently don't reset their position
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
