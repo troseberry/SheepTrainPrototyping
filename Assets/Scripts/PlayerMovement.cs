@@ -2,8 +2,9 @@
 using UnityStandardAssets.CrossPlatformInput;
 using System.Collections;
 using UnityEngine.EventSystems;
+using UnityEngine.Networking;
 
-public class PlayerMovement : MonoBehaviour 
+public class PlayerMovement :  NetworkBehaviour
 {
 	public Transform playerTransform;
 	public Rigidbody2D playerRigidbody;
@@ -42,6 +43,11 @@ public class PlayerMovement : MonoBehaviour
 	
 	void Update () 
 	{
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+        
 		horizontalInput = Input.GetAxisRaw("Horizontal");
 		verticalInput = Input.GetAxisRaw("Vertical");
 
