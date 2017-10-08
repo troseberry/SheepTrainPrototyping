@@ -10,7 +10,7 @@ public class MiniGameManager : MonoBehaviour
     public static MiniGameManager ManagerReference;
 
     public enum GameName { NONE, SPEED_LEVERS, PRESSURE_VALVE, FLICK_FUEL, SHEEP_JUMP, WAKE_GUESTS, MAKE_BEDS,
-    CHECK_INVENTORY, CHECK_TICKETS};
+    CHECK_INVENTORY, CHECK_TICKETS, SAVE_SHEEP};
     public GameName currentGame;
 
     bool inGame;
@@ -37,6 +37,8 @@ public class MiniGameManager : MonoBehaviour
 
     public GameObject checkInventoryGame;
     public GameObject checkTicketsGame;
+    public GameObject saveSheepGame;
+
 
 	void Start () 
 	{
@@ -136,6 +138,11 @@ public class MiniGameManager : MonoBehaviour
             checkTicketsGame.SetActive(false);
             CheckTickets.CheckTicketsReference.ResetGame();
         }
+        else if (currentGame == GameName.SAVE_SHEEP)
+        {
+            saveSheepGame.SetActive(false);
+            SaveSheep.SaveSheepReference.ResetGame();
+        }
         inGame = false;
         didWin = false;
         stopTimer = false;
@@ -221,6 +228,16 @@ public class MiniGameManager : MonoBehaviour
 
         currentGame = GameName.CHECK_TICKETS;
         checkTicketsGame.SetActive(true);
+        inGame = true;
+    }
+
+    public void OpenSaveSheep()
+    {
+        timer = SaveSheep.timeLimit;
+        StartGeneralTasks();
+
+        currentGame = GameName.SAVE_SHEEP;
+        saveSheepGame.SetActive(true);
         inGame = true;
     }
 

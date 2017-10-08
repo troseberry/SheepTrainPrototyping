@@ -74,6 +74,8 @@ public class MakeBeds : MonoBehaviour
 		wrinkle_02.GetComponent<Wrinkle>().EnableImage();
 		wrinkle_03.GetComponent<Wrinkle>().EnableImage();
 
+		isComplete = false;
+		
 		doStartGame = true;
 	}
 }

@@ -16,7 +16,7 @@ public class BackgroundRepeater : MonoBehaviour
 
 	void Update() 
 	{
-		if (transform.position.x > backgroundHorizontalLength)
+		if (transform.localPosition.x > (backgroundHorizontalLength * 3f))
 		{
 			RepositionBackground();
 		}
@@ -24,8 +24,8 @@ public class BackgroundRepeater : MonoBehaviour
 
 	void RepositionBackground()
 	{
-		Vector2 backgroundOffset = new Vector2(-backgroundHorizontalLength, 0);
+		Vector2 backgroundOffset = new Vector2(-backgroundHorizontalLength * 3f, 0);
 
-		transform.position = backgroundOffset;
+		transform.localPosition = backgroundOffset;
 	}
 }
