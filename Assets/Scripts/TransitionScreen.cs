@@ -3,13 +3,26 @@ using System.Collections;
 
 public class TransitionScreen : MonoBehaviour 
 {
+    public static TransitionScreen TransitionScreenReference;
+
 	float transitionDuration = 0.5f;
     float carDistance = 25f;
 	Vector3 updatedCameraPos;
 
-	public PlayerMovement playerMovement;
-	public PlayerBehavior playerBehavior;
+	// public PlayerMovement playerMovement;
+	// public PlayerBehavior playerBehavior;
 
+    private Transform playerTarget;
+
+    private NetworkedPlayerMovement networkedPlayerMovement;
+	private NetworkedPlayerBehavior networkedPlayerBehavior;
+
+    public GameObject[] backgroundObjects;
+
+    void Start()
+    {
+        TransitionScreenReference = this;
+    }
 
     public void SetCameraRight()
 	{
@@ -61,7 +74,17 @@ public class TransitionScreen : MonoBehaviour
 			yield return 0;
 		}
 		
-		playerMovement.playerTransform.position = new Vector3(playerHorz, playerVert, playerMovement.playerTransform.position.z);
-		playerMovement.movementDisabled = false;
+		// playerMovement.playerTransform.position = new Vector3(playerHorz, playerVert, playerMovement.playerTransform.position.z);
+		// playerMovement.movementDisabled = false;
+
+        networkedPlayerMovement.playerTransform.position = new Vector3(playerHorz, playerVert, networkedPlayerMovement.playerTransform.position.z);
+		networkedPlayerMovement.movementDisabled = false;
 	}
+
+    public void SetPlayerTarget(Transform player)
+    {
+        playerTarget = player;
+        networkedPlayerMovement = playerTarget.GetComponent<NetworkedPlayerMovement>();
+        networkedPlayerBehavior = playerTarget.GetComponent<NetworkedPlayerBehavior>();
+    }
 }
