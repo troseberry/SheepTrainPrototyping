@@ -9,7 +9,7 @@ public class MiniGameManager : MonoBehaviour
 {
     public static MiniGameManager ManagerReference;
 
-    public enum GameName { NONE, SPEED_LEVERS, PRESSURE_VALVE, FLICK_FUEL, SHEEP_JUMP, WAKE_GUESTS, MAKE_BEDS,
+    public enum GameName {NONE, SPEED_LEVERS, PRESSURE_VALVE, FLICK_FUEL, SHEEP_JUMP, WAKE_GUESTS, MAKE_BEDS,
     CHECK_INVENTORY, CHECK_TICKETS, SAVE_SHEEP};
     public GameName currentGame;
 
