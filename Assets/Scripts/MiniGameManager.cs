@@ -10,7 +10,7 @@ public class MiniGameManager : MonoBehaviour
     public static MiniGameManager ManagerReference;
 
     public enum GameName {NONE, SPEED_LEVERS, PRESSURE_VALVE, FLICK_FUEL, SHEEP_JUMP, WAKE_GUESTS, MAKE_BEDS,
-    CHECK_INVENTORY, CHECK_TICKETS, SAVE_SHEEP};
+    CHECK_INVENTORY, CHECK_TICKETS, SAVE_SHEEP, WOOL_CUTS};
     public GameName currentGame;
 
     bool inGame;
@@ -38,6 +38,8 @@ public class MiniGameManager : MonoBehaviour
     public GameObject checkInventoryGame;
     public GameObject checkTicketsGame;
     public GameObject saveSheepGame;
+
+    public GameObject woolCutsGame;
 
 
 	void Start () 
@@ -143,6 +145,11 @@ public class MiniGameManager : MonoBehaviour
             saveSheepGame.SetActive(false);
             SaveSheep.SaveSheepReference.ResetGame();
         }
+        else if (currentGame == GameName.WOOL_CUTS)
+        {
+            woolCutsGame.SetActive(false);
+            WoolCuts.WoolCutsReference.ResetGame();
+        }
         inGame = false;
         didWin = false;
         stopTimer = false;
@@ -241,6 +248,15 @@ public class MiniGameManager : MonoBehaviour
         inGame = true;
     }
 
+    public void OpenWoolCuts()
+    {
+        timer = WoolCuts.timeLimit;
+        StartGeneralTasks();
+
+        currentGame = GameName.WOOL_CUTS;
+        woolCutsGame.SetActive(true);
+        inGame = true;
+    }
 
     public bool IsInGame()
     {

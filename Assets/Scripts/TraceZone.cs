@@ -4,20 +4,35 @@ using UnityEngine;
 
 public class TraceZone : MonoBehaviour 
 {
-	public bool didTrace = false;
+	public Sprite startingSprite;
+	public Sprite endingSprite;
 
-	void Start () 
+	public Color startingColor;
+	public Color endingColor;
+
+	public bool useColor;
+
+	public void Trace()
 	{
-		
-	}
-	
-	void Update () 
-	{
-		
+		if (!useColor)
+		{
+			GetComponent<SpriteRenderer>().sprite = endingSprite;
+		}
+		else
+		{
+			GetComponent<SpriteRenderer>().color = endingColor;
+		}
 	}
 
-	public void ConfirmDidTrace()
+	public void Reset()
 	{
-		didTrace = true;
+		if (!useColor)
+		{
+			GetComponent<SpriteRenderer>().sprite = startingSprite;
+		}
+		else
+		{
+			GetComponent<SpriteRenderer>().color = startingColor;
+		}
 	}
 }
