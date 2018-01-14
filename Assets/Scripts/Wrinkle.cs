@@ -26,7 +26,7 @@ public class Wrinkle : MonoBehaviour
 		{
 			//check for pinch gesture
 			//stop running checks when the user lifts two fingers. call blockPinching()
-			 if (Input.touchCount == 2)
+			if (Input.touchCount == 2)
 			{
 				// Store both touches.
 				Touch touchZero = Input.GetTouch(0);
