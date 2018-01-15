@@ -10,7 +10,7 @@ public class MiniGameManager : MonoBehaviour
     public static MiniGameManager ManagerReference;
 
     public enum GameName {NONE, SPEED_LEVERS, PRESSURE_VALVE, FLICK_FUEL, SHEEP_JUMP, WAKE_GUESTS, MAKE_BEDS,
-    CHECK_INVENTORY, CHECK_TICKETS, SAVE_SHEEP, WOOL_CUTS, SWEEP_WOOL};
+    CHECK_INVENTORY, CHECK_TICKETS, SAVE_SHEEP, WOOL_CUTS, MUSTACHE_ROLL, SWEEP_WOOL};
     public GameName currentGame;
 
     bool inGame;
@@ -40,6 +40,7 @@ public class MiniGameManager : MonoBehaviour
     public GameObject saveSheepGame;
 
     public GameObject woolCutsGame;
+    public GameObject mustahceRollGame;
     public GameObject sweepWoolGame;
 
 
@@ -151,6 +152,11 @@ public class MiniGameManager : MonoBehaviour
             woolCutsGame.SetActive(false);
             WoolCuts.WoolCutsReference.ResetGame();
         }
+        else if (currentGame == GameName.MUSTACHE_ROLL)
+        {
+            mustahceRollGame.SetActive(false);
+            MustacheRoll.MustacheRollReference.ResetGame();
+        }
         else if (currentGame == GameName.SWEEP_WOOL)
         {
             sweepWoolGame.SetActive(false);
@@ -261,6 +267,16 @@ public class MiniGameManager : MonoBehaviour
 
         currentGame = GameName.WOOL_CUTS;
         woolCutsGame.SetActive(true);
+        inGame = true;
+    }
+
+    public void OpenMustahceRoll()
+    {
+        timer = MustacheRoll.timeLimit;
+        StartGeneralTasks();
+
+        currentGame = GameName.MUSTACHE_ROLL;
+        mustahceRollGame.SetActive(true);
         inGame = true;
     }
 

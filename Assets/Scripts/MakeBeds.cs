@@ -11,9 +11,9 @@ public class MakeBeds : MonoBehaviour
 	public static float timeLimit = 2.5f;
 	bool isComplete;
 
-	public Transform wrinkle_01;
-	public Transform wrinkle_02;
-	public Transform wrinkle_03;
+	public Transform pinchPoint_01;
+	public Transform pinchPoint_02;
+	public Transform pinchPoint_03;
 
 	Vector2 randomWrinklePos_01 = Vector2.zero;
 	Vector2 randomWrinklePos_02 = Vector2.zero;
@@ -37,7 +37,7 @@ public class MakeBeds : MonoBehaviour
 
 		if (MiniGameManager.ManagerReference.timer > 0) 
 		{
-			isComplete = (wrinkle_01.GetComponent<Wrinkle>().isWrinkleDone() && wrinkle_02.GetComponent<Wrinkle>().isWrinkleDone() && wrinkle_03.GetComponent<Wrinkle>().isWrinkleDone());
+			isComplete = (pinchPoint_01.GetComponent<PinchPoint>().IsPinchPointDone() && pinchPoint_02.GetComponent<PinchPoint>().IsPinchPointDone() && pinchPoint_03.GetComponent<PinchPoint>().IsPinchPointDone());
 		}
 
 		if (isComplete || MiniGameManager.ManagerReference.timer == 0f) EndGame();
@@ -51,9 +51,9 @@ public class MakeBeds : MonoBehaviour
 		randomWrinklePos_03 = new Vector2(Random.Range(450, 700), Random.Range(-300, 300));
 
 	
-		wrinkle_01.localPosition = randomWrinklePos_01;
-		wrinkle_02.localPosition = randomWrinklePos_02;
-		wrinkle_03.localPosition = randomWrinklePos_03;
+		pinchPoint_01.localPosition = randomWrinklePos_01;
+		pinchPoint_02.localPosition = randomWrinklePos_02;
+		pinchPoint_03.localPosition = randomWrinklePos_03;
 	}
 
 	void EndGame()
@@ -64,15 +64,15 @@ public class MakeBeds : MonoBehaviour
 
 	public void ResetGame()
 	{
-		wrinkle_01.GetComponent<Wrinkle>().ResetWrinkle();
-		wrinkle_02.GetComponent<Wrinkle>().ResetWrinkle();
-		wrinkle_03.GetComponent<Wrinkle>().ResetWrinkle();
+		pinchPoint_01.GetComponent<PinchPoint>().ResetPinchPoint();
+		pinchPoint_02.GetComponent<PinchPoint>().ResetPinchPoint();
+		pinchPoint_03.GetComponent<PinchPoint>().ResetPinchPoint();
 
 		randomizeWrinklePositions();
 
-		wrinkle_01.GetComponent<Wrinkle>().EnableImage();
-		wrinkle_02.GetComponent<Wrinkle>().EnableImage();
-		wrinkle_03.GetComponent<Wrinkle>().EnableImage();
+		pinchPoint_01.GetComponent<PinchPoint>().EnableImage();
+		pinchPoint_02.GetComponent<PinchPoint>().EnableImage();
+		pinchPoint_03.GetComponent<PinchPoint>().EnableImage();
 
 		isComplete = false;
 		
