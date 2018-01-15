@@ -11,6 +11,12 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/NetworkingTest.unity
     guid: 2306b5e552dfd468caa65d7493df2ccb
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/BasicNetworking.unity
     guid: 347c67cd135324f87810eb995a8794ad
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: fa52c08b45e504ded9908f7cc342d470
+  - enabled: 1
+    path: Assets/Scenes/MainGame.unity
+    guid: 102656783ff7849669879dd21326e4a5

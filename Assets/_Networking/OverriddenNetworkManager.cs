@@ -11,7 +11,7 @@ public class OverriddenNetworkManager : NetworkManager
 	{
 		discovery.Initialize();
 		discovery.StartAsServer();
-
+        
 	}
 
 	public override void OnStartClient(NetworkClient client)
