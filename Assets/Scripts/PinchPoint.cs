@@ -8,10 +8,13 @@ public class PinchPoint : MonoBehaviour
 	private bool startedPinching;
 	public bool pinchPointDone;
 
-	private float pinchThreshold = -5.0f;
+	private float pinchThreshold = 5.0f;
 
 	public bool isVisible;
 	private RawImage pinchPointImage;
+
+	public bool outwardPinch;
+	private bool pinchComparison;
 
 	void Start () 
 	{
@@ -41,10 +44,11 @@ public class PinchPoint : MonoBehaviour
 				// Find the difference in the distances between each frame.
 				float deltaMagnitudeDiff = prevTouchDeltaMag - touchDeltaMag;
 
+				pinchComparison = outwardPinch ? deltaMagnitudeDiff <= -pinchThreshold : deltaMagnitudeDiff >= pinchThreshold;
 
-				if (deltaMagnitudeDiff <= pinchThreshold)
+				if (pinchComparison)
 				{
-					pinchPointDone = true;
+					pinchPointDone = true; 
 					if (isVisible) pinchPointImage.enabled = false;
 					startedPinching = false;
 				}

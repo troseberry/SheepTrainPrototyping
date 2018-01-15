@@ -519,7 +519,7 @@ GameObject:
   - component: {fileID: 13603153}
   - component: {fileID: 13603152}
   m_Layer: 5
-  m_Name: MustahceRoll
+  m_Name: MustacheRoll
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1160,6 +1160,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pinchPointDone: 0
   isVisible: 1
+  outwardPinch: 0
 --- !u!114 &36305035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11872,6 +11873,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pinchPointDone: 0
   isVisible: 1
+  outwardPinch: 0
 --- !u!1 &744645069
 GameObject:
   m_ObjectHideFlags: 0
@@ -12482,6 +12484,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pinchPointDone: 0
   isVisible: 1
+  outwardPinch: 0
 --- !u!1 &800661411
 GameObject:
   m_ObjectHideFlags: 0
@@ -15534,6 +15537,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pinchPointDone: 0
   isVisible: 1
+  outwardPinch: 0
 --- !u!114 &967678002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23832,6 +23836,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pinchPointDone: 0
   isVisible: 1
+  outwardPinch: 0
 --- !u!114 &1508285240
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26272,6 +26277,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pinchPointDone: 0
   isVisible: 1
+  outwardPinch: 0
 --- !u!1 &1641562186
 GameObject:
   m_ObjectHideFlags: 0
