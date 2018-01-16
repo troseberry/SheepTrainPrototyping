@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class PinchPoint : MonoBehaviour 
 {
 	private bool startedPinching;
-	public bool pinchPointDone;
+	private bool pinchPointDone;
 
 	private float pinchThreshold = 5.0f;
 
@@ -43,8 +43,9 @@ public class PinchPoint : MonoBehaviour
 
 				// Find the difference in the distances between each frame.
 				float deltaMagnitudeDiff = prevTouchDeltaMag - touchDeltaMag;
+				Debug.Log("Pinch Delta: " + deltaMagnitudeDiff);
 
-				pinchComparison = outwardPinch ? deltaMagnitudeDiff <= -pinchThreshold : deltaMagnitudeDiff >= pinchThreshold;
+				pinchComparison = outwardPinch ? (deltaMagnitudeDiff <= -pinchThreshold) : (deltaMagnitudeDiff >= pinchThreshold);
 
 				if (pinchComparison)
 				{

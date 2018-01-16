@@ -9,8 +9,12 @@ public class MiniGameManager : MonoBehaviour
 {
     public static MiniGameManager ManagerReference;
 
-    public enum GameName {NONE, SPEED_LEVERS, PRESSURE_VALVE, FLICK_FUEL, SHEEP_JUMP, WAKE_GUESTS, MAKE_BEDS,
-    CHECK_INVENTORY, CHECK_TICKETS, SAVE_SHEEP, WOOL_CUTS, MUSTACHE_ROLL, SWEEP_WOOL};
+    public enum GameName {NONE, 
+                        SPEED_LEVERS, PRESSURE_VALVE, FLICK_FUEL,
+                        SOUP_FLY, CLEAR_TABLE, SERVE_TEA,
+                        WOOL_CUTS, MUSTACHE_ROLL, SWEEP_WOOL,
+                        SHEEP_JUMP, WAKE_GUESTS, MAKE_BEDS,
+                        CHECK_INVENTORY, CHECK_TICKETS, SAVE_SHEEP};
     public GameName currentGame;
 
     bool inGame;
@@ -27,21 +31,20 @@ public class MiniGameManager : MonoBehaviour
     public GameObject failText;
     public GameObject endGameOverlay;
 
-    public GameObject speedLeversGame;
-    public GameObject pressureValveGame;
-    public GameObject flickFuelGame;
+    //Boiler
+    public GameObject speedLeversGame, pressureValveGame, flickFuelGame;
 
-    public GameObject sheepJumpGame;
-    public GameObject wakeGuestsGame;
-    public GameObject makeBedsGame;
+    //Dining
+    public GameObject soupFlyGame, clearTableGame, serveTeaGame;
 
-    public GameObject checkInventoryGame;
-    public GameObject checkTicketsGame;
-    public GameObject saveSheepGame;
+    //Salon
+    public GameObject woolCutsGame, mustahceRollGame, sweepWoolGame;
 
-    public GameObject woolCutsGame;
-    public GameObject mustahceRollGame;
-    public GameObject sweepWoolGame;
+    //Sleeper
+    public GameObject sheepJumpGame, wakeGuestsGame, makeBedsGame;
+
+    //Caboose
+    public GameObject checkInventoryGame, checkTicketsGame, saveSheepGame;
 
 
 	void Start () 
@@ -102,6 +105,7 @@ public class MiniGameManager : MonoBehaviour
         failText.SetActive(false);
         endGameOverlay.SetActive(false);
 
+        //Boiler
         if (currentGame == GameName.SPEED_LEVERS)
         {
             speedLeversGame.SetActive(false);
@@ -117,36 +121,17 @@ public class MiniGameManager : MonoBehaviour
             flickFuelGame.SetActive(false);
             FlickFuel.FlickFuelReference.ResetGame();
         }
-        else if (currentGame == GameName.SHEEP_JUMP)
+
+
+        //Dining
+        else if (currentGame == GameName.SOUP_FLY)
         {
-            sheepJumpGame.SetActive(false);
-            SheepJump.SheepJumpReference.ResetGame();
+            soupFlyGame.SetActive(false);
+            SoupFly.SoupFlyReference.ResetGame();
         }
-        else if (currentGame == GameName.WAKE_GUESTS)
-        {
-            wakeGuestsGame.SetActive(false);
-            WakeGuests.WakeGuestsReference.ResetGame();
-        }
-        else if (currentGame == GameName.MAKE_BEDS)
-        {
-            makeBedsGame.SetActive(false);
-            MakeBeds.MakeBedsReference.ResetGame();
-        }
-        else if (currentGame == GameName.CHECK_INVENTORY)
-        {
-            checkInventoryGame.SetActive(false);
-            CheckInventory.CheckInventoryReference.ResetGame();
-        }
-        else if (currentGame == GameName.CHECK_TICKETS)
-        {
-            checkTicketsGame.SetActive(false);
-            CheckTickets.CheckTicketsReference.ResetGame();
-        }
-        else if (currentGame == GameName.SAVE_SHEEP)
-        {
-            saveSheepGame.SetActive(false);
-            SaveSheep.SaveSheepReference.ResetGame();
-        }
+
+
+        //Salon
         else if (currentGame == GameName.WOOL_CUTS)
         {
             woolCutsGame.SetActive(false);
@@ -162,10 +147,50 @@ public class MiniGameManager : MonoBehaviour
             sweepWoolGame.SetActive(false);
             SweepWool.SweepWoolReference.ResetGame();
         }
+
+
+        //Sleeper
+        else if (currentGame == GameName.SHEEP_JUMP)
+        {
+            sheepJumpGame.SetActive(false);
+            SheepJump.SheepJumpReference.ResetGame();
+        }
+        else if (currentGame == GameName.WAKE_GUESTS)
+        {
+            wakeGuestsGame.SetActive(false);
+            WakeGuests.WakeGuestsReference.ResetGame();
+        }
+        else if (currentGame == GameName.MAKE_BEDS)
+        {
+            makeBedsGame.SetActive(false);
+            MakeBeds.MakeBedsReference.ResetGame();
+        }
+
+
+        //Caboose
+        else if (currentGame == GameName.CHECK_INVENTORY)
+        {
+            checkInventoryGame.SetActive(false);
+            CheckInventory.CheckInventoryReference.ResetGame();
+        }
+        else if (currentGame == GameName.CHECK_TICKETS)
+        {
+            checkTicketsGame.SetActive(false);
+            CheckTickets.CheckTicketsReference.ResetGame();
+        }
+        else if (currentGame == GameName.SAVE_SHEEP)
+        {
+            saveSheepGame.SetActive(false);
+            SaveSheep.SaveSheepReference.ResetGame();
+        }
+
+
+
         inGame = false;
         didWin = false;
         stopTimer = false;
     }
+
 
     public void OpenSpeedLevers()
     {
@@ -287,6 +312,16 @@ public class MiniGameManager : MonoBehaviour
 
         currentGame = GameName.SWEEP_WOOL;
         sweepWoolGame.SetActive(true);
+        inGame = true;
+    }
+
+    public void OpenSoupFly()
+    {
+        timer = SoupFly.timeLimit;
+        StartGeneralTasks();
+
+        currentGame = GameName.SOUP_FLY;
+        soupFlyGame.SetActive(true);
         inGame = true;
     }
 
