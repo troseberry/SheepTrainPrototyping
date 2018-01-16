@@ -1,8 +1,10 @@
-﻿using System.Collections;
+﻿//Null reference exception when trying to reset
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MustacheRoll : MonoBehaviour 
+public class MustacheRoll : MiniGameScript 
 {
 	public static MustacheRoll MustacheRollReference;
 	public static float timeLimit = 5f;
@@ -50,7 +52,7 @@ public class MustacheRoll : MonoBehaviour
 		MiniGameManager.ManagerReference.EndMiniGame();
 	}
 
-	public void ResetGame()
+	public override void ResetGame()
 	{
 		pinchPointCenter.ResetPinchPoint();
 		pinchPointLeft.ResetPinchPoint();

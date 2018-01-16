@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SaveSheep : MonoBehaviour 
+public class SaveSheep : MiniGameScript 
 {
 	public static SaveSheep SaveSheepReference;
 	public static float timeLimit = 3f;
@@ -57,7 +57,7 @@ public class SaveSheep : MonoBehaviour
 		MiniGameManager.ManagerReference.EndMiniGame();
 	}
 
-	public void ResetGame()
+	public override void ResetGame()
 	{
 		swipeCount = 0;
 		isComplete = false;

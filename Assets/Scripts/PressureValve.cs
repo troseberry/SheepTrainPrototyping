@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PressureValve : MonoBehaviour
+public class PressureValve : MiniGameScript
 {
     public static PressureValve PressureValveReference;
     public static float timeLimit = 3.0f;
@@ -55,7 +55,7 @@ public class PressureValve : MonoBehaviour
         MiniGameManager.ManagerReference.EndMiniGame();
     }
 
-    public void ResetGame()
+    public override void ResetGame()
     {
         doStartGame = true;
         isComplete = false;

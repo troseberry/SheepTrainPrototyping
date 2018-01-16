@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SweepWool : MonoBehaviour 
+public class SweepWool : MiniGameScript 
 {
 	public static SweepWool SweepWoolReference;
 	public static float timeLimit = 3f;
@@ -43,7 +43,7 @@ public class SweepWool : MonoBehaviour
 		MiniGameManager.ManagerReference.EndMiniGame();
 	}
 
-	public void ResetGame()
+	public override void ResetGame()
 	{
 		sweptCount = 0;
 

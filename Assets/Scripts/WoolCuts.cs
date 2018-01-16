@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class WoolCuts : MonoBehaviour 
+public class WoolCuts : MiniGameScript 
 {
 	public static WoolCuts WoolCutsReference;
 	public static float timeLimit = 5f;
@@ -175,7 +175,7 @@ public class WoolCuts : MonoBehaviour
 		MiniGameManager.ManagerReference.EndMiniGame();
 	}
 
-	public void ResetGame()
+	public override void ResetGame()
 	{
 		for (int i = 0; i < tracedZones.Count; i++)
 		{

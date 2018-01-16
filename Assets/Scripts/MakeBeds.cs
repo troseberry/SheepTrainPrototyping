@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 
-public class MakeBeds : MonoBehaviour 
+public class MakeBeds : MiniGameScript 
 {
 	public static MakeBeds MakeBedsReference;
 	public static float timeLimit = 2.5f;
@@ -62,7 +62,7 @@ public class MakeBeds : MonoBehaviour
         MiniGameManager.ManagerReference.EndMiniGame();
 	}
 
-	public void ResetGame()
+	public override void ResetGame()
 	{
 		pinchPoint_01.GetComponent<PinchPoint>().ResetPinchPoint();
 		pinchPoint_02.GetComponent<PinchPoint>().ResetPinchPoint();

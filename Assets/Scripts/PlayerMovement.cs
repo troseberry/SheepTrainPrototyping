@@ -73,7 +73,6 @@ public class PlayerMovement : MonoBehaviour
 			currentMoveTime = 0;
 			doMove = true;
 		}
-		DebugPanel.Log("Pointer Press: ", nextDestination);
 
 		// if (doMove)
 		// {

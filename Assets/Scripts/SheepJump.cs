@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SheepJump : MonoBehaviour
+public class SheepJump : MiniGameScript
 {
     public static SheepJump SheepJumpReference;
     public static float timeLimit = 7.5f;
@@ -84,7 +84,7 @@ public class SheepJump : MonoBehaviour
         MiniGameManager.ManagerReference.EndMiniGame();
     }
 
-    public void ResetGame()
+    public override void ResetGame()
     {
         doStartGame = true;
         failedEarly = false;

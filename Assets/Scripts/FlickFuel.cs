@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FlickFuel : MonoBehaviour
+public class FlickFuel : MiniGameScript
 {
     public static FlickFuel FlickFuelReference;
     public static float timeLimit = 5.0f;
@@ -44,7 +44,7 @@ public class FlickFuel : MonoBehaviour
         MiniGameManager.ManagerReference.EndMiniGame();
     }
 
-    public void ResetGame()
+    public override void ResetGame()
     {
         doStartGame = true;
 

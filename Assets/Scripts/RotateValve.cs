@@ -38,8 +38,6 @@ public class RotateValve : MonoBehaviour {
         {
             rotationAmount = ReturnSignedAngleBetweenVectors(previousMousePosition, currentMousePosition);
             transform.RotateAroundLocal(Vector3.forward, rotationAmount * SPEED_DAMPER);
-
-            DebugPanel.Log("Rotation Amount: ", rotationAmount);
             //positive value: counterclockwise rot
             //negative value: clockwise rot
         }

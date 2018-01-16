@@ -32,6 +32,5 @@ public class TaskManager : MonoBehaviour
 		formattedTimer = string.Format("{0:00.00}", timer % 60);
 		taskTimerText.text = formattedTimer;
 
-		DebugPanel.Log("Timer: ", timer);
 	}
 }

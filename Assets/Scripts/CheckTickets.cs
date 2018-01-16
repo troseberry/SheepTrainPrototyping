@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CheckTickets : MonoBehaviour 
+public class CheckTickets : MiniGameScript 
 {
 	public static CheckTickets CheckTicketsReference;
 	public static float timeLimit = 5.0f;
@@ -53,7 +53,7 @@ public class CheckTickets : MonoBehaviour
 		MiniGameManager.ManagerReference.EndMiniGame();
 	}
 
-	public void ResetGame()
+	public override void ResetGame()
 	{
 		goodCounter = 0;
 		badCounter = 0;

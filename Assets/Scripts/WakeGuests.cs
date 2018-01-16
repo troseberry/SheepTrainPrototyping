@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class WakeGuests : MonoBehaviour 
+public class WakeGuests : MiniGameScript 
 {
 	public static WakeGuests WakeGuestsReference;
 	public static float timeLimit = 7.5f;
@@ -78,11 +78,6 @@ public class WakeGuests : MonoBehaviour
 				doLerpGuestGroup = false;
 			}
 		}
-
-		DebugPanel.Log("Prev Depth Accel: ", previousDepthAccel);
-		DebugPanel.Log("Current Depth Accel: ", currentDepthAccel);
-		DebugPanel.Log("Delta Depth Accel: ", deltaDepthAccel);
-		DebugPanel.Log("Depth Shake Count: ", depthShakeCount);
 	}
 
 	IEnumerator StartGuestCycle()
@@ -251,7 +246,7 @@ public class WakeGuests : MonoBehaviour
         MiniGameManager.ManagerReference.EndMiniGame();
 	}
 
-	public void ResetGame()
+	public override void ResetGame()
 	{
 		currentMoveTime = 0;
 		

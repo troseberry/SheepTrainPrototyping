@@ -13,7 +13,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class SpeedLevers : MonoBehaviour 
+public class SpeedLevers : MiniGameScript
 {
     public static SpeedLevers SpeedLeversReference;
     public static float timeLimit = 3.0f;
@@ -67,15 +67,6 @@ public class SpeedLevers : MonoBehaviour
 		if (MiniGameManager.ManagerReference.timer > 0) isComplete = (leverOneDone && leverTwoDone && leverThreeDone);
 
         if (isComplete || MiniGameManager.ManagerReference.timer == 0f) EndGame();
-
-
-        // DebugPanel.Log("Match 01: ", matchPos_01);
-		// DebugPanel.Log("Match 02: ", matchPos_02);
-		// DebugPanel.Log("Match 03: ", matchPos_03);
-
-		// DebugPanel.Log("Lever 01 Done: ", leverOneDone);
-		// DebugPanel.Log("Lever 02 Done: ", leverTwoDone);
-		// DebugPanel.Log("Lever 03 Done: ", leverThreeDone);
 	}
 
     void RandomizeMatchLeverPosition()
@@ -112,9 +103,10 @@ public class SpeedLevers : MonoBehaviour
         MiniGameManager.ManagerReference.EndMiniGame();
     }
 
-
-    public void ResetGame ()
+    
+    public override void ResetGame ()
     {
+        // Debug.Log("Reset Levers Called");
         matchText_01.GetChild(0).GetComponent<Text>().enabled = false;
         matchText_01.GetChild(1).GetComponent<Text>().enabled = false;
         matchText_02.GetChild(0).GetComponent<Text>().enabled = false;

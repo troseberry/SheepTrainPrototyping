@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CheckInventory : MonoBehaviour 
+public class CheckInventory : MiniGameScript 
 {
 	public static CheckInventory CheckInventoryReference;
 	public static float timeLimit = 5.0f;
@@ -79,13 +79,6 @@ public class CheckInventory : MonoBehaviour
 		if (MiniGameManager.ManagerReference.timer > 0) isComplete = (correctShape && correctColor && correctSize);
 
 		if (isComplete || MiniGameManager.ManagerReference.timer == 0f) EndGame();
-
-		DebugPanel.Log("Squares: ", countedSquare);
-		DebugPanel.Log("Circles: ", countedCircle);
-		DebugPanel.Log("Red: ", countedRed);
-		DebugPanel.Log("Green: ", countedGreen);
-		DebugPanel.Log("Small: ", countedSmall);
-		DebugPanel.Log("Large: ", countedLarge);
 	}
 
 	void RandomizeItems()
@@ -286,7 +279,7 @@ public class CheckInventory : MonoBehaviour
         MiniGameManager.ManagerReference.EndMiniGame();
 	}
 
-	public void ResetGame()
+	public override void ResetGame()
 	{
 		countedSquare = 0;
 		countedCircle = 0;

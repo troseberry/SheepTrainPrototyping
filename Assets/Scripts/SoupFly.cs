@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoupFly : MonoBehaviour 
+public class SoupFly : MiniGameScript 
 {
 	public static SoupFly SoupFlyReference;
 	public static float timeLimit = 2.5f;
@@ -57,7 +57,7 @@ public class SoupFly : MonoBehaviour
 		MiniGameManager.ManagerReference.EndMiniGame();
 	}
 
-	public void ResetGame()
+	public override void ResetGame()
 	{
 		pinchPoint_01.GetComponent<PinchPoint>().ResetPinchPoint();
 		pinchPoint_02.GetComponent<PinchPoint>().ResetPinchPoint();
