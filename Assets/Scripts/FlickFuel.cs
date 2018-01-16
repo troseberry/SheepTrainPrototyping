@@ -65,4 +65,6 @@ public class FlickFuel : MiniGameScript
         coal_05.ResetPosition();
         coal_05.ShowCoal();
     }
+
+    public override float GetTimeLimit() { return timeLimit; }
 }

@@ -77,4 +77,6 @@ public class MakeBeds : MiniGameScript
 		isComplete = false;
 		doStartGame = true;
 	}
+
+	public override float GetTimeLimit() { return timeLimit; }
 }

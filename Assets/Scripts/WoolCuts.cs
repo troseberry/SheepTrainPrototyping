@@ -191,4 +191,6 @@ public class WoolCuts : MiniGameScript
 		isComplete = false;
 		doStartGame = true;
 	}
+
+	public override float GetTimeLimit() { return timeLimit; }
 }

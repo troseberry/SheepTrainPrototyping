@@ -62,4 +62,6 @@ public class PressureValve : MiniGameScript
 
         RandomizePressure();
     }
+
+    public override float GetTimeLimit() { return timeLimit; }
 }

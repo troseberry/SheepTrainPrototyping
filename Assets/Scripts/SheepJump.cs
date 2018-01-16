@@ -107,4 +107,5 @@ public class SheepJump : MiniGameScript
         sheep_05.GetComponent<JumpingSheepBehavior>().ResetPosition();
     }
 
+    public override float GetTimeLimit() { return timeLimit; }
 }

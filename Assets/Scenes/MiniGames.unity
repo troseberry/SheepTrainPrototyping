@@ -1204,7 +1204,7 @@ GameObject:
   - component: {fileID: 37237785}
   - component: {fileID: 37237784}
   m_Layer: 5
-  m_Name: StacheRoll
+  m_Name: 07_MustacheRoll
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1269,7 +1269,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1936040775}
-        m_MethodName: OpenMustahceRoll
+        m_MethodName: OpenMiniGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1490,8 +1490,8 @@ RectTransform:
   - {fileID: 1959532319}
   - {fileID: 1596251016}
   - {fileID: 1643372035}
-  - {fileID: 1641562187}
   - {fileID: 1715184805}
+  - {fileID: 1641562187}
   m_Father: {fileID: 627446086}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3704,7 +3704,50 @@ Prefab:
       propertyPath: m_SortingOrder
       value: 4
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 114858938064605080, guid: 740c0b00d2f6d4d97a7e6b7c7f004d34,
+        type: 2}
+      propertyPath: m_Transition
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114307643432355152, guid: 740c0b00d2f6d4d97a7e6b7c7f004d34,
+        type: 2}
+      propertyPath: m_Transition
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114307643432355152, guid: 740c0b00d2f6d4d97a7e6b7c7f004d34,
+        type: 2}
+      propertyPath: m_TargetGraphic
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1355376015653694, guid: 740c0b00d2f6d4d97a7e6b7c7f004d34, type: 2}
+      propertyPath: m_Name
+      value: 00_SpeedLevers
+      objectReference: {fileID: 0}
+    - target: {fileID: 1072112260266590, guid: 740c0b00d2f6d4d97a7e6b7c7f004d34, type: 2}
+      propertyPath: m_Name
+      value: 01_FlickFuel
+      objectReference: {fileID: 0}
+    - target: {fileID: 1708747813777626, guid: 740c0b00d2f6d4d97a7e6b7c7f004d34, type: 2}
+      propertyPath: m_Name
+      value: 02_Pressure
+      objectReference: {fileID: 0}
+    - target: {fileID: 114858938064605080, guid: 740c0b00d2f6d4d97a7e6b7c7f004d34,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OpenMiniGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 114737116577344662, guid: 740c0b00d2f6d4d97a7e6b7c7f004d34,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OpenMiniGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 114307643432355152, guid: 740c0b00d2f6d4d97a7e6b7c7f004d34,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OpenMiniGame
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 114329797855945420, guid: 740c0b00d2f6d4d97a7e6b7c7f004d34, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 740c0b00d2f6d4d97a7e6b7c7f004d34, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &168311033
@@ -4775,7 +4818,7 @@ GameObject:
   - component: {fileID: 220007827}
   - component: {fileID: 220007826}
   m_Layer: 5
-  m_Name: WoolCuts
+  m_Name: 06_WoolCuts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4840,7 +4883,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1936040775}
-        m_MethodName: OpenWoolCuts
+        m_MethodName: OpenMiniGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5296,6 +5339,7 @@ GameObject:
   - component: {fileID: 233483113}
   - component: {fileID: 233483112}
   - component: {fileID: 233483111}
+  - component: {fileID: 233483114}
   m_Layer: 5
   m_Name: ClearTable
   m_TagString: Untagged
@@ -5353,6 +5397,17 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1930, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &233483114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 233483110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0504cbf94a4fe4f66bf3cbebe9322b4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &237255698
 GameObject:
   m_ObjectHideFlags: 0
@@ -7383,7 +7438,7 @@ GameObject:
   - component: {fileID: 411457895}
   - component: {fileID: 411457894}
   m_Layer: 5
-  m_Name: ClearTable
+  m_Name: 04_ClearTable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7446,7 +7501,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 411457895}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1936040775}
+        m_MethodName: OpenMiniGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &411457895
@@ -13098,7 +13164,7 @@ GameObject:
   - component: {fileID: 815693797}
   - component: {fileID: 815693796}
   m_Layer: 5
-  m_Name: SoupFly
+  m_Name: 03_SoupFly
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13162,6 +13228,17 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1936040775}
+        m_MethodName: OpenMiniGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 1936040775}
         m_MethodName: OpenSoupFly
         m_Mode: 1
@@ -15353,7 +15430,7 @@ GameObject:
   - component: {fileID: 934373629}
   - component: {fileID: 934373628}
   m_Layer: 5
-  m_Name: CheckTickets
+  m_Name: 13_CheckTickets
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15418,7 +15495,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1936040775}
-        m_MethodName: OpenCheckTickets
+        m_MethodName: OpenMiniGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -21254,7 +21331,7 @@ GameObject:
   - component: {fileID: 1319862799}
   - component: {fileID: 1319862798}
   m_Layer: 5
-  m_Name: SaveSheep
+  m_Name: 14_SaveSheep
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21319,7 +21396,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1936040775}
-        m_MethodName: OpenSaveSheep
+        m_MethodName: OpenMiniGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -21744,6 +21821,7 @@ GameObject:
   - component: {fileID: 1378075369}
   - component: {fileID: 1378075368}
   - component: {fileID: 1378075367}
+  - component: {fileID: 1378075370}
   m_Layer: 5
   m_Name: ServeTea
   m_TagString: Untagged
@@ -21801,6 +21879,17 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1930, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1378075370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1378075366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33e15f8069d224559a6b8a6953baaad1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1382680901
 GameObject:
   m_ObjectHideFlags: 0
@@ -22029,7 +22118,7 @@ GameObject:
   - component: {fileID: 1387712238}
   - component: {fileID: 1387712237}
   m_Layer: 5
-  m_Name: TakeInventory
+  m_Name: 12_CheckInventory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22094,7 +22183,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1936040775}
-        m_MethodName: OpenCheckInventory
+        m_MethodName: OpenMiniGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -22290,7 +22379,7 @@ GameObject:
   - component: {fileID: 1395013813}
   - component: {fileID: 1395013812}
   m_Layer: 5
-  m_Name: ServeTea
+  m_Name: 05_ServeTea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22353,7 +22442,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1395013813}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1936040775}
+        m_MethodName: OpenMiniGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1395013813
@@ -26956,7 +27056,7 @@ GameObject:
   - component: {fileID: 1636681841}
   - component: {fileID: 1636681840}
   m_Layer: 5
-  m_Name: SweepFloor
+  m_Name: 08_SweepFloor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27021,7 +27121,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1936040775}
-        m_MethodName: OpenSweepWool
+        m_MethodName: OpenMiniGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -27208,7 +27308,7 @@ GameObject:
   - component: {fileID: 1641562189}
   - component: {fileID: 1641562188}
   m_Layer: 5
-  m_Name: TidyBeds
+  m_Name: 11_MakeBeds
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27226,7 +27326,7 @@ RectTransform:
   m_Children:
   - {fileID: 93429239}
   m_Father: {fileID: 42196623}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -27273,7 +27373,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1936040775}
-        m_MethodName: OpenMakeBeds
+        m_MethodName: OpenMiniGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -27427,7 +27527,7 @@ GameObject:
   - component: {fileID: 1643372037}
   - component: {fileID: 1643372036}
   m_Layer: 5
-  m_Name: SheepJump
+  m_Name: 09_SheepJump
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27492,7 +27592,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1936040775}
-        m_MethodName: OpenSheepJump
+        m_MethodName: OpenMiniGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -28813,7 +28913,7 @@ GameObject:
   - component: {fileID: 1715184807}
   - component: {fileID: 1715184806}
   m_Layer: 5
-  m_Name: WakePassengers
+  m_Name: 10_WakeGuests
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28831,7 +28931,7 @@ RectTransform:
   m_Children:
   - {fileID: 1317404027}
   m_Father: {fileID: 42196623}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -28878,7 +28978,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1936040775}
-        m_MethodName: OpenWakeGuests
+        m_MethodName: OpenMiniGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -282,4 +282,6 @@ public class WakeGuests : MiniGameScript
 		guest_05.GetChild(2).GetComponent<RawImage>().enabled = false;
 		guest_05.GetChild(3).GetComponent<RawImage>().enabled = false;
 	}
+
+	public override float GetTimeLimit() { return timeLimit; }
 }

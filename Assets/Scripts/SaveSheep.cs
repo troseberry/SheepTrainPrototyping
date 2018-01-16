@@ -68,4 +68,6 @@ public class SaveSheep : MiniGameScript
 	{
 		sheepArm.localPosition = new Vector2(1000, 0);
 	}
+
+	public override float GetTimeLimit() { return timeLimit; }
 }

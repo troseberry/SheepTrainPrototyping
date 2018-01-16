@@ -68,4 +68,6 @@ public class CheckTickets : MiniGameScript
 		failedEarly = false;
 		doStartGame = true;
 	}
+
+	public override float GetTimeLimit() { return timeLimit; }
 }

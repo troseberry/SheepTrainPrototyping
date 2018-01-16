@@ -56,4 +56,6 @@ public class SweepWool : MiniGameScript
 		isComplete = false;
 		doStartGame = true;
 	}
+
+	public override float GetTimeLimit() { return timeLimit; }
 }

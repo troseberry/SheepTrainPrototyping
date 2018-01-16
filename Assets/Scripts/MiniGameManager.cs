@@ -3,18 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 
 public class MiniGameManager : MonoBehaviour 
 {
     public static MiniGameManager ManagerReference;
 
-    public enum GameName {NONE, 
-                        SPEED_LEVERS, PRESSURE_VALVE, FLICK_FUEL,
+    public enum GameName {SPEED_LEVERS, PRESSURE_VALVE, FLICK_FUEL,
                         SOUP_FLY, CLEAR_TABLE, SERVE_TEA,
                         WOOL_CUTS, MUSTACHE_ROLL, SWEEP_WOOL,
                         SHEEP_JUMP, WAKE_GUESTS, MAKE_BEDS,
-                        CHECK_INVENTORY, CHECK_TICKETS, SAVE_SHEEP};
+                        CHECK_INVENTORY, CHECK_TICKETS, SAVE_SHEEP,
+                        NONE};
 
     public GameName currentGame;
     private int currentGameIndex;
@@ -49,6 +50,7 @@ public class MiniGameManager : MonoBehaviour
     public GameObject checkInventoryGame, checkTicketsGame, saveSheepGame;
 
     private GameObject[] minigamesArray;
+    private MiniGameScript[] minigameScripts;
 
 	void Start () 
 	{
@@ -67,6 +69,15 @@ public class MiniGameManager : MonoBehaviour
             woolCutsGame, mustacheRollGame, sweepWoolGame,
             sheepJumpGame, wakeGuestsGame, makeBedsGame,
             checkInventoryGame, checkTicketsGame, saveSheepGame
+        };
+
+        minigameScripts = new MiniGameScript[]
+        {
+            speedLeversGame.GetComponent<MiniGameScript>(), pressureValveGame.GetComponent<MiniGameScript>(), flickFuelGame.GetComponent<MiniGameScript>(),
+            soupFlyGame.GetComponent<MiniGameScript>(), clearTableGame.GetComponent<MiniGameScript>(), serveTeaGame.GetComponent<MiniGameScript>(),
+            woolCutsGame.GetComponent<MiniGameScript>(), mustacheRollGame.GetComponent<MiniGameScript>(), sweepWoolGame.GetComponent<MiniGameScript>(),
+            sheepJumpGame.GetComponent<MiniGameScript>(), wakeGuestsGame.GetComponent<MiniGameScript>(), makeBedsGame.GetComponent<MiniGameScript>(),
+            checkInventoryGame.GetComponent<MiniGameScript>(), checkTicketsGame.GetComponent<MiniGameScript>(), saveSheepGame.GetComponent<MiniGameScript>()
         };
 	}
 	
@@ -122,176 +133,22 @@ public class MiniGameManager : MonoBehaviour
         stopTimer = false;
     }
 
-
-
-    public void OpenSpeedLevers()
+    public void OpenMiniGame()
     {
         if (!inGame)
         {
-            timer = SpeedLevers.timeLimit;
+            int gameIndex = int.Parse(EventSystem.current.currentSelectedGameObject.name.Substring(0, 2));
+
+            timer = minigameScripts[gameIndex].GetTimeLimit();
             StartGeneralTasks();
 
-            currentGame = GameName.SPEED_LEVERS;
-            currentGameIndex = 0;
-            speedLeversGame.SetActive(true);
+            currentGame = (GameName) gameIndex;
+            currentGameIndex = gameIndex;
+            minigamesArray[gameIndex].SetActive(true);
+
             inGame = true;
         }
     }
-
-    public void OpenPressureValve()
-    {
-        timer = PressureValve.timeLimit;
-        StartGeneralTasks();
-
-        currentGame = GameName.PRESSURE_VALVE;
-        currentGameIndex = 1;
-        pressureValveGame.SetActive(true);
-        inGame = true;
-    }
-
-    public void OpenFlickFuel()
-    {
-        timer = FlickFuel.timeLimit;
-        StartGeneralTasks();
-
-        currentGame = GameName.FLICK_FUEL;
-        currentGameIndex = 2;
-        flickFuelGame.SetActive(true);
-        inGame = true;
-    }
-
-
-
-    public void OpenSoupFly()
-    {
-        timer = SoupFly.timeLimit;
-        StartGeneralTasks();
-
-        currentGame = GameName.SOUP_FLY;
-        currentGameIndex = 3;
-        soupFlyGame.SetActive(true);
-        inGame = true;
-    }
-
-    public void OpenClearTable()
-    {
-        currentGameIndex = 4;
-
-    }
-
-    public void OpenServeTea()
-    {
-        currentGameIndex = 5;
-    }
-
-
-
-    public void OpenWoolCuts()
-    {
-        timer = WoolCuts.timeLimit;
-        StartGeneralTasks();
-
-        currentGame = GameName.WOOL_CUTS;
-        currentGameIndex = 6;
-        woolCutsGame.SetActive(true);
-        inGame = true;
-    }
-
-    public void OpenMustahceRoll()
-    {
-        timer = MustacheRoll.timeLimit;
-        StartGeneralTasks();
-
-        currentGame = GameName.MUSTACHE_ROLL;
-        currentGameIndex = 7;
-        mustacheRollGame.SetActive(true);
-        inGame = true;
-    }
-
-    public void OpenSweepWool()
-    {
-        timer = SweepWool.timeLimit;
-        StartGeneralTasks();
-
-        currentGame = GameName.SWEEP_WOOL;
-        currentGameIndex = 8;
-        sweepWoolGame.SetActive(true);
-        inGame = true;
-    }
-
-
-
-    public void OpenSheepJump()
-    {
-        timer = SheepJump.timeLimit;
-        StartGeneralTasks();
-    
-        currentGame = GameName.SHEEP_JUMP;
-        currentGameIndex = 9;
-        sheepJumpGame.SetActive(true);
-        inGame = true;
-    }
-
-    public void OpenWakeGuests()
-    {
-        timer = WakeGuests.timeLimit;
-        StartGeneralTasks();
-
-        currentGame = GameName.WAKE_GUESTS;
-        currentGameIndex = 10;
-        wakeGuestsGame.SetActive(true);
-        inGame = true;
-    }
-
-    public void OpenMakeBeds()
-    {
-        timer = MakeBeds.timeLimit;
-        StartGeneralTasks();
-
-        currentGame = GameName.MAKE_BEDS;
-        currentGameIndex = 11;
-        makeBedsGame.SetActive(true);
-        inGame = true;
-    }
-
-
-
-    public void OpenCheckInventory()
-    {
-        timer = CheckInventory.timeLimit;
-        StartGeneralTasks();
-
-        currentGame = GameName.CHECK_INVENTORY;
-        currentGameIndex = 12;
-        checkInventoryGame.SetActive(true);
-        inGame = true;
-    }
-
-    public void OpenCheckTickets()
-    {
-        timer = CheckTickets.timeLimit;
-        StartGeneralTasks();
-
-        currentGame = GameName.CHECK_TICKETS;
-        currentGameIndex = 13;
-        checkTicketsGame.SetActive(true);
-        inGame = true;
-    }
-
-    public void OpenSaveSheep()
-    {
-        timer = SaveSheep.timeLimit;
-        StartGeneralTasks();
-
-        currentGame = GameName.SAVE_SHEEP;
-        currentGameIndex = 14;
-        saveSheepGame.SetActive(true);
-        inGame = true;
-    }
-
-    
-
-    
 
     public bool IsInGame()
     {

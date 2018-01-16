@@ -126,4 +126,6 @@ public class SpeedLevers : MiniGameScript
 
         doStartGame = true;
     }
+
+    public override float GetTimeLimit() { return timeLimit; }
 }
