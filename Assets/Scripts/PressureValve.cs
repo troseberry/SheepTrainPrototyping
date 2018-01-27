@@ -25,7 +25,7 @@ public class PressureValve : MiniGameScript
     void Update()
     {
 
-        if (!isComplete && MiniGameManager.ManagerReference.IsInGame() && doStartGame)
+        if (!isComplete && MiniGameManager.IsInGame() && doStartGame)
         {
             RandomizePressure();
             doStartGame = false;
@@ -33,9 +33,9 @@ public class PressureValve : MiniGameScript
 
         currentPressureSlider.value += (RotateValve.rotationAmount / 25.0f);
 
-        if (MiniGameManager.ManagerReference.timer > 0) isComplete = (currentPressureSlider.value <= matchPressureSlider.value);
+        if (MiniGameManager.timer > 0) isComplete = (currentPressureSlider.value <= matchPressureSlider.value);
 
-        if (isComplete || MiniGameManager.ManagerReference.timer == 0f) EndGame();
+        if (isComplete || MiniGameManager.timer == 0f) EndGame();
     }
 
     void RandomizePressure()
@@ -51,8 +51,7 @@ public class PressureValve : MiniGameScript
 
     void EndGame()
     {
-        MiniGameManager.ManagerReference.didWin = isComplete;
-        MiniGameManager.ManagerReference.EndMiniGame();
+        MiniGameManager.EndMiniGame(isComplete);
     }
 
     public override void ResetGame()

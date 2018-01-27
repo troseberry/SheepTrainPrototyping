@@ -26,18 +26,18 @@ public class SoupFly : MiniGameScript
 	
 	void Update () 
 	{
-		if (!isComplete && MiniGameManager.ManagerReference.IsInGame() && doStartGame)
+		if (!isComplete && MiniGameManager.IsInGame() && doStartGame)
 		{
 			RandomizeFlyPositions();
 			doStartGame = false;
 		}
 
-		if (MiniGameManager.ManagerReference.timer > 0)
+		if (MiniGameManager.timer > 0)
 		{
 			isComplete = (pinchPoint_01.GetComponent<PinchPoint>().IsPinchPointDone() && pinchPoint_02.GetComponent<PinchPoint>().IsPinchPointDone() && pinchPoint_03.GetComponent<PinchPoint>().IsPinchPointDone());
 		}
 
-		if (isComplete || MiniGameManager.ManagerReference.timer == 0f) EndGame();
+		if (isComplete || MiniGameManager.timer == 0f) EndGame();
 	}
 
 	void RandomizeFlyPositions()
@@ -53,8 +53,7 @@ public class SoupFly : MiniGameScript
 
 	void EndGame()
 	{
-		MiniGameManager.ManagerReference.didWin = isComplete;
-		MiniGameManager.ManagerReference.EndMiniGame();
+		MiniGameManager.EndMiniGame(isComplete);
 	}
 
 	public override void ResetGame()

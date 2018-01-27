@@ -29,18 +29,18 @@ public class MakeBeds : MiniGameScript
 	
 	void Update () 
 	{
-		if (!isComplete && MiniGameManager.ManagerReference.IsInGame() && doStartGame)
+		if (!isComplete && MiniGameManager.IsInGame() && doStartGame)
 		{
 			RandomizeWrinklePositions();
 			doStartGame = false;
 		}
 
-		if (MiniGameManager.ManagerReference.timer > 0) 
+		if (MiniGameManager.timer > 0) 
 		{
 			isComplete = (pinchPoint_01.GetComponent<PinchPoint>().IsPinchPointDone() && pinchPoint_02.GetComponent<PinchPoint>().IsPinchPointDone() && pinchPoint_03.GetComponent<PinchPoint>().IsPinchPointDone());
 		}
 
-		if (isComplete || MiniGameManager.ManagerReference.timer == 0f) EndGame();
+		if (isComplete || MiniGameManager.timer == 0f) EndGame();
 
 	}
 
@@ -58,8 +58,7 @@ public class MakeBeds : MiniGameScript
 
 	void EndGame()
 	{
-		MiniGameManager.ManagerReference.didWin = isComplete;
-        MiniGameManager.ManagerReference.EndMiniGame();
+		MiniGameManager.EndMiniGame(isComplete);
 	}
 
 	public override void ResetGame()

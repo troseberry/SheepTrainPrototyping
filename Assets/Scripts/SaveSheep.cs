@@ -22,7 +22,7 @@ public class SaveSheep : MiniGameScript
 	
 	void Update ()
 	{
-		if (!isComplete && MiniGameManager.ManagerReference.IsInGame() && doStartGame)
+		if (!isComplete && MiniGameManager.IsInGame() && doStartGame)
 		{
 			// swipeCount = 0;
 			// sheepArm.localPosition = new Vector2(1000, 0);
@@ -45,16 +45,16 @@ public class SaveSheep : MiniGameScript
 			doMove = true;
 		}
 		
-		if (MiniGameManager.ManagerReference.timer > 0) isComplete = (swipeCount >= 3);
+		if (MiniGameManager.timer > 0) isComplete = (swipeCount >= 3);
 
-		if (isComplete || MiniGameManager.ManagerReference.timer == 0f) EndGame();
+		if (isComplete || MiniGameManager.timer == 0f) EndGame();
 	}
 
 	void EndGame()
 	{
 		Invoke("DelayResetTransform", 1.5f);
-		MiniGameManager.ManagerReference.didWin = isComplete;
-		MiniGameManager.ManagerReference.EndMiniGame();
+		
+		MiniGameManager.EndMiniGame(isComplete);
 	}
 
 	public override void ResetGame()

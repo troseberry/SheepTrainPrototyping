@@ -68,7 +68,7 @@ public class CheckInventory : MiniGameScript
 		colorCountText.text = currentColorCount;
 		sizeCountText.text = currentSizeCount;
 
-		if (!isComplete && MiniGameManager.ManagerReference.IsInGame() && doStartGame)
+		if (!isComplete && MiniGameManager.IsInGame() && doStartGame)
 		{
 			RandomizeItems();
 			RandomizeButtons();
@@ -76,9 +76,9 @@ public class CheckInventory : MiniGameScript
 		}
 		CheckCounts();
 
-		if (MiniGameManager.ManagerReference.timer > 0) isComplete = (correctShape && correctColor && correctSize);
+		if (MiniGameManager.timer > 0) isComplete = (correctShape && correctColor && correctSize);
 
-		if (isComplete || MiniGameManager.ManagerReference.timer == 0f) EndGame();
+		if (isComplete || MiniGameManager.timer == 0f) EndGame();
 	}
 
 	void RandomizeItems()
@@ -275,8 +275,7 @@ public class CheckInventory : MiniGameScript
 
 	void EndGame()
 	{
-		MiniGameManager.ManagerReference.didWin = isComplete;
-        MiniGameManager.ManagerReference.EndMiniGame();
+		MiniGameManager.EndMiniGame(isComplete);
 	}
 
 	public override void ResetGame()

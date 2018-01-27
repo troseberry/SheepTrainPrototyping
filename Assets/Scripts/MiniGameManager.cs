@@ -4,30 +4,38 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+// using UnityEngine.Networking;
 
 
 public class MiniGameManager : MonoBehaviour 
 {
+    // [SyncVar (hook = "TestSyncText")]
+    // public string syncTestString = "None";
+
+    // private Text syncTestText;
+    // private Transform playerTarget;
+
     public static MiniGameManager ManagerReference;
 
     public enum GameName {SPEED_LEVERS, PRESSURE_VALVE, FLICK_FUEL,
                         SOUP_FLY, CLEAR_TABLE, SERVE_TEA,
                         WOOL_CUTS, MUSTACHE_ROLL, SWEEP_WOOL,
                         SHEEP_JUMP, WAKE_GUESTS, MAKE_BEDS,
-                        CHECK_INVENTORY, CHECK_TICKETS, SAVE_SHEEP,
+                        TAKE_INVENTORY, CHECK_TICKETS, SAVE_SHEEP,
                         NONE};
 
     public GameName currentGame;
     private int currentGameIndex;
 
-    bool inGame;
+    private static bool inGame;
 
-	public float timer;
+	public static float timer;
+    
 	public Text taskTimerText;
 	String formattedTimer;
-    bool stopTimer;
+    private static bool stopTimer;
 
-    public bool didWin;
+    public static bool didWin;
 
     public GameObject generalElements;
     public GameObject passText;
@@ -47,7 +55,7 @@ public class MiniGameManager : MonoBehaviour
     public GameObject sheepJumpGame, wakeGuestsGame, makeBedsGame;
 
     //Caboose
-    public GameObject checkInventoryGame, checkTicketsGame, saveSheepGame;
+    public GameObject takeInventoryGame, checkTicketsGame, saveSheepGame;
 
     private GameObject[] minigamesArray;
     private MiniGameScript[] minigameScripts;
@@ -55,6 +63,7 @@ public class MiniGameManager : MonoBehaviour
 	void Start () 
 	{
         ManagerReference = this;
+        
 
         currentGame = GameName.NONE;
 
@@ -68,7 +77,7 @@ public class MiniGameManager : MonoBehaviour
             soupFlyGame, clearTableGame, serveTeaGame,
             woolCutsGame, mustacheRollGame, sweepWoolGame,
             sheepJumpGame, wakeGuestsGame, makeBedsGame,
-            checkInventoryGame, checkTicketsGame, saveSheepGame
+            takeInventoryGame, checkTicketsGame, saveSheepGame
         };
 
         minigameScripts = new MiniGameScript[]
@@ -77,7 +86,7 @@ public class MiniGameManager : MonoBehaviour
             soupFlyGame.GetComponent<MiniGameScript>(), clearTableGame.GetComponent<MiniGameScript>(), serveTeaGame.GetComponent<MiniGameScript>(),
             woolCutsGame.GetComponent<MiniGameScript>(), mustacheRollGame.GetComponent<MiniGameScript>(), sweepWoolGame.GetComponent<MiniGameScript>(),
             sheepJumpGame.GetComponent<MiniGameScript>(), wakeGuestsGame.GetComponent<MiniGameScript>(), makeBedsGame.GetComponent<MiniGameScript>(),
-            checkInventoryGame.GetComponent<MiniGameScript>(), checkTicketsGame.GetComponent<MiniGameScript>(), saveSheepGame.GetComponent<MiniGameScript>()
+            takeInventoryGame.GetComponent<MiniGameScript>(), checkTicketsGame.GetComponent<MiniGameScript>(), saveSheepGame.GetComponent<MiniGameScript>()
         };
 	}
 	
@@ -98,24 +107,32 @@ public class MiniGameManager : MonoBehaviour
         }
 	}
 
+    // public void SetPlayerTarget(Transform player)
+    // {
+    //     playerTarget = player;
+    //     syncTestText = playerTarget.GetComponentInChildren<Text>();
+    // }
+
     void StartGeneralTasks()
     {
         generalElements.SetActive(true);
     }
 
-    public void EndMiniGame()
+    public static void EndMiniGame(bool endStatus)
     {
+        didWin = endStatus;
+
         stopTimer = true;
-        endGameOverlay.SetActive(true);
+        ManagerReference.endGameOverlay.SetActive(true);
         if (didWin)
         {
-            passText.SetActive(true);
+            ManagerReference.passText.SetActive(true);
         }
         else
         {
-            failText.SetActive(true);
+            ManagerReference.failText.SetActive(true);
         }
-        Invoke("CloseMiniGame", 1.5f);
+        ManagerReference.Invoke("CloseMiniGame", 1.5f);
     }
 
     public void CloseMiniGame()
@@ -147,12 +164,26 @@ public class MiniGameManager : MonoBehaviour
             minigamesArray[gameIndex].SetActive(true);
 
             inGame = true;
+
+            // syncTestString = currentGame.ToString();
+            // TestSyncText(syncTestString);
         }
     }
 
-    public bool IsInGame()
+    public static bool IsInGame()
     {
         return inGame;
     }
+
+
+    // void TestSyncText(string testString)
+    // {
+    //     if (!isServer)
+    //     {
+    //         return;
+    //     }
+
+    //     syncTestText.text = testString;
+    // }
 
 }

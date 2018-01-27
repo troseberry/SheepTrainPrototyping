@@ -55,14 +55,14 @@ public class WakeGuests : MiniGameScript
 	{
 		UpdateDepthShakeCount();
 
-		if (MiniGameManager.ManagerReference.IsInGame() && doStartGame)
+		if (MiniGameManager.IsInGame() && doStartGame)
 		{
 			RandomizeGuestTimes();
 			StartCoroutine("StartGuestCycle");
 			doStartGame = false;
 		}
 
-		if (failedEarly || MiniGameManager.ManagerReference.timer == 0) EndGame();
+		if (failedEarly || MiniGameManager.timer == 0) EndGame();
 
 
 		if (doLerpGuestGroup)
@@ -84,7 +84,7 @@ public class WakeGuests : MiniGameScript
 	{
 		StartCoroutine("CycleGuestGroup");
 		yield return null;
-		if (failedEarly || MiniGameManager.ManagerReference.timer == 0) StopCoroutine("CycleGuestGroup");
+		if (failedEarly || MiniGameManager.timer == 0) StopCoroutine("CycleGuestGroup");
 	}
 
 
@@ -242,8 +242,7 @@ public class WakeGuests : MiniGameScript
 	{
 		StopCoroutine("StartGuestCycle");
 
-		MiniGameManager.ManagerReference.didWin = !failedEarly;
-        MiniGameManager.ManagerReference.EndMiniGame();
+		MiniGameManager.EndMiniGame(!failedEarly);
 	}
 
 	public override void ResetGame()

@@ -23,18 +23,18 @@ public class CheckTickets : MiniGameScript
 	
 	void Update () 
 	{
-		if (!isComplete && MiniGameManager.ManagerReference.IsInGame() && doStartGame)
+		if (!isComplete && MiniGameManager.IsInGame() && doStartGame)
 		{
 			doStartGame = false;
 		}
 
-		if (MiniGameManager.ManagerReference.timer > 0)
+		if (MiniGameManager.timer > 0)
 		{
 			isComplete = (goodCounter == 3);
 			failedEarly = (badCounter >= 3);
 		}
 
-		if (isComplete || failedEarly || MiniGameManager.ManagerReference.timer == 0) EndGame();
+		if (isComplete || failedEarly || MiniGameManager.timer == 0) EndGame();
 	}
 
 	public void IncrementGoodCounter()
@@ -49,8 +49,7 @@ public class CheckTickets : MiniGameScript
 
 	void EndGame()
 	{
-		MiniGameManager.ManagerReference.didWin = ((failedEarly) ? false : isComplete);
-		MiniGameManager.ManagerReference.EndMiniGame();
+		MiniGameManager.EndMiniGame(((failedEarly) ? false : isComplete));
 	}
 
 	public override void ResetGame()

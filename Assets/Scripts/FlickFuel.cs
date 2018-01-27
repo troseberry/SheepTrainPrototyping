@@ -26,9 +26,11 @@ public class FlickFuel : MiniGameScript
 
     void Update ()
     {
-        if (MiniGameManager.ManagerReference.timer > 0) isComplete = (coalCaughtAmount >= 3);
+        //this game is missing the logic that helps start the game (setting doStartGame true if manager is in game and this game isn't complete) even after the mini game object has been initialied. But it appears to correctly start every time?
 
-        if (isComplete || MiniGameManager.ManagerReference.timer == 0f) EndGame();
+        if (MiniGameManager.timer > 0) isComplete = (coalCaughtAmount >= 3);
+
+        if (isComplete || MiniGameManager.timer == 0f) EndGame();
     }
 
     public void CaughtCoal()
@@ -40,8 +42,7 @@ public class FlickFuel : MiniGameScript
     {
         FurnaceBehavior.FurnaceBehaviorReference.StopFurnaceMovement();
 
-        MiniGameManager.ManagerReference.didWin = isComplete;
-        MiniGameManager.ManagerReference.EndMiniGame();
+        MiniGameManager.EndMiniGame(isComplete);
     }
 
     public override void ResetGame()

@@ -54,7 +54,7 @@ public class SpeedLevers : MiniGameScript
 	void Update () 
 	{
 
-        if (!isComplete && MiniGameManager.ManagerReference.IsInGame() && doStartGame)
+        if (!isComplete && MiniGameManager.IsInGame() && doStartGame)
         {
             RandomizeMatchLeverPosition();
             doStartGame = false;
@@ -64,9 +64,9 @@ public class SpeedLevers : MiniGameScript
 		leverTwoDone = (lever_02.value == matchPos_02);
 		leverThreeDone = (lever_03.value == matchPos_03);
 
-		if (MiniGameManager.ManagerReference.timer > 0) isComplete = (leverOneDone && leverTwoDone && leverThreeDone);
+		if (MiniGameManager.timer > 0) isComplete = (leverOneDone && leverTwoDone && leverThreeDone);
 
-        if (isComplete || MiniGameManager.ManagerReference.timer == 0f) EndGame();
+        if (isComplete || MiniGameManager.timer == 0f) EndGame();
 	}
 
     void RandomizeMatchLeverPosition()
@@ -99,8 +99,7 @@ public class SpeedLevers : MiniGameScript
 
     void EndGame()
     {
-        MiniGameManager.ManagerReference.didWin = isComplete;
-        MiniGameManager.ManagerReference.EndMiniGame();
+        MiniGameManager.EndMiniGame(isComplete);
     }
 
     
