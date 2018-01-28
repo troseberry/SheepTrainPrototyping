@@ -4,16 +4,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-// using UnityEngine.Networking;
+using UnityEngine.Networking;
 
 
-public class MiniGameManager : MonoBehaviour 
+public class MiniGameManager : MonoBehaviour
 {
     // [SyncVar (hook = "TestSyncText")]
     // public string syncTestString = "None";
 
     // private Text syncTestText;
     // private Transform playerTarget;
+
+    // [SyncVar]
+	// public string lastPlayed = "None";
+
+    // public Text lastPlayedText;
+    
+
+
+
+
 
     public static MiniGameManager ManagerReference;
 
@@ -60,6 +70,8 @@ public class MiniGameManager : MonoBehaviour
     private GameObject[] minigamesArray;
     private MiniGameScript[] minigameScripts;
 
+    
+
 	void Start () 
 	{
         ManagerReference = this;
@@ -105,12 +117,13 @@ public class MiniGameManager : MonoBehaviour
             formattedTimer = string.Format("{0:00.00}", timer % 60);
             taskTimerText.text = formattedTimer;
         }
+
+        // if (lastPlayedText) lastPlayedText.text = lastPlayed;	
 	}
 
-    // public void SetPlayerTarget(Transform player)
+    // public void SetPlayerTextTarget(Text text)
     // {
-    //     playerTarget = player;
-    //     syncTestText = playerTarget.GetComponentInChildren<Text>();
+    //     lastPlayedText = text;
     // }
 
     void StartGeneralTasks()
@@ -165,8 +178,14 @@ public class MiniGameManager : MonoBehaviour
 
             inGame = true;
 
-            // syncTestString = currentGame.ToString();
-            // TestSyncText(syncTestString);
+            // if (isLocalPlayer)
+            // {
+            //     Debug.Log("Current: " + currentGame.ToString());
+            //     lastPlayed = currentGame.ToString();
+            //     CmdSetLastGame(lastPlayed);
+            // }
+
+            // NetworkedMiniGameManager.NMGM.ChangeLastGame(currentGame.ToString());
         }
     }
 
@@ -175,15 +194,13 @@ public class MiniGameManager : MonoBehaviour
         return inGame;
     }
 
+	// [Command]
+	// public void CmdSetLastGame(string last)
+	// {
+		
+	// 	Debug.Log("Called Server Command");
 
-    // void TestSyncText(string testString)
-    // {
-    //     if (!isServer)
-    //     {
-    //         return;
-    //     }
-
-    //     syncTestText.text = testString;
-    // }
+	// 	lastPlayed = last;
+	// }
 
 }

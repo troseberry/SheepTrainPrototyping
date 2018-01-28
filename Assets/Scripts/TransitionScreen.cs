@@ -9,10 +9,12 @@ public class TransitionScreen : MonoBehaviour
     float carDistance = 25f;
 	Vector3 updatedCameraPos;
 
-	// public PlayerMovement playerMovement;
-	// public PlayerBehavior playerBehavior;
+    //use these two when working in non-networked scene (minigame prototyping)
+	public PlayerMovement playerMovement;
+	public PlayerBehavior playerBehavior;
 
-    private Transform playerTarget;
+    //should be private when working in networked scene
+    public Transform playerTarget;
 
     private NetworkedPlayerMovement networkedPlayerMovement;
 	private NetworkedPlayerBehavior networkedPlayerBehavior;
@@ -74,15 +76,19 @@ public class TransitionScreen : MonoBehaviour
 			yield return 0;
 		}
 		
-		// playerMovement.playerTransform.position = new Vector3(playerHorz, playerVert, playerMovement.playerTransform.position.z);
-		// playerMovement.movementDisabled = false;
+		playerMovement.playerTransform.position = new Vector3(playerHorz, playerVert, playerMovement.playerTransform.position.z);
+		playerMovement.movementDisabled = false;
 
-        networkedPlayerMovement.playerTransform.position = new Vector3(playerHorz, playerVert, networkedPlayerMovement.playerTransform.position.z);
-		networkedPlayerMovement.movementDisabled = false;
+        // networkedPlayerMovement.playerTransform.position = new Vector3(playerHorz, playerVert, networkedPlayerMovement.playerTransform.position.z);
+		// networkedPlayerMovement.movementDisabled = false;
 	}
 
     public void SetPlayerTarget(Transform player)
     {
+        // playerTarget = player;
+        // playerMovement = playerTarget.GetComponent<PlayerMovement>();
+        // playerBehavior = playerTarget.GetComponent<PlayerBehavior>();
+
         playerTarget = player;
         networkedPlayerMovement = playerTarget.GetComponent<NetworkedPlayerMovement>();
         networkedPlayerBehavior = playerTarget.GetComponent<NetworkedPlayerBehavior>();

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class NetworkedPlayerBehavior : NetworkBehaviour 
 {
@@ -13,6 +14,8 @@ public class NetworkedPlayerBehavior : NetworkBehaviour
 	{
         inTransitionZone = false;
         currentTransition = TransitionType.NONE;
+
+        Debug.Log(name + " Is Server: " + isServer);
 	}
 
     public override void OnStartLocalPlayer()
@@ -20,6 +23,8 @@ public class NetworkedPlayerBehavior : NetworkBehaviour
         TransitionScreen.TransitionScreenReference.SetPlayerTarget(transform);
 
         GetComponent<SpriteRenderer>().color = Color.red;
+
+        // MiniGameManager.ManagerReference.SetPlayerTextTarget(GetComponentInChildren<Text>());
     }
 
 
