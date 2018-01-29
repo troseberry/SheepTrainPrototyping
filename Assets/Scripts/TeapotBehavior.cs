@@ -49,4 +49,6 @@ public class TeapotBehavior : MonoBehaviour
 	public Vector3 GetTeaSpawnPosition() { return teaSpawn.position; }
 
 	public void ResetTeapotPosition() { transform.position = startPosition; }
+	
+	public void ResetTeapotBlocker() { teapotBlocker.isTrigger = false; }
 }

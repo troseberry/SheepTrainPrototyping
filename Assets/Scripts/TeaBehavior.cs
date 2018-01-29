@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class TeaBehavior : MonoBehaviour 
 {
+	private Vector3 startPosition;
 
 	void Start () 
 	{
-		
+		startPosition = transform.position;
 	}
 	
 	void Update () 
@@ -26,5 +27,10 @@ public class TeaBehavior : MonoBehaviour
 		{
 			SendBackToTeapot();
 		}
+	}
+
+	public void ResetStartPosition()
+	{
+		transform.position = startPosition;
 	}
 }

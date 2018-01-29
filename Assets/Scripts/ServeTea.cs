@@ -13,6 +13,7 @@ public class ServeTea : MiniGameScript
 	public TeacupBehavior teacupTwo;
 	public TeacupBehavior teacupThree;
 
+	public Transform teaGroup;
 	
 	void Start () 
 	{
@@ -42,13 +43,18 @@ public class ServeTea : MiniGameScript
 
 	public override void ResetGame()
 	{
+		TeapotBehavior.TeapotReference.ResetTeapotBlocker();
 		TeapotBehavior.TeapotReference.ResetTeapotPosition();
 
-		teacupOne.ResetTeaCount();
-		teacupTwo.ResetTeaCount();
-		teacupThree.ResetTeaCount();
+		teacupOne.ResetTeacup();
+		teacupTwo.ResetTeacup();
+		teacupThree.ResetTeacup();
 
 		// Need to reset individual tea objs
+		for (int i = 1; i < teaGroup.childCount; i++)
+		{
+			teaGroup.GetChild(i).GetComponent<TeaBehavior>().ResetStartPosition();
+		}
 	}
 
 	public override float GetTimeLimit() { return timeLimit; }
