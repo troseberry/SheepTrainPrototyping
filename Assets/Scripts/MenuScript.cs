@@ -9,6 +9,7 @@ public class MenuScript : NetworkBehaviour {
 	static GameObject mainMenu;
 	static GameObject playerLoadingMenu;
 	static GameObject roomSelectMenu;
+	static GameObject hostOrClient;
 
 	private int[] prevSymbols;
 	private int[] currentSymbols;
@@ -28,14 +29,24 @@ public class MenuScript : NetworkBehaviour {
 	static Transform roomBig2;
 	static Transform roomBig3;
 
+	public bool inLobby = false;
+	public GameObject  startbtn;
     //public GameObject[] players;
+
+	void update()
+	{
+		if (inLobby && !OverriddenNetworkManager.singleton.isNetworkActive) {
+			toMainMenu ();
+		}
+	}
 
 	// Use this for initialization
 	void Start () {
 		mainMenu = GameObject.Find ("Main");
 		playerLoadingMenu = GameObject.Find ("PlayerLoading");
 		roomSelectMenu = GameObject.Find ("RoomSelect");
-
+		hostOrClient = GameObject.Find ("HostOrClient");
+		startbtn = GameObject.Find ("StartGameBtn");
 		System.Random rando = new System.Random();
         prevSymbols = new int[]{rando.Next(0,3), rando.Next(0,3), rando.Next(0,3)};
 		currentSymbols = new int[]{prevSymbols[0], prevSymbols[1], prevSymbols[2]};
@@ -81,22 +92,47 @@ public class MenuScript : NetworkBehaviour {
 		roomSelectMenu.SetActive (false);
 	}
 
+	public void toPlayerLoadingHost ()
+	{
+		OverriddenNetworkManager.singleton.StartHost ();
+		toPlayerLoading ();
+	}
+
+	public void toPlayerLoadingClient ()
+	{
+		OverriddenNetworkManager.singleton.StartClient();
+		toPlayerLoading ();
+		startbtn.SetActive(false);
+	}
+
 	public void toPlayerLoading () {
+		hostOrClient.SetActive (false);
 		playerLoadingMenu.SetActive (true);
 		mainMenu.SetActive (false);
 		roomSelectMenu.SetActive (false);
-		NetworkManager.singleton.StartHost ();
-		//Or StartClient if joining a game
 		Debug.Log (currentSymbols [0]);
+		inLobby = true;
 	}
 
 	public void toMainMenu () {
+		startbtn.SetActive(true);
+		hostOrClient.SetActive (false);
 		mainMenu.SetActive (true);
+		playerLoadingMenu.SetActive (false);
+		roomSelectMenu.SetActive (false);
+		OverriddenNetworkManager.singleton.StopHost();
+		inLobby = false;
+	}
+
+	public void toHostOrClient () {
+		hostOrClient.SetActive (true);
+		mainMenu.SetActive (false);
 		playerLoadingMenu.SetActive (false);
 		roomSelectMenu.SetActive (false);
 	}
 
 	public void toRoomSelect () {
+		hostOrClient.SetActive (false);
 		roomSelectMenu.SetActive (true);
 		playerLoadingMenu.SetActive (false);
 		mainMenu.SetActive (false);
@@ -104,6 +140,7 @@ public class MenuScript : NetworkBehaviour {
 
     public void StartGame () {
         Application.LoadLevel("MainGame");
+
     }
 
 	public void nextSymbol(int thisNumber) {

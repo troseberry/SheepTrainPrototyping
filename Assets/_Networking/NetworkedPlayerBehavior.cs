@@ -17,7 +17,7 @@ public class NetworkedPlayerBehavior : NetworkBehaviour
 
     public override void OnStartLocalPlayer()
     {
-        TransitionScreen.TransitionScreenReference.SetPlayerTarget(transform);
+        //TransitionScreen.TransitionScreenReference.SetPlayerTarget(transform);
 
         GetComponent<SpriteRenderer>().color = Color.red;
     }

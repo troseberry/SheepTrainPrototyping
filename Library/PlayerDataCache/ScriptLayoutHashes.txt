@@ -21,7 +21,7 @@ beabc8c3a0e6de5f2fa454e65d752a91 Assembly-CSharp.dll:.SaveSheep
 08712033bfb8d4fd2842041f9a20ded7 Assembly-CSharp.dll:TouchScript.Examples.RawInput.Spawner
 45b53521aa5926ef513213a221a9c2ff Assembly-CSharp.dll:.CoalBehavior
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.BackgroundRepeater
-f327a0833000d2644cb335bb7a174007 Assembly-CSharp.dll:.OverriddenNetworkManager
+efec55d0584bb1228a266472e45ea509 Assembly-CSharp.dll:.OverriddenNetworkManager
 a35dc9cca2faebc5f5f1aeb9e8e47bbe UnityEngine.UI.dll:UnityEngine.UI.AspectRatioFitter
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.UI.dll:UnityEngine.EventSystems.BaseInput
 49cd62a578efc0a599b810a2b66cd49c UnityEngine.UI.dll:UnityEngine.UI.Button
@@ -128,7 +128,7 @@ e9bdabf9265d758d56f01bb188916fa8 UnityEngine.Networking.dll:UnityEngine.Networki
 d01076a6a1818355740b0f2f03649d29 Assembly-CSharp.dll:TouchScript.Examples.Photos.Container
 b864de778815bc88d4b46679646275f2 Assembly-CSharp.dll:TouchScript.Gestures.FlickGesture
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:TouchScript.TouchManagerInstance
-05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.MenuScript
+4a041fcf5c6a7507abea4a479fd81f6c Assembly-CSharp.dll:.MenuScript
 dd50db629b9640f9b3a91a557e67482a Assembly-CSharp.dll:TouchScript.Gestures.Clustered.ClusteredPinnedTransformGesture
 47aa7529825d58580b94dabd237f34b7 Assembly-CSharp.dll:TouchScript.Examples.Portal.Planet
 1a3f0a0e58998704e1a083ddeaa691c6 Assembly-CSharp.dll:TouchScript.TouchManager
