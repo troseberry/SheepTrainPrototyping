@@ -35,6 +35,7 @@ public class MenuScript : NetworkBehaviour {
 
 	void update()
 	{
+		// Does not work and error "NetworkDiscovery StopBroadcast not initialized"
 		if (inLobby && !OverriddenNetworkManager.singleton.isNetworkActive) {
 			toMainMenu ();
 		}
@@ -140,7 +141,6 @@ public class MenuScript : NetworkBehaviour {
 
     public void StartGame () {
         Application.LoadLevel("MainGame");
-
     }
 
 	public void nextSymbol(int thisNumber) {
