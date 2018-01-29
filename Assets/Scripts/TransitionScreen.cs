@@ -29,38 +29,38 @@ public class TransitionScreen : MonoBehaviour
     public void SetCameraRight()
 	{
         updatedCameraPos = new Vector3(transform.position.x + carDistance, transform.position.y, transform.position.z);
-        StartCoroutine(MoveCamera(updatedCameraPos, updatedCameraPos.x - 7, 0));
+        StartCoroutine(MoveCamera(updatedCameraPos, updatedCameraPos.x - 5, -1));
     }
 
 	public void SetCameraLeft()
 	{
         updatedCameraPos = new Vector3(transform.position.x - carDistance, transform.position.y, transform.position.z);
-        StartCoroutine(MoveCamera(updatedCameraPos, updatedCameraPos.x + 7, 0));
+        StartCoroutine(MoveCamera(updatedCameraPos, updatedCameraPos.x + 5, -1));
     }
 
-	public void SetCameraUpRight()
-	{
-        updatedCameraPos = new Vector3(transform.position.x + carDistance, transform.position.y + 8.5f, transform.position.z);
-        StartCoroutine(MoveCamera(updatedCameraPos, updatedCameraPos.x - 5, updatedCameraPos.y - 3.35f));
-    }
+	// public void SetCameraUpRight()
+	// {
+    //     updatedCameraPos = new Vector3(transform.position.x + carDistance, transform.position.y + 8.5f, transform.position.z);
+    //     StartCoroutine(MoveCamera(updatedCameraPos, updatedCameraPos.x - 5, updatedCameraPos.y - 3.35f));
+    // }
 
-    public void SetCameraUpLeft()
-    {
-        updatedCameraPos = new Vector3(transform.position.x - carDistance, transform.position.y + 8.5f, transform.position.z);
-        StartCoroutine(MoveCamera(updatedCameraPos, updatedCameraPos.x + 5, updatedCameraPos.y - 3.35f));
-    }
+    // public void SetCameraUpLeft()
+    // {
+    //     updatedCameraPos = new Vector3(transform.position.x - carDistance, transform.position.y + 8.5f, transform.position.z);
+    //     StartCoroutine(MoveCamera(updatedCameraPos, updatedCameraPos.x + 5, updatedCameraPos.y - 3.35f));
+    // }
 
-    public void SetCameraDownLeft()
-	{
-        updatedCameraPos = new Vector3(transform.position.x - carDistance, transform.position.y - 8.5f, transform.position.z);
-        StartCoroutine(MoveCamera(updatedCameraPos, updatedCameraPos.x + 5, updatedCameraPos.y + 3.5f));
-    }
+    // public void SetCameraDownLeft()
+	// {
+    //     updatedCameraPos = new Vector3(transform.position.x - carDistance, transform.position.y - 8.5f, transform.position.z);
+    //     StartCoroutine(MoveCamera(updatedCameraPos, updatedCameraPos.x + 5, updatedCameraPos.y + 3.5f));
+    // }
 
-    public void SetCameraDownRight()
-    {
-        updatedCameraPos = new Vector3(transform.position.x + carDistance, transform.position.y - 8.5f, transform.position.z);
-        StartCoroutine(MoveCamera(updatedCameraPos, updatedCameraPos.x - 5, updatedCameraPos.y + 3.5f));
-    }
+    // public void SetCameraDownRight()
+    // {
+    //     updatedCameraPos = new Vector3(transform.position.x + carDistance, transform.position.y - 8.5f, transform.position.z);
+    //     StartCoroutine(MoveCamera(updatedCameraPos, updatedCameraPos.x - 5, updatedCameraPos.y + 3.5f));
+    // }
 
 
 	IEnumerator MoveCamera(Vector3 targetPos, float playerHorz, float playerVert) //add player vert as argument
@@ -76,19 +76,20 @@ public class TransitionScreen : MonoBehaviour
 			yield return 0;
 		}
 		
-		playerMovement.playerTransform.position = new Vector3(playerHorz, playerVert, playerMovement.playerTransform.position.z);
-		playerMovement.movementDisabled = false;
-
-        // networkedPlayerMovement.playerTransform.position = new Vector3(playerHorz, playerVert, networkedPlayerMovement.playerTransform.position.z);
-		// networkedPlayerMovement.movementDisabled = false;
+        if (!networkedPlayerMovement)
+		{
+            playerMovement.playerTransform.position = new Vector3(playerHorz, playerVert, playerMovement.playerTransform.position.z);
+		    playerMovement.movementDisabled = false;
+        }
+        else
+        {
+            networkedPlayerMovement.playerTransform.position = new Vector3(playerHorz, playerVert, networkedPlayerMovement.playerTransform.position.z);
+		    networkedPlayerMovement.movementDisabled = false;
+        }
 	}
 
     public void SetPlayerTarget(Transform player)
     {
-        // playerTarget = player;
-        // playerMovement = playerTarget.GetComponent<PlayerMovement>();
-        // playerBehavior = playerTarget.GetComponent<PlayerBehavior>();
-
         playerTarget = player;
         networkedPlayerMovement = playerTarget.GetComponent<NetworkedPlayerMovement>();
         networkedPlayerBehavior = playerTarget.GetComponent<NetworkedPlayerBehavior>();
