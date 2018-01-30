@@ -18,9 +18,13 @@ public class FurnaceBehavior : MonoBehaviour
     public bool moveLeft = false;
     public bool moveRight = false;
 
+    // private BoxCollider2D furnaceTrigger;
+    // public FurnaceCollisionCheck leftCheck, rightCheck, topCheck, bottomCheck;
+
     void Start ()
     {
         FurnaceBehaviorReference = this;
+        // furnaceTrigger = GetComponent<BoxCollider2D>();
     }
 
 
@@ -31,6 +35,15 @@ public class FurnaceBehavior : MonoBehaviour
             doMove = true;
             StartCoroutine("MoveFurnace");
             FlickFuel.doStartGame = false;
+
+            // if (leftCheck.WasActivated() || rightCheck.WasActivated() || topCheck.WasActivated())
+            // {
+            //     furnaceTrigger.enabled = false;
+            // }
+            // else if (bottomCheck.WasActivated())
+            // {
+            //     furnaceTrigger.enabled = true;
+            // }
         }
 
         if (moveLeft)

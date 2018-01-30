@@ -60,3 +60,6 @@ TagManager:
   - name: Players
     uniqueID: 725068327
     locked: 0
+  - name: EndMiniGameElements
+    uniqueID: 3401312483
+    locked: 0
