@@ -43,7 +43,7 @@ public class PinchPoint : MonoBehaviour
 
 				// Find the difference in the distances between each frame.
 				float deltaMagnitudeDiff = prevTouchDeltaMag - touchDeltaMag;
-				Debug.Log("Pinch Delta: " + deltaMagnitudeDiff);
+				// Debug.Log("Pinch Delta: " + deltaMagnitudeDiff);
 
 				pinchComparison = outwardPinch ? (deltaMagnitudeDiff <= -pinchThreshold) : (deltaMagnitudeDiff >= pinchThreshold);
 
@@ -81,5 +81,10 @@ public class PinchPoint : MonoBehaviour
 	public void EnableImage ()
 	{
 		if (isVisible) pinchPointImage.enabled = true;
+	}
+
+	public void DisableImage()
+	{
+		if (isVisible) pinchPointImage.enabled = false;
 	}
 }

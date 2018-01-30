@@ -4014,6 +4014,28 @@ Prefab:
       propertyPath: tableObjThree
       value: 
       objectReference: {fileID: 1187198706}
+    - target: {fileID: 1098471175702900, guid: c4c09c191e59947d48a46bf8d8f6d014, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1889385190713384, guid: c4c09c191e59947d48a46bf8d8f6d014, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1044357770771804, guid: c4c09c191e59947d48a46bf8d8f6d014, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114580029475083388, guid: c4c09c191e59947d48a46bf8d8f6d014,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114525199194949088, guid: c4c09c191e59947d48a46bf8d8f6d014,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114480077079235964, guid: c4c09c191e59947d48a46bf8d8f6d014, type: 2}
     - {fileID: 114523534908170114, guid: c4c09c191e59947d48a46bf8d8f6d014, type: 2}
@@ -12899,7 +12921,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1069044117}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 23.79, y: -0.93, z: 0}
+  m_LocalPosition: {x: 70, y: -0.93, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -17691,7 +17713,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '''Stache Roll'
+  m_Text: Mustache Roll
 --- !u!222 &1532607460
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -18195,7 +18217,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1574455507}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 20, y: 0, z: -10}
+  m_LocalPosition: {x: 70, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

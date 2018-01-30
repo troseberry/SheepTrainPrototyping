@@ -35,10 +35,10 @@ public class MustacheRoll : MiniGameScript
 			
 			if (!isComplete)
 			{
-				if (pinchPointCenter.IsPinchPointDone() &&!pinchPointLeft.IsPinchPointDone())
+				if (pinchPointCenter.IsPinchPointDone())
 				{
-					pinchPointLeft.transform.gameObject.SetActive(true);
-					pinchPointRight.transform.gameObject.SetActive(true);
+					if (!pinchPointLeft.IsPinchPointDone())pinchPointLeft.EnableImage();
+					if (!pinchPointRight.IsPinchPointDone()) pinchPointRight.EnableImage();
 				}
 			}
 		}
@@ -57,9 +57,9 @@ public class MustacheRoll : MiniGameScript
 		pinchPointLeft.ResetPinchPoint();
 		pinchPointRight.ResetPinchPoint();
 
-		pinchPointCenter.transform.gameObject.SetActive(true);
-		pinchPointLeft.transform.gameObject.SetActive(false);
-		pinchPointRight.transform.gameObject.SetActive(false);
+		pinchPointCenter.EnableImage();
+		pinchPointLeft.DisableImage();
+		pinchPointRight.DisableImage();
 
 		isComplete = false;
 		doStartGame = true;
