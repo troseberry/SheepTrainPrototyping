@@ -49,14 +49,14 @@ public class WakeGuests : MiniGameScript
 	
 	void Update () 
 	{
-		if (MiniGameManager.IsInGame() && doStartGame)
+		if (PlayerMiniGameHandler.IsInGame() && doStartGame)
 		{
 			RandomizeGuestTimes();
 			StartCoroutine("StartGuestCycle");
 			doStartGame = false;
 		}
 
-		if (failedEarly || MiniGameManager.timer == 0) EndGame();
+		if (failedEarly || PlayerMiniGameHandler.timer == 0) EndGame();
 
 
 		if (doLerpGuestGroup)
@@ -81,7 +81,7 @@ public class WakeGuests : MiniGameScript
 	{
 		StartCoroutine("CycleGuestGroup");
 		yield return null;
-		if (failedEarly || MiniGameManager.timer == 0) StopCoroutine("CycleGuestGroup");
+		if (failedEarly || PlayerMiniGameHandler.timer == 0) StopCoroutine("CycleGuestGroup");
 	}
 
 
@@ -147,7 +147,7 @@ public class WakeGuests : MiniGameScript
 	{
 		StopCoroutine("StartGuestCycle");
 
-		MiniGameManager.EndMiniGame(!failedEarly);
+		PlayerMiniGameHandler.EndMiniGame(!failedEarly);
 	}
 
 	public override void ResetGame()

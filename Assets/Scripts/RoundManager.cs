@@ -1,0 +1,101 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+//this should exist on the host/server. all playerminigamehanglers should edit this and be edited by this
+
+public class RoundManager : MonoBehaviour 
+{
+	public static RoundManager RoundManagerReference;
+
+	private float roundTimer = 95f;
+
+	private float generationTimer;
+
+    private static MiniGameScript[] minigameScripts;
+	private static List<int> inactiveGameIndexes;
+
+	private bool roundHasStarted = false;
+
+	void Start () 
+	{
+		RoundManagerReference = this;
+	}
+	
+	void Update () 
+	{
+		DebugPanel.Log("Round Timer:", "Round Logic", roundTimer);
+		if (roundTimer > 0)
+		{
+			roundTimer -= Time.deltaTime;
+		}
+		else if (roundTimer <= 0)
+		{
+			roundTimer = 0;
+		}
+
+		if (roundTimer <= 90 && !roundHasStarted)
+		{
+			roundHasStarted = true;
+			StartCoroutine("GenerateTask");
+		}
+
+
+		DebugPanel.Log("Inactive Count: ", "Round Logic", inactiveGameIndexes.Count);
+	}
+
+
+	public void StartRound()
+	{
+		roundTimer = 90f;
+	}
+
+	public void EndRound()
+	{
+
+	}
+
+	IEnumerator GenerateTask()
+	{
+		while (roundTimer > 0)
+		{
+			ChooseTask();
+			yield return new WaitForSeconds(5f);
+		}
+	}
+
+	void ChooseTask()
+	{
+		if (inactiveGameIndexes.Count > 0)
+		{
+			int chosenIndex = inactiveGameIndexes[Random.Range(0, inactiveGameIndexes.Count)];
+
+			PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[chosenIndex].isActive = true;
+
+			Debug.Log("Choose: " + minigameScripts[chosenIndex].gameObject.name);
+
+			inactiveGameIndexes.Remove(chosenIndex);
+		}
+		else
+		{
+			//end round
+			StopCoroutine("GenerateTask");
+			Debug.Log("Stopped Generating. Empty List");
+		}
+	}
+
+	public static void SetMiniGameScripts(MiniGameScript[] scripts)
+	{
+		minigameScripts = scripts;
+		inactiveGameIndexes = new List<int> {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14};
+	}
+
+	public static void SetMiniGameStatusInactive(int gameIndex)
+	{
+		if (!inactiveGameIndexes.Contains(gameIndex))
+		{
+			inactiveGameIndexes.Add(gameIndex);
+			Debug.Log(minigameScripts[gameIndex].gameObject.name + " Added Back: " + gameIndex);
+		}
+	}
+}

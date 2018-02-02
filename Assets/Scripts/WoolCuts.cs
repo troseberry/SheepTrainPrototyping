@@ -42,15 +42,15 @@ public class WoolCuts : MiniGameScript
 		// Debug.Log("Started Trace: " + startedTrace);
 		// Debug.Log("Do Start Game: " + doStartGame);
 
-		if (!isComplete && MiniGameManager.IsInGame() && doStartGame)
+		if (!isComplete && PlayerMiniGameHandler.IsInGame() && doStartGame)
 		{
 			GenerateTraceImage();
 			doStartGame = false;
 		}
 
-		if (isComplete || MiniGameManager.timer == 0) EndGame();
+		if (isComplete || PlayerMiniGameHandler.timer == 0) EndGame();
 
-		if (MiniGameManager.timer > 0) isComplete = (tracedZones.Count == 16);
+		if (PlayerMiniGameHandler.timer > 0) isComplete = (tracedZones.Count == 16);
 	}
 
 	void GenerateTraceImage()
@@ -62,7 +62,7 @@ public class WoolCuts : MiniGameScript
 
 	public void TracingImage()
 	{
-		if (MiniGameManager.timer > 0)
+		if (PlayerMiniGameHandler.timer > 0)
 		{
 			if (pointerIsOver)
 			{
@@ -95,7 +95,7 @@ public class WoolCuts : MiniGameScript
 
 	public void StoppedTracing()
 	{
-		if (MiniGameManager.timer > 0)
+		if (PlayerMiniGameHandler.timer > 0)
 		{
 			if (tracedZones.Count != 16)
 			{
@@ -171,7 +171,7 @@ public class WoolCuts : MiniGameScript
 
 	void EndGame()
 	{
-		MiniGameManager.EndMiniGame(isComplete);
+		PlayerMiniGameHandler.EndMiniGame(isComplete);
 	}
 
 	public override void ResetGame()

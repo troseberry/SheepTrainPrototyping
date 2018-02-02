@@ -30,13 +30,13 @@ public class SheepJump : MiniGameScript
 
     void Update ()
     {
-        if (MiniGameManager.IsInGame() && doStartGame)
+        if (PlayerMiniGameHandler.IsInGame() && doStartGame)
         {
             StartCoroutine(StartSpawnSheep());
             doStartGame = false;
         }
 
-        if (failedEarly || MiniGameManager.timer == 0) EndGame();
+        if (failedEarly || PlayerMiniGameHandler.timer == 0) EndGame();
 	}
 
 
@@ -46,14 +46,14 @@ public class SheepJump : MiniGameScript
     {
         StartCoroutine("SpawnSheep");
         yield return null;
-        if (failedEarly || MiniGameManager.timer == 0) StopCoroutine("SpawnSheep");
+        if (failedEarly || PlayerMiniGameHandler.timer == 0) StopCoroutine("SpawnSheep");
         
     }
 
 
     IEnumerator SpawnSheep()
     {
-        while (MiniGameManager.IsInGame())
+        while (PlayerMiniGameHandler.IsInGame())
         {
             //sheep_01 is already active at start
             yield return new WaitForSeconds(1.25f);
@@ -80,7 +80,7 @@ public class SheepJump : MiniGameScript
         fakePassenger.enabled = true;
         fakeGround.enabled = true;
 
-        MiniGameManager.EndMiniGame(!failedEarly);
+        PlayerMiniGameHandler.EndMiniGame(!failedEarly);
     }
 
     public override void ResetGame()

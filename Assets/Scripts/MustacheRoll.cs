@@ -24,12 +24,12 @@ public class MustacheRoll : MiniGameScript
 	
 	void Update ()
 	{
-		if (!isComplete && MiniGameManager.IsInGame() && doStartGame)
+		if (!isComplete && PlayerMiniGameHandler.IsInGame() && doStartGame)
 		{
 			doStartGame = false;
 		}
 
-		if (MiniGameManager.timer > 0)
+		if (PlayerMiniGameHandler.timer > 0)
 		{
 			isComplete = (pinchPointCenter.IsPinchPointDone() && pinchPointRight.IsPinchPointDone() && pinchPointLeft.IsPinchPointDone());
 			
@@ -43,12 +43,12 @@ public class MustacheRoll : MiniGameScript
 			}
 		}
 
-		if (isComplete || MiniGameManager.timer == 0f) EndGame();
+		if (isComplete || PlayerMiniGameHandler.timer == 0f) EndGame();
 	}
 
 	void EndGame()
 	{
-		MiniGameManager.EndMiniGame(isComplete);
+		PlayerMiniGameHandler.EndMiniGame(isComplete);
 	}
 
 	public override void ResetGame()

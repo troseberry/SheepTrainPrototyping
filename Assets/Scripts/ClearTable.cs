@@ -34,14 +34,14 @@ public class ClearTable : MiniGameScript
 	
 	void Update () 
 	{
-		if (!isComplete && MiniGameManager.IsInGame() && doStartGame)
+		if (!isComplete && PlayerMiniGameHandler.IsInGame() && doStartGame)
 		{
 			doStartGame = false;
 		}
 
-		if (MiniGameManager.timer > 0) isComplete = (boostOne && boostTwo && boostThree);
+		if (PlayerMiniGameHandler.timer > 0) isComplete = (boostOne && boostTwo && boostThree);
 
-		if (isComplete || MiniGameManager.timer == 0f) EndGame();
+		if (isComplete || PlayerMiniGameHandler.timer == 0f) EndGame();
 
 
 
@@ -91,7 +91,7 @@ public class ClearTable : MiniGameScript
 
 	void EndGame()
 	{
-		MiniGameManager.EndMiniGame(isComplete);
+		PlayerMiniGameHandler.EndMiniGame(isComplete);
 	}
 
 	public override void ResetGame()
