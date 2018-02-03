@@ -11,6 +11,7 @@ public class RoundManager : MonoBehaviour
 	private float roundTimer = 95f;
 
 	private float generationTimer;
+	public static float timeBeforeDeletion = 8f;
 
     private static MiniGameScript[] minigameScripts;
 	private static List<int> inactiveGameIndexes;
@@ -24,7 +25,6 @@ public class RoundManager : MonoBehaviour
 	
 	void Update () 
 	{
-		DebugPanel.Log("Round Timer:", "Round Logic", roundTimer);
 		if (roundTimer > 0)
 		{
 			roundTimer -= Time.deltaTime;
@@ -41,7 +41,16 @@ public class RoundManager : MonoBehaviour
 		}
 
 
+
+
+		DebugPanel.Log("Round Timer:", "Round Logic", roundTimer);
+
 		DebugPanel.Log("Inactive Count: ", "Round Logic", inactiveGameIndexes.Count);
+
+		for (int i = 0; i < minigameScripts.Length; i++)
+		{
+			DebugPanel.Log(minigameScripts[i].gameObject.name, "Mini Game Scripts", " Status: [A]" + minigameScripts[i].isActive + " [BP]" + minigameScripts[i].isBeingPlayed);
+		}
 	}
 
 
@@ -71,6 +80,8 @@ public class RoundManager : MonoBehaviour
 			int chosenIndex = inactiveGameIndexes[Random.Range(0, inactiveGameIndexes.Count)];
 
 			PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[chosenIndex].isActive = true;
+
+			StartCoroutine(PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[chosenIndex].DeleteTask());
 
 			Debug.Log("Choose: " + minigameScripts[chosenIndex].gameObject.name);
 

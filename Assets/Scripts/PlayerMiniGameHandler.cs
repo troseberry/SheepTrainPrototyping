@@ -85,6 +85,11 @@ public class PlayerMiniGameHandler : MonoBehaviour
             takeInventoryGame.GetComponent<MiniGameScript>(), checkTicketsGame.GetComponent<MiniGameScript>(), saveSheepGame.GetComponent<MiniGameScript>()
         };
 
+        for (int i = 0; i < minigameScripts.Length; i++)
+        {
+            minigameScripts[i].gameIndex = (i - 1);
+        }
+
         //only do this on the host/server
         RoundManager.SetMiniGameScripts(minigameScripts);
 	}
