@@ -87,7 +87,7 @@ public class PlayerMiniGameHandler : MonoBehaviour
 
         for (int i = 0; i < minigameScripts.Length; i++)
         {
-            minigameScripts[i].gameIndex = (i - 1);
+            minigameScripts[i].gameIndex = i;
         }
 
         //only do this on the host/server
@@ -140,8 +140,9 @@ public class PlayerMiniGameHandler : MonoBehaviour
         failText.SetActive(false);
         endGameOverlay.SetActive(false);
 
-        minigameScripts[currentGameIndex].isActive = false;
-        minigameScripts[currentGameIndex].isBeingPlayed = false;
+        // minigameScripts[currentGameIndex].isActive = false;
+        // minigameScripts[currentGameIndex].isBeingPlayed = false;
+        minigameScripts[currentGameIndex].SetGameInactive();
 
         RoundManager.SetMiniGameStatusInactive(currentGameIndex);
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 // using UnityEngine.Networking;
 
 
@@ -12,11 +13,6 @@ public class MiniGameScript : MonoBehaviour
 	public virtual float GetTimeLimit() {return 0f;}
 	public virtual void ResetGame(){}
 
-	public void SetActive()
-	{
-		isActive = true;
-		deletionTimer = RoundManager.timeBeforeDeletion;
-	}
 
 	public int gameIndex;
 
@@ -25,6 +21,24 @@ public class MiniGameScript : MonoBehaviour
 
 	private float deletionTimer;
 
+	public Image activeImage;
+	public Image inactiveImage;
+
+	public void SetGameActive()
+	{
+		isActive = true;
+		if (activeImage) activeImage.enabled = true;
+		if (inactiveImage) inactiveImage.enabled = false;
+	}
+
+	public void SetGameInactive()
+	{
+		isActive = false;
+		isBeingPlayed = false;
+
+		if (activeImage) activeImage.enabled = false;
+		if (inactiveImage) inactiveImage.enabled = true;
+	}
 
 	public IEnumerator DeleteTask()
 	{
@@ -33,7 +47,7 @@ public class MiniGameScript : MonoBehaviour
 
 		if (!isBeingPlayed)
 		{
-			isActive = false;
+			SetGameInactive();
 			RoundManager.SetMiniGameStatusInactive(gameIndex);
 
 			Debug.Log(gameObject.name + " Task Deleted");

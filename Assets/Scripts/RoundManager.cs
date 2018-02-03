@@ -47,6 +47,13 @@ public class RoundManager : MonoBehaviour
 
 		DebugPanel.Log("Inactive Count: ", "Round Logic", inactiveGameIndexes.Count);
 
+		string inactive = "";
+		for (int i = 0; i < inactiveGameIndexes.Count; i ++)
+		{
+			inactive += (inactiveGameIndexes[i] + ", ");
+		}
+		DebugPanel.Log("Inactive List: ", "Round Logic",inactive);
+
 		for (int i = 0; i < minigameScripts.Length; i++)
 		{
 			DebugPanel.Log(minigameScripts[i].gameObject.name, "Mini Game Scripts", " Status: [A]" + minigameScripts[i].isActive + " [BP]" + minigameScripts[i].isBeingPlayed);
@@ -79,11 +86,12 @@ public class RoundManager : MonoBehaviour
 		{
 			int chosenIndex = inactiveGameIndexes[Random.Range(0, inactiveGameIndexes.Count)];
 
-			PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[chosenIndex].isActive = true;
+			Debug.Log("Chosen Index: " + chosenIndex);
+			PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[chosenIndex].SetGameActive();
 
 			StartCoroutine(PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[chosenIndex].DeleteTask());
 
-			Debug.Log("Choose: " + minigameScripts[chosenIndex].gameObject.name);
+			Debug.Log("Chose: " + minigameScripts[chosenIndex].gameObject.name);
 
 			inactiveGameIndexes.Remove(chosenIndex);
 		}
@@ -107,6 +115,10 @@ public class RoundManager : MonoBehaviour
 		{
 			inactiveGameIndexes.Add(gameIndex);
 			Debug.Log(minigameScripts[gameIndex].gameObject.name + " Added Back: " + gameIndex);
+		}
+		else
+		{
+			Debug.Log("List already contains index: " + gameIndex);
 		}
 	}
 }
