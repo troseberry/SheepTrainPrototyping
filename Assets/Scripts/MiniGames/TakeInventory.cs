@@ -3,25 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CheckInventory : MiniGameScript 
+public class TakeInventory : MiniGameScript 
 {
-	public static CheckInventory CheckInventoryReference;
+	public static TakeInventory CheckInventoryReference;
 	public static float timeLimit = 5.0f;
 	bool isComplete = false;
 
-	int squareCount = 4;
-	int circleCount = 4;
-	int redCount = 4;
-	int greenCount = 4;
-	int smallCount = 4;
-	int largeCount = 4;
+	private int squareCount = 4;
+	private int circleCount = 4;
+	private int redCount = 4;
+	private int greenCount = 4;
+	private int smallCount = 4;
+	private int largeCount = 4;
 
-	int countedSquare = 0;
-	int countedCircle = 0;
-	int countedRed = 0;
-	int countedGreen = 0;
-	int countedSmall = 0;
-	int countedLarge = 0;
+	private int countedSquare = 0;
+	private int countedCircle = 0;
+	private int countedRed = 0;
+	private int countedGreen = 0;
+	private int countedSmall = 0;
+	private int countedLarge = 0;
 
 
 	GridPosition[] gridPositions;

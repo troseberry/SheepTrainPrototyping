@@ -40,6 +40,7 @@ public class MiniGameScript : MonoBehaviour
 		if (inactiveImage) inactiveImage.enabled = true;
 	}
 
+	// Need to stop deletion if the task gets "answered"
 	public IEnumerator DeleteTask()
 	{
 		Debug.Log(gameObject.name + " Deletion in " + RoundManager.timeBeforeDeletion + " Seconds...");

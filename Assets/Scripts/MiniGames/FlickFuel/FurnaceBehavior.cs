@@ -30,7 +30,7 @@ public class FurnaceBehavior : MonoBehaviour
 
     void Update ()
     {
-        if (MiniGameManager.IsInGame() && FlickFuel.doStartGame)
+        if (PlayerMiniGameHandler.IsInGame() && FlickFuel.doStartGame)
         {
             doMove = true;
             StartCoroutine("MoveFurnace");

@@ -20,14 +20,14 @@ public class SweepWool : MiniGameScript
 	
 	void Update () 
 	{
-		if (!isComplete && MiniGameManager.IsInGame() && doStartGame)
+		if (!isComplete && PlayerMiniGameHandler.IsInGame() && doStartGame)
 		{
 			doStartGame = false;
 		}
 		
-		if (isComplete || MiniGameManager.timer == 0) EndGame();
+		if (isComplete || PlayerMiniGameHandler.timer == 0) EndGame();
 
-		if (MiniGameManager.timer > 0) isComplete = (sweptCount == woolObjects.Length);
+		if (PlayerMiniGameHandler.timer > 0) isComplete = (sweptCount == woolObjects.Length);
 	}
 
 	public static void IncrementSweptCount() { sweptCount ++; }
@@ -35,7 +35,7 @@ public class SweepWool : MiniGameScript
 
 	void EndGame()
 	{
-		MiniGameManager.EndMiniGame(isComplete);
+		PlayerMiniGameHandler.EndMiniGame(isComplete);
 	}
 
 	public override void ResetGame()
