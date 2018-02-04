@@ -18,6 +18,10 @@ public class SpeedLevers : MiniGameScript
     public static SpeedLevers SpeedLeversReference;
     public static float timeLimit = 3.0f;
 
+    private bool isComplete = false;
+    private bool doStartGame = true;
+    private bool didEndGame = false;
+
 	int matchPos_01 = 0;
 	int matchPos_02 = 0;
 	int matchPos_03 = 0;
@@ -33,9 +37,6 @@ public class SpeedLevers : MiniGameScript
 	bool leverOneDone;
 	bool leverTwoDone;
 	bool leverThreeDone;
-
-    bool isComplete = false;
-    bool doStartGame = true;
 
 	void Start () 
 	{
@@ -65,7 +66,11 @@ public class SpeedLevers : MiniGameScript
 
 		if (PlayerMiniGameHandler.timer > 0) isComplete = (leverOneDone && leverTwoDone && leverThreeDone);
 
-        if (isComplete || PlayerMiniGameHandler.timer == 0f) EndGame();
+        if ((isComplete || PlayerMiniGameHandler.timer == 0f) && !didEndGame)
+        {
+            EndGame();
+            didEndGame = true;
+        }
 	}
 
     void RandomizeMatchLeverPosition()
@@ -112,8 +117,7 @@ public class SpeedLevers : MiniGameScript
         matchText_03.GetChild(0).GetComponent<Text>().enabled = false;
         matchText_03.GetChild(1).GetComponent<Text>().enabled = false;
 
-        isComplete = false;
-
+    
         lever_01.value = 0;
         lever_02.value = 0;
         lever_03.value = 0;
@@ -122,7 +126,9 @@ public class SpeedLevers : MiniGameScript
         leverTwoDone = false;
         leverThreeDone = false;
 
+        isComplete = false;
         doStartGame = true;
+        didEndGame = false;
     }
 
     public override float GetTimeLimit() { return timeLimit; }

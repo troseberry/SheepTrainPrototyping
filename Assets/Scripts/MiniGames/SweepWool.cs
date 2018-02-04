@@ -6,12 +6,14 @@ public class SweepWool : MiniGameScript
 {
 	public static SweepWool SweepWoolReference;
 	public static float timeLimit = 3f;
-	private bool isComplete;
+
+	private bool isComplete = false;
+	private bool doStartGame = true;
+	private bool didEndGame = false;
 
 	public GameObject[] woolObjects;
 	private static int sweptCount = 0;
 
-	private bool doStartGame = true;
 
 	void Start () 
 	{
@@ -25,9 +27,13 @@ public class SweepWool : MiniGameScript
 			doStartGame = false;
 		}
 		
-		if (isComplete || PlayerMiniGameHandler.timer == 0) EndGame();
-
 		if (PlayerMiniGameHandler.timer > 0) isComplete = (sweptCount == woolObjects.Length);
+
+		if ((isComplete || PlayerMiniGameHandler.timer == 0) && !didEndGame)
+		{
+			EndGame();
+			didEndGame = true;
+		}
 	}
 
 	public static void IncrementSweptCount() { sweptCount ++; }
@@ -50,6 +56,7 @@ public class SweepWool : MiniGameScript
 		
 		isComplete = false;
 		doStartGame = true;
+		didEndGame = false;
 	}
 
 	public override float GetTimeLimit() { return timeLimit; }

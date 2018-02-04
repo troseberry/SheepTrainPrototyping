@@ -8,14 +8,15 @@ public class PressureValve : MiniGameScript
     public static PressureValve PressureValveReference;
     public static float timeLimit = 3.0f;
 
+    private bool isComplete = false;
+    private bool doStartGame = true;
+    private bool didEndGame = false;
+
     public Slider currentPressureSlider;
     public Slider matchPressureSlider;
 
     int startingPressureAmount;
     int matchPressureAmount;
-
-    bool isComplete = false;
-    bool doStartGame = true;
 
     void Start()
     {
@@ -35,7 +36,11 @@ public class PressureValve : MiniGameScript
 
         if (PlayerMiniGameHandler.timer > 0) isComplete = (currentPressureSlider.value <= matchPressureSlider.value);
 
-        if (isComplete || PlayerMiniGameHandler.timer == 0f) EndGame();
+        if ((isComplete || PlayerMiniGameHandler.timer == 0f) && !didEndGame)
+        {
+            EndGame();
+            didEndGame = true;
+        }
     }
 
     void RandomizePressure()
@@ -58,6 +63,7 @@ public class PressureValve : MiniGameScript
     {
         doStartGame = true;
         isComplete = false;
+        didEndGame = false;
 
         RandomizePressure();
     }

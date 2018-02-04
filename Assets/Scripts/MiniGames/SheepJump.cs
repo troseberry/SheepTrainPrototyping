@@ -8,6 +8,10 @@ public class SheepJump : MiniGameScript
     public static SheepJump SheepJumpReference;
     public static float timeLimit = 7.5f;
 
+    private bool doStartGame = true;
+    private bool failedEarly = false;
+    private bool didEndGame = false;
+
     public GameObject sheep_01;
     public GameObject sheep_02;
     public GameObject sheep_03;
@@ -18,9 +22,6 @@ public class SheepJump : MiniGameScript
     public SpriteRenderer ground;
     public RawImage fakePassenger;
     public RawImage fakeGround;
-
-    bool doStartGame = true;
-    public bool failedEarly = false;
 
     void Start ()
     {
@@ -36,7 +37,11 @@ public class SheepJump : MiniGameScript
             doStartGame = false;
         }
 
-        if (failedEarly || PlayerMiniGameHandler.timer == 0) EndGame();
+        if ((failedEarly || PlayerMiniGameHandler.timer == 0) && !didEndGame)
+        {
+            EndGame();
+            didEndGame = true;
+        }
 	}
 
 
@@ -87,6 +92,7 @@ public class SheepJump : MiniGameScript
     {
         doStartGame = true;
         failedEarly = false;
+        didEndGame = false;
 
         passenger.enabled = true;
         ground.enabled = true;
@@ -107,4 +113,8 @@ public class SheepJump : MiniGameScript
     }
 
     public override float GetTimeLimit() { return timeLimit; }
+
+    public static bool GetFailedEarly() { return SheepJumpReference.failedEarly; }
+
+    public static void SetFailedEarly(bool fail) { SheepJumpReference.failedEarly = fail; }
 }

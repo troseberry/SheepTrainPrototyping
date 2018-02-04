@@ -28,13 +28,13 @@ public class JumpingSheepBehavior : MonoBehaviour
         else if (other.gameObject.name == "Passenger")
         {
             gameObject.SetActive(false);
-            SheepJump.SheepJumpReference.failedEarly = true;
+            SheepJump.SetFailedEarly(true);
         }
     }
 
     void FixedUpdate()
     {
-        if (!SheepJump.SheepJumpReference.failedEarly)
+        if (!SheepJump.GetFailedEarly())
         {
             sheepRigidbody.velocity = new Vector2(6.5f, sheepRigidbody.velocity.y);
 

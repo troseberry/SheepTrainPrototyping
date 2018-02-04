@@ -6,13 +6,14 @@ public class SaveSheep : MiniGameScript
 {
 	public static SaveSheep SaveSheepReference;
 	public static float timeLimit = 3f;
-	private bool isComplete;
 
+	private bool isComplete = false;
+	private bool doStartGame = true;
+	private bool didEndGame = false;
+	
 	public Transform sheepArm;
 	private bool doMove =  true;
 	private int swipeCount = 0;
-
-	bool doStartGame;
 
 	void Start () 
 	{
@@ -27,6 +28,14 @@ public class SaveSheep : MiniGameScript
 			// swipeCount = 0;
 			// sheepArm.localPosition = new Vector2(1000, 0);
 			doStartGame = false;
+		}
+
+		if (PlayerMiniGameHandler.timer > 0) isComplete = (swipeCount >= 3);
+
+		if ((isComplete || PlayerMiniGameHandler.timer == 0f) && !didEndGame)
+		{
+			EndGame();
+			didEndGame = true;
 		}
 
 		// SWIPE INPUT
@@ -44,10 +53,6 @@ public class SaveSheep : MiniGameScript
 		{
 			doMove = true;
 		}
-		
-		if (PlayerMiniGameHandler.timer > 0) isComplete = (swipeCount >= 3);
-
-		if (isComplete || PlayerMiniGameHandler.timer == 0f) EndGame();
 	}
 
 	void EndGame()
@@ -60,8 +65,10 @@ public class SaveSheep : MiniGameScript
 	public override void ResetGame()
 	{
 		swipeCount = 0;
+
 		isComplete = false;
 		doStartGame = true;
+		didEndGame = false;
 	}
 
 	void DelayResetTransform()

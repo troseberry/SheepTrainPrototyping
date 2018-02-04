@@ -7,7 +7,10 @@ public class TakeInventory : MiniGameScript
 {
 	public static TakeInventory CheckInventoryReference;
 	public static float timeLimit = 5.0f;
-	bool isComplete = false;
+
+	private bool isComplete = false;
+	private bool doStartGame = true;
+	private bool didEndGame = false;
 
 	private int squareCount = 4;
 	private int circleCount = 4;
@@ -39,8 +42,6 @@ public class TakeInventory : MiniGameScript
 
 
 	bool correctShape, correctColor, correctSize;
-	
-	bool doStartGame = true;
 
 	void Start () 
 	{
@@ -78,7 +79,11 @@ public class TakeInventory : MiniGameScript
 
 		if (PlayerMiniGameHandler.timer > 0) isComplete = (correctShape && correctColor && correctSize);
 
-		if (isComplete || PlayerMiniGameHandler.timer == 0f) EndGame();
+		if ((isComplete || PlayerMiniGameHandler.timer == 0f) && !didEndGame)
+		{
+			EndGame();
+			didEndGame = true;
+		}
 	}
 
 	void RandomizeItems()
@@ -295,7 +300,9 @@ public class TakeInventory : MiniGameScript
 		colorCountText.text = currentColorCount;
 		sizeCountText.text = currentSizeCount;
 
+		isComplete = false;
 		doStartGame = true;
+		didEndGame = false;
 	}
 
 	public override float GetTimeLimit() { return timeLimit; }

@@ -259,9 +259,11 @@ public class RoundManager : MonoBehaviour
 		Debug.Log("Speed Levers Deletion in " + RoundManager.timeBeforeDeletion + " Seconds...");
 
 		yield return new WaitForSeconds(timeBeforeDeletion);
-		
+
+		ChaosManager.FailedTask();
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[0].SetGameInactive();
 		SetMiniGameStatusInactive(0);
+
 		Debug.Log("Deleted Speed Levers");
 	}
 
@@ -271,8 +273,10 @@ public class RoundManager : MonoBehaviour
 
 		yield return new WaitForSeconds(timeBeforeDeletion);
 		
+		ChaosManager.FailedTask();
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[1].SetGameInactive();
 		SetMiniGameStatusInactive(1);
+
 		Debug.Log("Deleted Pressure Valve");
 	}
 
@@ -282,9 +286,10 @@ public class RoundManager : MonoBehaviour
 
 		yield return new WaitForSeconds(timeBeforeDeletion);
 		
-		
+		ChaosManager.FailedTask();
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[2].SetGameInactive();
 		SetMiniGameStatusInactive(2);
+
 		Debug.Log("Deleted Flick Fuel");
 	}
 
@@ -294,8 +299,10 @@ public class RoundManager : MonoBehaviour
 
 		yield return new WaitForSeconds(timeBeforeDeletion);
 		
+		ChaosManager.FailedTask();
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[3].SetGameInactive();
 		SetMiniGameStatusInactive(3);
+
 		Debug.Log("Deleted Soup Fly");
 	}
 
@@ -305,8 +312,10 @@ public class RoundManager : MonoBehaviour
 
 		yield return new WaitForSeconds(timeBeforeDeletion);
 		
+		ChaosManager.FailedTask();
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[4].SetGameInactive();
 		SetMiniGameStatusInactive(4);
+
 		Debug.Log("Deleted Clear Table");
 	}
 
@@ -316,8 +325,10 @@ public class RoundManager : MonoBehaviour
 
 		yield return new WaitForSeconds(timeBeforeDeletion);
 		
+		ChaosManager.FailedTask();
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[5].SetGameInactive();
 		SetMiniGameStatusInactive(5);
+
 		Debug.Log("Deleted Serve Tea");
 	}
 
@@ -327,8 +338,10 @@ public class RoundManager : MonoBehaviour
 
 		yield return new WaitForSeconds(timeBeforeDeletion);
 		
+		ChaosManager.FailedTask();
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[6].SetGameInactive();
 		SetMiniGameStatusInactive(6);
+
 		Debug.Log("Deleted Wool Cuts");
 	}
 
@@ -338,8 +351,10 @@ public class RoundManager : MonoBehaviour
 
 		yield return new WaitForSeconds(timeBeforeDeletion);
 		
+		ChaosManager.FailedTask();
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[7].SetGameInactive();
 		SetMiniGameStatusInactive(7);
+
 		Debug.Log("Deleted Mustache Roll");
 	}
 
@@ -349,8 +364,10 @@ public class RoundManager : MonoBehaviour
 
 		yield return new WaitForSeconds(timeBeforeDeletion);
 		
+		ChaosManager.FailedTask();
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[8].SetGameInactive();
 		SetMiniGameStatusInactive(8);
+
 		Debug.Log("Deleted Sweep Wool");
 	}
 
@@ -360,8 +377,10 @@ public class RoundManager : MonoBehaviour
 
 		yield return new WaitForSeconds(timeBeforeDeletion);
 		
+		ChaosManager.FailedTask();
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[9].SetGameInactive();
 		SetMiniGameStatusInactive(9);
+
 		Debug.Log("Deleted Sheep Jump");
 	}
 
@@ -371,8 +390,10 @@ public class RoundManager : MonoBehaviour
 
 		yield return new WaitForSeconds(timeBeforeDeletion);
 		
+		ChaosManager.FailedTask();
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[10].SetGameInactive();
 		SetMiniGameStatusInactive(10);
+
 		Debug.Log("Deleted Wake Guests");
 	}
 
@@ -382,8 +403,10 @@ public class RoundManager : MonoBehaviour
 
 		yield return new WaitForSeconds(timeBeforeDeletion);
 		
+		ChaosManager.FailedTask();
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[11].SetGameInactive();
 		SetMiniGameStatusInactive(11);
+
 		Debug.Log("Deleted Make Beds");
 	}
 
@@ -393,8 +416,10 @@ public class RoundManager : MonoBehaviour
 
 		yield return new WaitForSeconds(timeBeforeDeletion);
 		
+		ChaosManager.FailedTask();
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[12].SetGameInactive();
 		SetMiniGameStatusInactive(12);
+
 		Debug.Log("Deleted Take Inventory");
 	}
 
@@ -404,8 +429,10 @@ public class RoundManager : MonoBehaviour
 
 		yield return new WaitForSeconds(timeBeforeDeletion);
 		
+		ChaosManager.FailedTask();
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[13].SetGameInactive();
 		SetMiniGameStatusInactive(13);
+
 		Debug.Log("Deleted Check Tickets");
 	}
 
@@ -415,8 +442,10 @@ public class RoundManager : MonoBehaviour
 
 		yield return new WaitForSeconds(timeBeforeDeletion);
 		
+		ChaosManager.FailedTask();
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[14].SetGameInactive();
 		SetMiniGameStatusInactive(14);
+		
 		Debug.Log("Deleted Save Sheep");
 	}
 	#endregion

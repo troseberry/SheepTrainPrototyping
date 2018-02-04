@@ -6,8 +6,10 @@ public class ClearTable : MiniGameScript
 {
 	public static ClearTable ClearTableReference;
 	public static float timeLimit = 3.5f;
-	private bool isComplete;
-	private bool doStartGame;
+
+	private bool isComplete = false;
+	private bool doStartGame = true;
+    private bool didEndGame = false;
 
 	public Rigidbody2D tableObjOne, tableObjTwo, tableObjThree;
 	private Vector2 startPosOne, startPosTwo, startPosThree;
@@ -21,7 +23,6 @@ public class ClearTable : MiniGameScript
 	void Start () 
 	{
 		ClearTableReference = this;
-		doStartGame = true;
 
 		boostOne =  false;
 		boostTwo = false;
@@ -41,7 +42,11 @@ public class ClearTable : MiniGameScript
 
 		if (PlayerMiniGameHandler.timer > 0) isComplete = (boostOne && boostTwo && boostThree);
 
-		if (isComplete || PlayerMiniGameHandler.timer == 0f) EndGame();
+		if ((isComplete || PlayerMiniGameHandler.timer == 0f) && !didEndGame)
+		{
+			EndGame();
+			didEndGame = true;
+		}
 
 
 
@@ -114,6 +119,10 @@ public class ClearTable : MiniGameScript
 		boostThree = false;
 
 		shakeDuration = 0;
+
+		isComplete = false;
+		doStartGame = true;
+    	didEndGame = false;
 	}
 
 	public override float GetTimeLimit() { return timeLimit; }

@@ -6,8 +6,10 @@ public class SoupFly : MiniGameScript
 {
 	public static SoupFly SoupFlyReference;
 	public static float timeLimit = 2.5f;
-	private bool isComplete;
-	private bool doStartGame;
+
+	private bool isComplete = false;
+	private bool doStartGame = true;
+	private bool didEndGame = false;
 
 	public Transform pinchPoint_01;
 	public Transform pinchPoint_02;
@@ -21,7 +23,6 @@ public class SoupFly : MiniGameScript
 	void Start () 
 	{
 		SoupFlyReference = this;
-		doStartGame = true;
 	}
 	
 	void Update () 
@@ -37,7 +38,11 @@ public class SoupFly : MiniGameScript
 			isComplete = (pinchPoint_01.GetComponent<PinchPoint>().IsPinchPointDone() && pinchPoint_02.GetComponent<PinchPoint>().IsPinchPointDone() && pinchPoint_03.GetComponent<PinchPoint>().IsPinchPointDone());
 		}
 
-		if (isComplete || PlayerMiniGameHandler.timer == 0f) EndGame();
+		if ((isComplete || PlayerMiniGameHandler.timer == 0f) && !didEndGame)
+		{
+			EndGame();
+			didEndGame = true;
+		}
 	}
 
 	void RandomizeFlyPositions()
@@ -70,6 +75,7 @@ public class SoupFly : MiniGameScript
 
 		isComplete = false;
 		doStartGame = true;
+		didEndGame = false;
 	}
 
 	public override float GetTimeLimit() { return timeLimit; }

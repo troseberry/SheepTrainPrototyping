@@ -9,7 +9,10 @@ public class MakeBeds : MiniGameScript
 {
 	public static MakeBeds MakeBedsReference;
 	public static float timeLimit = 2.5f;
-	bool isComplete;
+
+	private bool isComplete = false;
+	private bool doStartGame = true;
+    private bool didEndGame = false;
 
 	public Transform pinchPoint_01;
 	public Transform pinchPoint_02;
@@ -19,12 +22,9 @@ public class MakeBeds : MiniGameScript
 	Vector2 randomWrinklePos_02 = Vector2.zero;
 	Vector2 randomWrinklePos_03 = Vector2.zero;	
 
-	bool doStartGame;
-
 	void Start () 
 	{
 		MakeBedsReference = this;
-		doStartGame = true;
 	}
 	
 	void Update () 
@@ -40,7 +40,11 @@ public class MakeBeds : MiniGameScript
 			isComplete = (pinchPoint_01.GetComponent<PinchPoint>().IsPinchPointDone() && pinchPoint_02.GetComponent<PinchPoint>().IsPinchPointDone() && pinchPoint_03.GetComponent<PinchPoint>().IsPinchPointDone());
 		}
 
-		if (isComplete || PlayerMiniGameHandler.timer == 0f) EndGame();
+		if ((isComplete || PlayerMiniGameHandler.timer == 0f) && !didEndGame)
+		{
+			EndGame();
+			didEndGame = true;
+		}
 
 	}
 
@@ -75,6 +79,7 @@ public class MakeBeds : MiniGameScript
 
 		isComplete = false;
 		doStartGame = true;
+		didEndGame = false;
 	}
 
 	public override float GetTimeLimit() { return timeLimit; }

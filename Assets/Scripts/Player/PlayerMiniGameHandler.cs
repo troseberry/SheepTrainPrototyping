@@ -119,8 +119,18 @@ public class PlayerMiniGameHandler : MonoBehaviour
     public static void EndMiniGame(bool endStatus)
     {
         didWin = endStatus;
-
         stopTimer = true;
+
+        if (didWin)
+        {
+            ChaosManager.PassedTask();
+        }
+        else
+        {
+            ChaosManager.FailedTask();
+        }
+
+
         HandlerReference.endGameOverlay.SetActive(true);
         if (didWin)
         {
@@ -131,6 +141,7 @@ public class PlayerMiniGameHandler : MonoBehaviour
             HandlerReference.failText.SetActive(true);
         }
         HandlerReference.Invoke("CloseMiniGame", 1.5f);
+        Debug.Log("Ending Game");
     }
 
     //This looks like its getting called multiple frames. Not really breaking anything buuut still

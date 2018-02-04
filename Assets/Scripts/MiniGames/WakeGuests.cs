@@ -8,6 +8,10 @@ public class WakeGuests : MiniGameScript
 	public static WakeGuests WakeGuestsReference;
 	public static float timeLimit = 7.5f;
 
+	private bool doStartGame = true;
+	private bool failedEarly = false;
+	private bool didEndGame = false;
+
 	private Vector3 shakeForce;
 	private bool didShake;
 	private bool didHoldStill;
@@ -21,15 +25,11 @@ public class WakeGuests : MiniGameScript
 	private int currentGuest = 0;
 	private int[] randGuestTimes = new int[5];
 
-	private bool doStartGame = true;
-	public bool failedEarly = false;
-
 	private bool doLerpGuestGroup = false;
 	public float moveDuration;
 	private float currentMoveTime;
 	private Vector3 initialHorzPos;
 	private Vector3 nextHorzPos;
-
 
 	void Start () 
 	{
@@ -56,7 +56,11 @@ public class WakeGuests : MiniGameScript
 			doStartGame = false;
 		}
 
-		if (failedEarly || PlayerMiniGameHandler.timer == 0) EndGame();
+		if ((failedEarly || PlayerMiniGameHandler.timer == 0) && !didEndGame)
+		{
+			EndGame();
+			didEndGame = true;
+		}
 
 
 		if (doLerpGuestGroup)
@@ -167,6 +171,7 @@ public class WakeGuests : MiniGameScript
 		
 		doStartGame = true;
 		failedEarly = false;
+		didEndGame = false;
 	}
 
 	public override float GetTimeLimit() { return timeLimit; }

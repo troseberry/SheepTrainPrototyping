@@ -7,6 +7,10 @@ public class FlickFuel : MiniGameScript
     public static FlickFuel FlickFuelReference;
     public static float timeLimit = 5.0f;
 
+    private bool isComplete = false;
+    private bool doStartGame = true;
+    private bool didEndGame = false;
+
     int coalCaughtAmount = 0;
 
     public CoalBehavior coal_01;
@@ -14,9 +18,6 @@ public class FlickFuel : MiniGameScript
     public CoalBehavior coal_03;
     public CoalBehavior coal_04;
     public CoalBehavior coal_05;
-
-    bool isComplete;
-    public static bool doStartGame = true;
 
     void Start ()
     {
@@ -30,7 +31,11 @@ public class FlickFuel : MiniGameScript
 
         if (PlayerMiniGameHandler.timer > 0) isComplete = (coalCaughtAmount >= 3);
 
-        if (isComplete || PlayerMiniGameHandler.timer == 0f) EndGame();
+        if ((isComplete || PlayerMiniGameHandler.timer == 0f) && !didEndGame)
+        {
+            EndGame();
+            didEndGame = true;
+        }
     }
 
     public void CaughtCoal()
@@ -47,7 +52,9 @@ public class FlickFuel : MiniGameScript
 
     public override void ResetGame()
     {
+        isComplete = false;
         doStartGame = true;
+        didEndGame = false;
 
         coalCaughtAmount = 0;
 
@@ -68,4 +75,8 @@ public class FlickFuel : MiniGameScript
     }
 
     public override float GetTimeLimit() { return timeLimit; }
+
+    public static bool GetDoStartGame() { return FlickFuelReference.doStartGame; }
+
+    public static void SetDoStartGame(bool start) { FlickFuelReference.doStartGame = start;}
 }

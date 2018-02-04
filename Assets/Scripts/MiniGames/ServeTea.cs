@@ -6,8 +6,10 @@ public class ServeTea : MiniGameScript
 {
 	public static ServeTea ServeTeaReference;
 	public static float timeLimit = 7.5f;
-	private bool isComplete;
-	private bool doStartGame;
+
+	private bool isComplete = false;
+	private bool doStartGame = true;
+	private bool didEndGame = false;
 
 	public TeacupBehavior teacupOne;
 	public TeacupBehavior teacupTwo;
@@ -18,7 +20,6 @@ public class ServeTea : MiniGameScript
 	void Start () 
 	{
 		ServeTeaReference = this;
-		doStartGame = true;
 	}
 	
 	void Update () 
@@ -33,7 +34,11 @@ public class ServeTea : MiniGameScript
 			isComplete = (teacupOne.IsCupFull() && teacupTwo.IsCupFull() && teacupThree.IsCupFull());
 		}
 
-		if (isComplete || PlayerMiniGameHandler.timer == 0f) EndGame();
+		if ((isComplete || PlayerMiniGameHandler.timer == 0f) && !didEndGame)
+		{
+			EndGame();
+			didEndGame = true;
+		}
 	}
 
 	void EndGame()
@@ -55,6 +60,10 @@ public class ServeTea : MiniGameScript
 		{
 			teaGroup.GetChild(i).GetComponent<TeaBehavior>().ResetStartPosition();
 		}
+
+		isComplete = false;
+		doStartGame = true;
+		didEndGame = false;
 	}
 
 	public override float GetTimeLimit() { return timeLimit; }

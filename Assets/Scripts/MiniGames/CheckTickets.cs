@@ -7,11 +7,12 @@ public class CheckTickets : MiniGameScript
 	public static CheckTickets CheckTicketsReference;
 	public static float timeLimit = 5.0f;
 
-	public Transform ticketObjects;
+	private bool isComplete = false;
+	private bool failedEarly = false;
+	private bool doStartGame = true;
+    private bool didEndGame = false;
 
-	bool isComplete = false;
-	bool failedEarly = false;
-	bool doStartGame = true;
+	public Transform ticketObjects;
 
 	int goodCounter;
 	int badCounter;
@@ -34,7 +35,11 @@ public class CheckTickets : MiniGameScript
 			failedEarly = (badCounter >= 3);
 		}
 
-		if (isComplete || failedEarly || PlayerMiniGameHandler.timer == 0) EndGame();
+		if ((isComplete || failedEarly || PlayerMiniGameHandler.timer == 0) && !didEndGame)
+		{
+			EndGame();
+			didEndGame = true;
+		}
 	}
 
 	public void IncrementGoodCounter()
@@ -66,6 +71,7 @@ public class CheckTickets : MiniGameScript
 		isComplete = false;
 		failedEarly = false;
 		doStartGame = true;
+    	didEndGame = false;
 	}
 
 	public override float GetTimeLimit() { return timeLimit; }

@@ -51,15 +51,4 @@ public class MiniGameScript : MonoBehaviour
 		if (activeImage) activeImage.enabled = false;
 		if (inactiveImage) inactiveImage.enabled = true;
 	}
-
-	// public IEnumerator DeleteTask()
-	// {
-	// 	Debug.Log(gameObject.name + " Deletion in " + RoundManager.timeBeforeDeletion + " Seconds...");
-	// 	yield return new WaitForSeconds(RoundManager.timeBeforeDeletion);
-
-	// 	SetGameInactive();
-	// 	RoundManager.SetMiniGameStatusInactive(gameIndex);
-
-	// 	Debug.Log(gameObject.name + " Task Deleted");
-	// }
 }

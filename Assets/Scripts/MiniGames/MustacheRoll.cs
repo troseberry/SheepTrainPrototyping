@@ -8,18 +8,18 @@ public class MustacheRoll : MiniGameScript
 {
 	public static MustacheRoll MustacheRollReference;
 	public static float timeLimit = 5f;
-	private bool isComplete;
+
+	private bool isComplete = false;
+	private bool doStartGame = true;
+	private bool didEndGame = false;
 
 	public PinchPoint pinchPointLeft;
 	public PinchPoint pinchPointCenter;
 	public PinchPoint pinchPointRight;
 
-	private bool doStartGame;
-
 	void Start () 
 	{
 		MustacheRollReference = this;
-		doStartGame = true;
 	}
 	
 	void Update ()
@@ -43,7 +43,11 @@ public class MustacheRoll : MiniGameScript
 			}
 		}
 
-		if (isComplete || PlayerMiniGameHandler.timer == 0f) EndGame();
+		if ((isComplete || PlayerMiniGameHandler.timer == 0f) && !didEndGame)
+		{
+			EndGame();
+			didEndGame = true;
+		}
 	}
 
 	void EndGame()
@@ -63,6 +67,7 @@ public class MustacheRoll : MiniGameScript
 
 		isComplete = false;
 		doStartGame = true;
+		didEndGame = false;
 	}
 
 	public override float GetTimeLimit() { return timeLimit; }

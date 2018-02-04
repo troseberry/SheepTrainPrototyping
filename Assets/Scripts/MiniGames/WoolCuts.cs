@@ -7,14 +7,16 @@ public class WoolCuts : MiniGameScript
 {
 	public static WoolCuts WoolCutsReference;
 	public static float timeLimit = 5f;
-	private bool isComplete;
+
+	private bool isComplete = false;
+	private bool doStartGame = true;
+	private bool didEndGame = false;
 
 	public GameObject[] possibleTraceObjects;
 	int chosenTraceObjectIndex;
 	
 	private bool pointerIsOver = false;
 
-	bool doStartGame = true;
 
 	private bool startedTrace = false;
 	public List<GameObject> tracedZones;
@@ -48,9 +50,13 @@ public class WoolCuts : MiniGameScript
 			doStartGame = false;
 		}
 
-		if (isComplete || PlayerMiniGameHandler.timer == 0) EndGame();
-
 		if (PlayerMiniGameHandler.timer > 0) isComplete = (tracedZones.Count == 16);
+
+		if ((isComplete || PlayerMiniGameHandler.timer == 0) && !didEndGame)
+		{
+			EndGame();
+			didEndGame = true;
+		}
 	}
 
 	void GenerateTraceImage()
@@ -189,6 +195,7 @@ public class WoolCuts : MiniGameScript
 
 		isComplete = false;
 		doStartGame = true;
+		didEndGame = false;
 	}
 
 	public override float GetTimeLimit() { return timeLimit; }
