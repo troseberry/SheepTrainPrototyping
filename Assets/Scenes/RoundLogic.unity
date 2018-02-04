@@ -525,6 +525,7 @@ MonoBehaviour:
   gameIndex: 0
   isActive: 0
   isBeingPlayed: 0
+  awaitingDeletion: 0
   activeImage: {fileID: 1337788473}
   inactiveImage: {fileID: 985705287}
   tableObjOne: {fileID: 1199595030}
@@ -7219,6 +7220,7 @@ MonoBehaviour:
   gameIndex: 0
   isActive: 0
   isBeingPlayed: 0
+  awaitingDeletion: 0
   activeImage: {fileID: 1165964966}
   inactiveImage: {fileID: 0}
   woolObjects:
@@ -12173,6 +12175,7 @@ MonoBehaviour:
   gameIndex: 0
   isActive: 0
   isBeingPlayed: 0
+  awaitingDeletion: 0
   activeImage: {fileID: 0}
   inactiveImage: {fileID: 0}
   coal_01: {fileID: 990357739}
@@ -16622,6 +16625,7 @@ MonoBehaviour:
   gameIndex: 0
   isActive: 0
   isBeingPlayed: 0
+  awaitingDeletion: 0
   activeImage: {fileID: 883235290}
   inactiveImage: {fileID: 0}
   sheepArm: {fileID: 1095094444}
@@ -21755,6 +21759,7 @@ MonoBehaviour:
   gameIndex: 0
   isActive: 0
   isBeingPlayed: 0
+  awaitingDeletion: 0
   activeImage: {fileID: 248903046}
   inactiveImage: {fileID: 234552887}
   pinchPoint_01: {fileID: 1452574033}
@@ -22067,6 +22072,7 @@ MonoBehaviour:
   gameIndex: 0
   isActive: 0
   isBeingPlayed: 0
+  awaitingDeletion: 0
   activeImage: {fileID: 1661350151}
   inactiveImage: {fileID: 0}
   pinchPoint_01: {fileID: 1538076211}
@@ -25082,6 +25088,7 @@ MonoBehaviour:
   gameIndex: 0
   isActive: 0
   isBeingPlayed: 0
+  awaitingDeletion: 0
   activeImage: {fileID: 388217113}
   inactiveImage: {fileID: 0}
   pinchPointLeft: {fileID: 945601742}
@@ -25411,6 +25418,7 @@ MonoBehaviour:
   gameIndex: 0
   isActive: 0
   isBeingPlayed: 0
+  awaitingDeletion: 0
   activeImage: {fileID: 364510131}
   inactiveImage: {fileID: 0}
   guestGroup: {fileID: 1951367788}
@@ -29323,6 +29331,7 @@ MonoBehaviour:
   gameIndex: 0
   isActive: 0
   isBeingPlayed: 0
+  awaitingDeletion: 0
   activeImage: {fileID: 1345613426}
   inactiveImage: {fileID: 0}
   ticketObjects: {fileID: 1322680946}
@@ -35304,6 +35313,7 @@ MonoBehaviour:
   gameIndex: 0
   isActive: 0
   isBeingPlayed: 0
+  awaitingDeletion: 0
   activeImage: {fileID: 1502119839}
   inactiveImage: {fileID: 0}
   sheep_01: {fileID: 966961281}
@@ -37389,6 +37399,7 @@ MonoBehaviour:
   gameIndex: 0
   isActive: 0
   isBeingPlayed: 0
+  awaitingDeletion: 0
   activeImage: {fileID: 139022923}
   inactiveImage: {fileID: 1989214248}
   teacupOne: {fileID: 1753823288}
@@ -38628,6 +38639,7 @@ MonoBehaviour:
   gameIndex: 0
   isActive: 0
   isBeingPlayed: 0
+  awaitingDeletion: 0
   activeImage: {fileID: 1302178867}
   inactiveImage: {fileID: 0}
   possibleTraceObjects:
@@ -40868,6 +40880,7 @@ MonoBehaviour:
   gameIndex: 0
   isActive: 0
   isBeingPlayed: 0
+  awaitingDeletion: 0
   activeImage: {fileID: 0}
   inactiveImage: {fileID: 0}
 --- !u!114 &2020170202
@@ -42247,6 +42260,7 @@ MonoBehaviour:
   gameIndex: 0
   isActive: 0
   isBeingPlayed: 0
+  awaitingDeletion: 0
   activeImage: {fileID: 0}
   inactiveImage: {fileID: 0}
   currentPressureSlider: {fileID: 1686563257}
@@ -42342,6 +42356,7 @@ MonoBehaviour:
   gameIndex: 0
   isActive: 0
   isBeingPlayed: 0
+  awaitingDeletion: 0
   activeImage: {fileID: 1824696518}
   inactiveImage: {fileID: 0}
   inventoryItems:

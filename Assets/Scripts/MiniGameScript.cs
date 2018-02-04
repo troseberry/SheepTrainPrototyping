@@ -20,38 +20,46 @@ public class MiniGameScript : MonoBehaviour
 	public bool isBeingPlayed = false;
 
 	private float deletionTimer;
+	public bool awaitingDeletion = false;
 
 	public Image activeImage;
 	public Image inactiveImage;
 
+	private bool interruptWait = false;
+
 	public void SetGameActive()
 	{
 		isActive = true;
+		awaitingDeletion = true;
+
 		if (activeImage) activeImage.enabled = true;
 		if (inactiveImage) inactiveImage.enabled = false;
+	}
+
+	public void SetGameBusy()
+	{
+		isBeingPlayed = true;
+		awaitingDeletion = false;
 	}
 
 	public void SetGameInactive()
 	{
 		isActive = false;
 		isBeingPlayed = false;
+		awaitingDeletion = false;
 
 		if (activeImage) activeImage.enabled = false;
 		if (inactiveImage) inactiveImage.enabled = true;
 	}
 
-	// Need to stop deletion if the task gets "answered"
-	public IEnumerator DeleteTask()
-	{
-		Debug.Log(gameObject.name + " Deletion in " + RoundManager.timeBeforeDeletion + " Seconds...");
-		yield return new WaitForSeconds(RoundManager.timeBeforeDeletion);
+	// public IEnumerator DeleteTask()
+	// {
+	// 	Debug.Log(gameObject.name + " Deletion in " + RoundManager.timeBeforeDeletion + " Seconds...");
+	// 	yield return new WaitForSeconds(RoundManager.timeBeforeDeletion);
 
-		if (!isBeingPlayed)
-		{
-			SetGameInactive();
-			RoundManager.SetMiniGameStatusInactive(gameIndex);
+	// 	SetGameInactive();
+	// 	RoundManager.SetMiniGameStatusInactive(gameIndex);
 
-			Debug.Log(gameObject.name + " Task Deleted");
-		}
-	}
+	// 	Debug.Log(gameObject.name + " Task Deleted");
+	// }
 }

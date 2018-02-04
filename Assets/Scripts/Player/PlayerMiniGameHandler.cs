@@ -133,15 +133,15 @@ public class PlayerMiniGameHandler : MonoBehaviour
         HandlerReference.Invoke("CloseMiniGame", 1.5f);
     }
 
+    //This looks like its getting called multiple frames. Not really breaking anything buuut still
     public void CloseMiniGame()
     {
+        Debug.Log("Closing Game");
         generalElements.SetActive(false);
         passText.SetActive(false);
         failText.SetActive(false);
         endGameOverlay.SetActive(false);
 
-        // minigameScripts[currentGameIndex].isActive = false;
-        // minigameScripts[currentGameIndex].isBeingPlayed = false;
         minigameScripts[currentGameIndex].SetGameInactive();
 
         RoundManager.SetMiniGameStatusInactive(currentGameIndex);
@@ -164,6 +164,8 @@ public class PlayerMiniGameHandler : MonoBehaviour
             {
                 timer = minigameScripts[gameIndex].GetTimeLimit();
                 StartGeneralTasks();
+
+                minigameScripts[currentGameIndex].SetGameBusy();
 
                 currentGame = (GameName) gameIndex;
                 currentGameIndex = gameIndex;
