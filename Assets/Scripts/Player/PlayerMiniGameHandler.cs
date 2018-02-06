@@ -144,7 +144,6 @@ public class PlayerMiniGameHandler : MonoBehaviour
         Debug.Log("Ending Game");
     }
 
-    //This looks like its getting called multiple frames. Not really breaking anything buuut still
     public void CloseMiniGame()
     {
         Debug.Log("Closing Game");
@@ -154,7 +153,6 @@ public class PlayerMiniGameHandler : MonoBehaviour
         endGameOverlay.SetActive(false);
 
         minigameScripts[currentGameIndex].SetGameInactive();
-
         RoundManager.SetMiniGameStatusInactive(currentGameIndex);
 
         minigamesArray[currentGameIndex].SetActive(false);

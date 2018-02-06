@@ -8,7 +8,8 @@ public class RoundManager : MonoBehaviour
 {
 	public static RoundManager RoundManagerReference;
 
-	private float roundTimer = 95f;
+	private float startingCountdown = 5f;
+	private float roundTimer = 90f;
 
 	private float generationTimer;
 	public static float timeBeforeDeletion = 8f;
@@ -18,6 +19,9 @@ public class RoundManager : MonoBehaviour
 	private static List<int> activeGameIndexes = new List<int>();
 
 	private bool roundHasStarted = false;
+	private bool allPlayersReady = false;
+	
+	public GameObject startRoundButton;
 
 	void Start () 
 	{
@@ -27,19 +31,20 @@ public class RoundManager : MonoBehaviour
 	
 	void Update () 
 	{
-		if (roundTimer > 0)
-		{
-			roundTimer -= Time.deltaTime;
-		}
-		else if (roundTimer <= 0)
-		{
-			roundTimer = 0;
-		}
+		if (allPlayersReady) startingCountdown = Mathf.Clamp(startingCountdown -= Time.deltaTime, 0f, 5f);
 
-		if (roundTimer <= 90 && !roundHasStarted)
+		if (startingCountdown <= 0 && allPlayersReady) 
 		{
-			roundHasStarted = true;
-			StartCoroutine("GenerateTask");
+			if (!roundHasStarted)
+			{
+				StartCoroutine("GenerateTask");
+				roundHasStarted = true;
+			}
+			else if (roundHasStarted && (roundTimer <= 0 || ChaosManager.ReachedMaxChaos()))
+			{
+				EndRound();
+			}
+			roundTimer = Mathf.Clamp(roundTimer -= Time.deltaTime, 0f, 90f);
 		}
 
 
@@ -51,11 +56,12 @@ public class RoundManager : MonoBehaviour
 			}
 		}
 
-
-
-
 		#region DEBUG
+		DebugPanel.Log("Countdown Timer:", "Round Logic", startingCountdown);
 		DebugPanel.Log("Round Timer:", "Round Logic", roundTimer);
+		DebugPanel.Log("Round Has Started:", "Round Logic", roundHasStarted);
+		DebugPanel.Log("All Players Ready:", "Round Logic", allPlayersReady);
+
 
 		DebugPanel.Log("Inactive Count: ", "Round Logic", inactiveGameIndexes.Count);
 
@@ -83,17 +89,27 @@ public class RoundManager : MonoBehaviour
 
 	public void StartRound()
 	{
-		roundTimer = 90f;
+		startRoundButton.SetActive(false);
+		allPlayersReady = true;
 	}
 
 	public void EndRound()
 	{
+		startRoundButton.SetActive(true);
+		allPlayersReady = false;
 
+		CancelTasksAfterRound();
+		StopCoroutine("GenerateTask");
+		ChaosManager.SetChaosValue(0);
+
+		roundHasStarted = false;
+		startingCountdown = 5f;
+		roundTimer = 90f;		
 	}
 
 	IEnumerator GenerateTask()
 	{
-		while (roundTimer > 0)
+		while (roundTimer > 0 && inactiveGameIndexes.Count > 0)
 		{
 			ChooseTask();
 			yield return new WaitForSeconds(5f);
@@ -102,27 +118,32 @@ public class RoundManager : MonoBehaviour
 
 	void ChooseTask()
 	{
-		if (inactiveGameIndexes.Count > 0)
-		{
-			int chosenIndex = inactiveGameIndexes[Random.Range(0, inactiveGameIndexes.Count)];
+		int chosenIndex = inactiveGameIndexes[Random.Range(0, inactiveGameIndexes.Count)];
 
-			Debug.Log("Chose: [" + chosenIndex + "] " + minigameScripts[chosenIndex].gameObject.name);
+		Debug.Log("Chose: [" + chosenIndex + "] " + minigameScripts[chosenIndex].gameObject.name);
 
-			PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[chosenIndex].SetGameActive();
+		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[chosenIndex].SetGameActive();
 
-			if (!activeGameIndexes.Contains(chosenIndex)) activeGameIndexes.Add(chosenIndex);
+		if (!activeGameIndexes.Contains(chosenIndex)) activeGameIndexes.Add(chosenIndex);
 
-			InitiateDeletion(chosenIndex);
+		InitiateDeletion(chosenIndex);
 
-			inactiveGameIndexes.Remove(chosenIndex);
-		}
-		else
-		{
-			//end round
-			StopCoroutine("GenerateTask");
-			Debug.Log("Stopped Generating. Empty List");
-		}
+		inactiveGameIndexes.Remove(chosenIndex);
 	}
+
+	 void CancelTasksAfterRound()
+	 {
+		//Doesn't handle closing games that are open for players
+		for (int i = 0; i < activeGameIndexes.Count; i++)
+		{
+			if (minigameScripts[activeGameIndexes[i]].awaitingDeletion)
+			{
+				InterruptDeletion(activeGameIndexes[i]);
+				minigameScripts[activeGameIndexes[i]].SetGameInactive();
+				SetMiniGameStatusInactive(activeGameIndexes[i]);
+			}
+		}
+	 }
 
 
 
