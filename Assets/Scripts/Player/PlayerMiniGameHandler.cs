@@ -91,7 +91,7 @@ public class PlayerMiniGameHandler : MonoBehaviour
         }
 
         //only do this on the host/server
-        RoundManager.SetMiniGameScripts(minigameScripts);
+        TaskManager.SetTaskScripts(minigameScripts);
 	}
 	
 	void Update () 
@@ -153,7 +153,7 @@ public class PlayerMiniGameHandler : MonoBehaviour
         endGameOverlay.SetActive(false);
 
         minigameScripts[currentGameIndex].SetGameInactive();
-        RoundManager.SetMiniGameStatusInactive(currentGameIndex);
+        TaskManager.SetMiniGameStatusInactive(currentGameIndex);
 
         minigamesArray[currentGameIndex].SetActive(false);
         minigamesArray[currentGameIndex].GetComponent<MiniGameScript>().ResetGame();
