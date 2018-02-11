@@ -53,6 +53,7 @@ public class RoundManager : MonoBehaviour
 	public void StartRound()
 	{
 		startRoundButton.SetActive(false);
+		ChaosManager.SetChaosValue(0);
 		allPlayersReady = true;
 	}
 
@@ -63,7 +64,6 @@ public class RoundManager : MonoBehaviour
 
 		TaskManager.CancelTasksAfterRound();
 		TaskManager.StopTaskGeneration();
-		ChaosManager.SetChaosValue(0);
 
 		roundHasStarted = false;
 		startingCountdown = 5f;

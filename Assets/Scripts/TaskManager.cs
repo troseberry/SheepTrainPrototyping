@@ -54,6 +54,8 @@ public class TaskManager : MonoBehaviour
 		{
 			inactiveGameIndexes.Add(gameIndex);
 			Debug.Log(taskScripts[gameIndex].gameObject.name + " Added Back: " + gameIndex);
+
+			if (!CarHasActiveTasks(gameIndex)) MiniMap.HideNotification(Mathf.CeilToInt(gameIndex / 3));
 		}
 		else
 		{
@@ -88,11 +90,11 @@ public class TaskManager : MonoBehaviour
 		Debug.Log("Chose: [" + chosenIndex + "] " + taskScripts[chosenIndex].gameObject.name);
 
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[chosenIndex].SetGameActive();
+		InitiateDeletion(chosenIndex);
+		MiniMap.DisplayNotification(Mathf.CeilToInt(chosenIndex / 3));
+
 
 		if (!activeGameIndexes.Contains(chosenIndex)) activeGameIndexes.Add(chosenIndex);
-
-		InitiateDeletion(chosenIndex);
-
 		inactiveGameIndexes.Remove(chosenIndex);
 	}
 
@@ -121,6 +123,16 @@ public class TaskManager : MonoBehaviour
 		}
 	}
 
+
+
+
+
+	static bool CarHasActiveTasks(int taskIndex)
+	{
+		int starting = Mathf.CeilToInt(taskIndex / 3) * 3;
+
+		return activeGameIndexes.Contains(starting) || activeGameIndexes.Contains(starting + 1) || activeGameIndexes.Contains(starting + 2);
+	}
 
 	void InitiateDeletion(int gameIndex)
 	{

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ChaosManager : MonoBehaviour 
 {
-	private static int chaosValue = 80;
+	private static int chaosValue = 0;
 	private static int failureValue = 20;
 	private static int successValue = -5;
 
@@ -32,6 +32,8 @@ public class ChaosManager : MonoBehaviour
 	public static void ResetChaos() { chaosValue = 0; }
 
 	public static void SetChaosValue(int value) { chaosValue = value; }
+
+	public static int GetChaosValue() { return chaosValue; }
 
 	public static bool ReachedMaxChaos() { return chaosValue >= 100; }
 }

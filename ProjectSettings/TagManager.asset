@@ -48,6 +48,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: HUD
+    uniqueID: 3944931957
+    locked: 0
   - name: MiniGame_Background
     uniqueID: 3830729647
     locked: 0
