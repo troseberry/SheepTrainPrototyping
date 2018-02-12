@@ -19,7 +19,7 @@ public class PlayerAnimator : MonoBehaviour
 
 	void Update()
 	{
-		ProcessMovement();
+		ProcessAnimation();
 	}
 	
 	public static void SetAnimState(AnimState newState) { currentState = newState; }
@@ -28,7 +28,11 @@ public class PlayerAnimator : MonoBehaviour
 
 	public static void Walk() { sheepAnimator.SetInteger("Movement", 1); }
 
-	public static void ProcessMovement()
+	public static void StartInteracting() { sheepAnimator.SetBool("Interact", true); }
+
+	public static void StopInteracting() { sheepAnimator.SetBool("Interact", false); }
+
+	public static void ProcessAnimation()
 	{
 		switch (currentState)
 		{

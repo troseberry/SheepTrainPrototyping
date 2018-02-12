@@ -146,6 +146,8 @@ public class PlayerMiniGameHandler : MonoBehaviour
 
     public void CloseMiniGame()
     {
+        PlayerAnimator.StopInteracting();
+        
         Debug.Log("Closing Game");
         generalElements.SetActive(false);
         passText.SetActive(false);
@@ -171,6 +173,8 @@ public class PlayerMiniGameHandler : MonoBehaviour
 
             if (minigameScripts[gameIndex].isActive && !minigameScripts[gameIndex].isBeingPlayed)
             {
+                PlayerAnimator.StartInteracting();
+
                 timer = minigameScripts[gameIndex].GetTimeLimit();
                 StartGeneralTasks();
 
