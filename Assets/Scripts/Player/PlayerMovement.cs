@@ -10,6 +10,11 @@ public class PlayerMovement : MonoBehaviour
 
 	float horizontalInput;
 	float verticalInput;
+	Vector2 moveVector;
+
+	private SpriteRenderer sheepSprite;
+	private int previousFacingDirection = 1;
+	private int facingDirection = 1;
 
 	public bool movementDisabled;
 
@@ -23,11 +28,10 @@ public class PlayerMovement : MonoBehaviour
 	public float moveDuration = 4.0f;
     float currentMoveTime = 0;
 
-
 	void Start () 
 	{
-		
 		playerTransform = transform;
+		sheepSprite = GetComponent<SpriteRenderer>();
 
 		horizontalInput = 0;
 		verticalInput = 0;
@@ -47,22 +51,24 @@ public class PlayerMovement : MonoBehaviour
 
 		if (!movementDisabled)
 		{
-			if (horizontalInput > 0) 
+			moveVector = new Vector2(horizontalInput, verticalInput);
+			DebugPanel.Log("Move Vector", "Player", moveVector);
+			playerTransform.Translate(moveVector * (4 * Time.deltaTime), Space.World);
+
+			if (horizontalInput != 0 || verticalInput != 0)
 			{
-				playerTransform.Translate(Vector3.right * (4 * Time.deltaTime));
-			} 
-			else if (horizontalInput < 0) 
-			{
-				playerTransform.Translate(Vector3.left * (4 * Time.deltaTime));
+				PlayerAnimator.SetAnimState(AnimState.WALK);
 			}
+			else if (horizontalInput == 0 && verticalInput == 0)
+			{
+				PlayerAnimator.SetAnimState(AnimState.IDLE);
+			}
+
 			
-			if (verticalInput > 0) 
+			if (FacingDirectionChanged())
 			{
-				playerTransform.Translate(Vector3.up * (4 * Time.deltaTime));
-			} 
-			else if (verticalInput < 0) 
-			{
-				playerTransform.Translate(Vector3.down * (4 * Time.deltaTime));
+				Debug.Log("Changed Facing Direction");
+				sheepSprite.flipX = !sheepSprite.flipX;
 			}
 		}
 
@@ -72,13 +78,23 @@ public class PlayerMovement : MonoBehaviour
 			currentPlayerPosition = playerTransform.position;
 			currentMoveTime = 0;
 			doMove = true;
-		}
+		}	
 
-		// if (doMove)
-		// {
-		// 	if (currentMoveTime < moveDuration) currentMoveTime += Time.deltaTime / moveDuration;
-		// 	playerTransform = Vector2.Lerp(currentPlayerPosition, nextDestination);
-		// }
-		
+		if (Input.GetKeyDown(KeyCode.F)) { FlipPlayerSprite(); }	
+	}
+
+	void FlipPlayerSprite()
+	{
+		playerTransform.RotateAround(playerTransform.position, Vector3.up, 180f);
+	}
+
+	bool FacingDirectionChanged()
+	{
+		if (horizontalInput != 0)
+		{
+			previousFacingDirection = facingDirection;
+			facingDirection = horizontalInput > 0 ? 1 : -1;
+		}
+		return facingDirection != previousFacingDirection;
 	}
 }
