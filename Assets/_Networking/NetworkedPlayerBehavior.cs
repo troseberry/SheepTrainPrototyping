@@ -24,7 +24,7 @@ public class NetworkedPlayerBehavior : NetworkBehaviour
 
         GetComponent<SpriteRenderer>().color = Color.red;
 
-        // MiniGameManager.ManagerReference.SetPlayerTextTarget(GetComponentInChildren<Text>());
+    //    GameObject generalElements = (GameObject) Instantiate()
     }
 
 
