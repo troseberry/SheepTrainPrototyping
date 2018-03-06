@@ -10,6 +10,8 @@ public class NetworkedPlayerBehavior : NetworkBehaviour
     bool inTransitionZone;
     public TransitionType currentTransition;
 
+    // public GameObject genElementsPrefab;
+
 	void Start () 
 	{
         inTransitionZone = false;
@@ -23,6 +25,8 @@ public class NetworkedPlayerBehavior : NetworkBehaviour
         TransitionScreen.TransitionScreenReference.SetPlayerTarget(transform);
 
         GetComponent<SpriteRenderer>().color = Color.red;
+
+        CmdSpawnGenElements();
 
     //    GameObject generalElements = (GameObject) Instantiate()
     }
@@ -66,5 +70,27 @@ public class NetworkedPlayerBehavior : NetworkBehaviour
         //if (other.tag == "TransitionZone") inTransitionZone = false;
 
         if (other.tag.Contains("Transition")) currentTransition = TransitionType.NONE;
+    }
+
+    [Command]
+    public void CmdSpawnGenElements()
+    {
+        NetworkManager networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
+
+        GameObject genElements = Instantiate(networkManager.spawnPrefabs[0], transform.position, Quaternion.identity) as GameObject;
+
+        NetworkServer.SpawnWithClientAuthority(genElements, gameObject);
+
+    //    gameObject.GetComponent<NetworkedRoundManager>().AssignReadyButton(genElements.transform.GetChild(1).gameObject);
+
+        if (hasAuthority)
+        {
+            gameObject.GetComponent<NetworkedRoundManager>().AssignReadyButton(genElements.transform.GetChild(1).gameObject);
+        }
+       
+       if (!hasAuthority)
+       {
+           genElements.transform.GetChild(1).Translate(0, -200f, 0);
+       }
     }
 }

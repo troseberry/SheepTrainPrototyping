@@ -265,9 +265,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b8255ad6358746ac82b82ec1a57f265, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startRoundButton: {fileID: 0}
-  readyStatus: Not Ready
-  readyStatusText: 0
+  readyStatusButton: {fileID: 0}
+  readyStatusString: Not Ready
+  readyStatusText: {fileID: 0}
+  readyStatus: 0
+  otherPlayerStatus: 0
+  readyCount: 0
 --- !u!114 &114563879126711398
 MonoBehaviour:
   m_ObjectHideFlags: 1

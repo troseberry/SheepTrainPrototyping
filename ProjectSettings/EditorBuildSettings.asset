@@ -14,6 +14,9 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/BasicNetworking.unity
     guid: 347c67cd135324f87810eb995a8794ad
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/RoundLogic.unity
     guid: 87044410a4900479b9b8b10a65b92e70
+  - enabled: 1
+    path: Assets/Scenes/NetworkedRoundLogic.unity
+    guid: 73e76831c09464c6f9a2bcdd0c93352c
