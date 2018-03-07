@@ -11,13 +11,14 @@ public class NetworkedPlayerBehavior : NetworkBehaviour
     public TransitionType currentTransition;
 
     // public GameObject genElementsPrefab;
+    public Canvas readyCanvas;
 
 	void Start () 
 	{
         inTransitionZone = false;
         currentTransition = TransitionType.NONE;
 
-        Debug.Log(name + " Is Server: " + isServer);
+        // Debug.Log(name + " Is Server: " + isServer);
 	}
 
     public override void OnStartLocalPlayer()
@@ -26,7 +27,11 @@ public class NetworkedPlayerBehavior : NetworkBehaviour
 
         GetComponent<SpriteRenderer>().color = Color.red;
 
-        CmdSpawnGenElements();
+        GetComponent<NetworkedRoundManager>().enabled = true;
+        readyCanvas.enabled = true;
+
+
+        // CmdSpawnGenElements();
 
     //    GameObject generalElements = (GameObject) Instantiate()
     }
@@ -72,25 +77,25 @@ public class NetworkedPlayerBehavior : NetworkBehaviour
         if (other.tag.Contains("Transition")) currentTransition = TransitionType.NONE;
     }
 
-    [Command]
-    public void CmdSpawnGenElements()
-    {
-        NetworkManager networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
+    // [Command]
+    // public void CmdSpawnGenElements()
+    // {
+    //     NetworkManager networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
 
-        GameObject genElements = Instantiate(networkManager.spawnPrefabs[0], transform.position, Quaternion.identity) as GameObject;
+    //     GameObject genElements = Instantiate(networkManager.spawnPrefabs[0], transform.position, Quaternion.identity) as GameObject;
 
-        NetworkServer.SpawnWithClientAuthority(genElements, gameObject);
+    //     NetworkServer.SpawnWithClientAuthority(genElements, gameObject);
 
-    //    gameObject.GetComponent<NetworkedRoundManager>().AssignReadyButton(genElements.transform.GetChild(1).gameObject);
+    // //    gameObject.GetComponent<NetworkedRoundManager>().AssignReadyButton(genElements.transform.GetChild(1).gameObject);
 
-        if (hasAuthority)
-        {
-            gameObject.GetComponent<NetworkedRoundManager>().AssignReadyButton(genElements.transform.GetChild(1).gameObject);
-        }
+    //     if (hasAuthority)
+    //     {
+    //         gameObject.GetComponent<NetworkedRoundManager>().AssignReadyButton(genElements.transform.GetChild(1).gameObject);
+    //     }
        
-       if (!hasAuthority)
-       {
-           genElements.transform.GetChild(1).Translate(0, -200f, 0);
-       }
-    }
+    //    if (!hasAuthority)
+    //    {
+    //        genElements.transform.GetChild(1).Translate(0, -200f, 0);
+    //    }
+    // }
 }

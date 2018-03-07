@@ -6,115 +6,55 @@ using UnityEngine.UI;
 
 public class NetworkedRoundManager : NetworkBehaviour 
 {
-	// public static NetworkedRoundManager NRM;
-
 	private static float startingCountdown = 5f;
 	private static float roundTimer = 90f;
 
 	private bool roundHasStarted = false;
 	private bool allPlayersReady = false;
 
-	public GameObject readyStatusButton;
-
+	[SyncVar]
 	public string readyStatusString = "Unready";
-	public Text readyStatusText;
 	public bool readyStatus = false;
-
-	public bool otherPlayerStatus = false;
-
-	public static int readyCount = 0;
-	// public static int testVar = 0;
-
-
-	void Start () 
-	{
-		// NRM = this;
-		
-	}
-
-	public void AssignReadyButton(GameObject button)
-	{
-		readyStatusButton = button;
-	}
 	
+	public Text readyStatusButtonText;
+	public Text readyStatusPlayerText;
+
+
 	void Update () 
 	{
-		DebugPanel.Log("Ready Count:", "Round Logic", readyCount);
-
-		//only checking the server's version of these variables
-		if (readyCount == 2)
-		{
-			//start round
-			Debug.Log("All Players Ready");
-		}
-
 		if (Input.GetKeyDown(KeyCode.R))
 		{
-			// CmdToggleReadyStatus();
-			LocalToggleReadyStatus();
+			ToggleReady();
 		}
 	}
 
 
-	void LocalToggleReadyStatus()
+	public void ToggleReady()
 	{
-		if (isLocalPlayer)
-		{
-			readyStatus = !readyStatus;
-			readyStatusString = readyStatus ? "Ready" : "Unready";
-			readyStatusButton.GetComponentInChildren<Text>().text = readyStatusString;
-			readyCount += readyStatus ? 1 : -1;
+		readyStatus = !readyStatus;
 
-			// testVar = readyCount;
-			Debug.Log("Local Ready Count: " + readyCount);
-			// Debug.Log("Local Test: " + testVar);
-		}
-		// Debug.Log("Global Test: " + testVar);
-		UpdateReadyCount(readyCount);
+		readyStatusString = readyStatus ? "Ready" : "Unready";
+
+		readyStatusButtonText.text = readyStatusString;
+		readyStatusPlayerText.text = readyStatusString;
+
+		CmdToggleReady(readyStatusString);
 	}
 
-	//think this should be a command
-	// [Command]
-	// void CmdToggleReadyStatus(int countUpdate)
-	// {
-	// 	if (isLocalPlayer)
-	// 	{
-	// 		readyStatus = !readyStatus;
-	// 		readyStatusString = readyStatus ? "Ready" : "Unready";
-	// 		readyStatusButton.GetComponentInChildren<Text>().text = readyStatusString;
-	// 		readyCount += readyStatus ? 1 : -1;
-	// 		Debug.Log("Ready Status Changed. New Count: " + readyCount);
-
-	// 		UpdateReadyCount(readyCount);
-	// 	}
-
-	// 	// Debug.Log("Client Count Update: " +readyCount);
-	// 	// RpcUpdateReadyCount(readyCount);
-
-
-	// 	//call command to update status on server
-	// }
-
-	[Server]
-	void UpdateReadyCount(int newCount)
+	[Command] 
+	void CmdToggleReady(string statusString)
 	{
-		readyCount = newCount;
-		Debug.Log("Client Count Updated: " + newCount);
+		readyStatusString = statusString;
+		readyStatusPlayerText.text = readyStatusString;
+
+		RpcUpdateReadyStatus(readyStatusString);
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+	[ClientRpc]
+	void RpcUpdateReadyStatus(string newStatus)
+	{
+		readyStatusPlayerText.text = newStatus;
+	}
 
 
 
@@ -126,7 +66,7 @@ public class NetworkedRoundManager : NetworkBehaviour
 	{
 		if (isLocalPlayer)
 		{
-			readyStatusButton.SetActive(false);
+			// readyStatusButton.SetActive(false);
 			// CmdSetReadyStatus(readyStatusString);
 			Debug.Log("Executed on Client");
 		}
@@ -136,7 +76,7 @@ public class NetworkedRoundManager : NetworkBehaviour
 	//client rpc
 	void EndRound()
 	{
-		readyStatusButton.SetActive(true);
+		// readyStatusButton.SetActive(true);
 		allPlayersReady = false;
 
 		// TaskManager.CancelTasksAfterRound();
@@ -148,25 +88,5 @@ public class NetworkedRoundManager : NetworkBehaviour
 		roundTimer = 90f;
 	}
 
-
 	public static float GetRoundTimer() { return roundTimer; }
-
-
-
-
-	// public void ChangeReadyStatus(string status)
-	// {
-	// 	if (isLocalPlayer)
-	// 	{
-	// 		readyStatusString = status;
-	// 		CmdSetReadyStatus(readyStatusString);
-	// 	}
-	// }
-
-	// [Command]
-	// public void CmdSetReadyStatus(string stauts)
-	// {
-	// 	Debug.Log("Called Server Command");
-	// 	readyStatusString = stauts;
-	// }
 }

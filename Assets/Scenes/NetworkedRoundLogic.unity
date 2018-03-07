@@ -15486,12 +15486,16 @@ Prefab:
       objectReference: {fileID: 1574455511}
     - target: {fileID: 1614090704577182, guid: 25677ee9b6bee475f8f2565c9f20dd26, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224774424466917562, guid: 25677ee9b6bee475f8f2565c9f20dd26,
         type: 2}
       propertyPath: m_AnchoredPosition.y
       value: 450
+      objectReference: {fileID: 0}
+    - target: {fileID: 1068535822333162, guid: 25677ee9b6bee475f8f2565c9f20dd26, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 25677ee9b6bee475f8f2565c9f20dd26, type: 2}
@@ -21641,6 +21645,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 17
       objectReference: {fileID: 0}
+    - target: {fileID: 223979483091152010, guid: 7079dc4405f5f42aca286a7d6f0be11b,
+        type: 2}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1574455511}
     - target: {fileID: 1966822020133524, guid: 7079dc4405f5f42aca286a7d6f0be11b, type: 2}
       propertyPath: m_IsActive
       value: 0
@@ -29947,12 +29956,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b8255ad6358746ac82b82ec1a57f265, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  readyStatusButton: {fileID: 0}
   readyStatusString: Not Ready
-  readyStatusText: {fileID: 0}
   readyStatus: 0
-  otherPlayerStatus: 0
-  readyCount: 0
+  readyStatusButtonText: {fileID: 0}
+  readyStatusPlayerText: {fileID: 0}
 --- !u!114 &1397100776
 MonoBehaviour:
   m_ObjectHideFlags: 0
