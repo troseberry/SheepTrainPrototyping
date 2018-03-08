@@ -9,9 +9,21 @@ using UnityEngine.Networking;
 
 public class ReadyCount : NetworkBehaviour {
 
+	public static ReadyCount ReadyCountReference;
+
 	[SyncVar]
 	public int crossClientReadyCount = 0;
 	public bool countReadyStatus = false;
+
+	void Start()
+	{
+		ReadyCountReference = this;
+	}
+
+	void OnEnable()
+	{
+		ReadyCountReference = this;
+	}
 
 	void Update ()
 	{
@@ -32,6 +44,7 @@ public class ReadyCount : NetworkBehaviour {
  
 	public void UpdateGroupReadyCount()
 	{
+		Debug.Log("Count Update Attempt");
 		countReadyStatus = !countReadyStatus;
 
 		crossClientReadyCount += countReadyStatus ? 1 : -1;

@@ -1,4 +1,8 @@
-﻿using System.Collections;
+﻿// Each client has access to the same sync var because this script is active on
+// on players, both the local and remote versions on all clients.
+// Where as the PlayerReadyHandler is only active on the local player version
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -6,6 +10,8 @@ using UnityEngine.UI;
 
 public class NetworkedRoundManager : NetworkBehaviour 
 {
+	public static NetworkedRoundManager NRM;
+
 	private static float startingCountdown = 5f;
 	private static float roundTimer = 90f;
 
@@ -13,47 +19,53 @@ public class NetworkedRoundManager : NetworkBehaviour
 	private bool allPlayersReady = false;
 
 	[SyncVar]
-	public string readyStatusString = "Unready";
+	public int readyCount = 0;
 	public bool readyStatus = false;
+
 	
-	public Text readyStatusButtonText;
-	public Text readyStatusPlayerText;
-
-
-	void Update () 
+	void Start()
 	{
-		if (Input.GetKeyDown(KeyCode.R))
+		NRM = this;
+	}
+
+	void OnEnable()
+	{
+		NRM = this;
+	}
+
+	void Update ()
+	{
+		DebugPanel.Log("Ready Count:", "Round Logic", readyCount);
+
+		if (readyCount == 2)
 		{
-			ToggleReady();
+			//start round
+			Debug.Log("All Players Ready");
 		}
 	}
 
 
-	public void ToggleReady()
+	public void UpdateGroupReadyCount()
 	{
+		Debug.Log("Count Update Attempt");
 		readyStatus = !readyStatus;
 
-		readyStatusString = readyStatus ? "Ready" : "Unready";
-
-		readyStatusButtonText.text = readyStatusString;
-		readyStatusPlayerText.text = readyStatusString;
-
-		CmdToggleReady(readyStatusString);
+		readyCount += readyStatus ? 1 : -1;
+		CmdUpdateGroupReadyCount(readyCount);
 	}
 
-	[Command] 
-	void CmdToggleReady(string statusString)
+	[Command]
+	void CmdUpdateGroupReadyCount(int count)
 	{
-		readyStatusString = statusString;
-		readyStatusPlayerText.text = readyStatusString;
+		readyCount = count;
 
-		RpcUpdateReadyStatus(readyStatusString);
+		RpcUpdateGroupReadyCount(readyCount);
 	}
 
 	[ClientRpc]
-	void RpcUpdateReadyStatus(string newStatus)
+	void RpcUpdateGroupReadyCount(int newCount)
 	{
-		readyStatusPlayerText.text = newStatus;
+		readyCount = newCount;
 	}
 
 
