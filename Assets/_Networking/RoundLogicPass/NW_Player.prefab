@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 114252331850183822}
   - component: {fileID: 114194375555808864}
   m_Layer: 5
-  m_Name: ReadyPlayerText
+  m_Name: ReadyWorldText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,12 +76,12 @@ GameObject:
   - component: {fileID: 114663584229933734}
   - component: {fileID: 114477440887814482}
   m_Layer: 5
-  m_Name: ReadyStatusPlayerText
+  m_Name: ReadyWorldCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1682151453668604
 GameObject:
   m_ObjectHideFlags: 1
@@ -94,7 +94,24 @@ GameObject:
   - component: {fileID: 114661766440733500}
   - component: {fileID: 114833862922439642}
   m_Layer: 5
-  m_Name: ReadyStatusButton
+  m_Name: ReadyButton
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1923880007295198
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 224688235106800394}
+  - component: {fileID: 222526658755499956}
+  - component: {fileID: 114016223267065728}
+  m_Layer: 5
+  m_Name: RoundCountdownText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -202,6 +219,39 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114016223267065728
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1923880007295198}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 200
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 1
+    m_MaxSize: 200
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 5
 --- !u!114 &114087670058859348
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -322,9 +372,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   readyStatusString: Unready
-  readyStatusPlayerText: {fileID: 114252331850183822}
-  readyStatusButtonText: {fileID: 114341381907758946}
+  readyWorldText: {fileID: 114252331850183822}
+  readyButtonText: {fileID: 114341381907758946}
   readyStatus: 0
+  countdownText: {fileID: 114016223267065728}
+  readyCanvas: {fileID: 223979483091152010}
+  readyWorldCanvas: {fileID: 223332276742345692}
 --- !u!114 &114341381907758946
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -593,6 +646,12 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1682151453668604}
+--- !u!222 &222526658755499956
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1923880007295198}
 --- !u!222 &222580529042086150
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -611,7 +670,7 @@ Canvas:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1663270877711196}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_RenderMode: 2
   m_Camera: {fileID: 0}
@@ -700,6 +759,24 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!224 &224688235106800394
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1923880007295198}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 224853661401113982}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 400, y: 300}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224852872397568544
 RectTransform:
   m_ObjectHideFlags: 1
@@ -730,6 +807,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 224153754133845802}
+  - {fileID: 224688235106800394}
   m_Father: {fileID: 4052869734174100}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

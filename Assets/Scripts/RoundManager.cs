@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 //this should exist on the host/server. all playerminigamehandlers should edit this and be edited by this
 
@@ -15,6 +16,7 @@ public class RoundManager : MonoBehaviour
 	private bool allPlayersReady = false;
 	
 	public GameObject startRoundButton;
+	public Text countdownText;
 
 	void Start () 
 	{
@@ -23,10 +25,31 @@ public class RoundManager : MonoBehaviour
 	
 	void Update () 
 	{
-		if (allPlayersReady) startingCountdown = Mathf.Clamp(startingCountdown -= Time.deltaTime, 0f, 5f);
+		if (allPlayersReady) 
+		{
+			startingCountdown = Mathf.Clamp(startingCountdown -= Time.deltaTime, -2f, 5f);
+			
+
+			//moving this section
+			if (startingCountdown >= 0)
+			{
+				countdownText.enabled = true;
+				countdownText.text = Mathf.CeilToInt(startingCountdown).ToString();
+			}
+			else if (startingCountdown >= -1f && startingCountdown < 0)
+			{
+				countdownText.text = "GO!";
+			}
+			else
+			{
+				countdownText.enabled = false;
+			}
+			//section end
+		}
 
 		if (startingCountdown <= 0 && allPlayersReady) 
 		{
+			
 			if (!roundHasStarted)
 			{
 				TaskManager.StartTaskGeneration();

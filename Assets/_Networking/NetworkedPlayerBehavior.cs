@@ -27,11 +27,10 @@ public class NetworkedPlayerBehavior : NetworkBehaviour
 
         GetComponent<SpriteRenderer>().color = Color.red;
 
-        // GetComponent<NetworkedRoundManager>().enabled = true;
-
         GetComponent<PlayerReadyHandler>().enabled = true;
         readyCanvas.enabled = true;
 
+        Debug.Log("Net ID: " + netId);
 
         // CmdSpawnGenElements();
 

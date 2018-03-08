@@ -16,7 +16,7 @@ public class NetworkedRoundManager : NetworkBehaviour
 	private static float roundTimer = 90f;
 
 	private bool roundHasStarted = false;
-	private bool allPlayersReady = false;
+	private static bool allPlayersReady = false;
 
 	[SyncVar]
 	public int readyCount = 0;
@@ -36,18 +36,24 @@ public class NetworkedRoundManager : NetworkBehaviour
 	void Update ()
 	{
 		DebugPanel.Log("Ready Count:", "Round Logic", readyCount);
+		DebugPanel.Log("Countdown Timer:", "Round Logic", startingCountdown);
 
-		if (readyCount == 2)
+		if (readyCount == 2 && !allPlayersReady)
 		{
 			//start round
 			Debug.Log("All Players Ready");
+			allPlayersReady = true;
+		}
+
+		if (allPlayersReady)
+		{
+			if (isLocalPlayer) startingCountdown = Mathf.Clamp(startingCountdown -= Time.deltaTime, -2f, 5f);
 		}
 	}
 
 
 	public void UpdateGroupReadyCount()
 	{
-		Debug.Log("Count Update Attempt");
 		readyStatus = !readyStatus;
 
 		readyCount += readyStatus ? 1 : -1;
@@ -101,4 +107,8 @@ public class NetworkedRoundManager : NetworkBehaviour
 	}
 
 	public static float GetRoundTimer() { return roundTimer; }
+
+	public static float GetStartCountdown() { return startingCountdown; }
+
+	public static bool AreAllPlayersReady() { return allPlayersReady; }
 }
