@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class NetworkedChaosManager : MonoBehaviour 
 {
+	private static int chaosValue = 0;
 
 	void Start () 
 	{
@@ -14,4 +15,8 @@ public class NetworkedChaosManager : MonoBehaviour
 	{
 		
 	}
+
+	public static void SetChaosValue(int value) { chaosValue = value; }
+
+	public static bool ReachedMaxChaos() { return chaosValue >= 100; }
 }

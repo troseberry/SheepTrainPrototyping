@@ -30,8 +30,6 @@ public class NetworkedPlayerBehavior : NetworkBehaviour
         GetComponent<PlayerReadyHandler>().enabled = true;
         readyCanvas.enabled = true;
 
-        Debug.Log("Net ID: " + netId);
-
         // CmdSpawnGenElements();
 
     //    GameObject generalElements = (GameObject) Instantiate()

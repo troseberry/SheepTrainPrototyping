@@ -14,4 +14,9 @@ public class NetworkedTaskManager : MonoBehaviour
 	{
 		
 	}
+
+	public static void StartTaskGeneration()
+	{
+		Debug.Log("Started Task Generation");
+	}
 }

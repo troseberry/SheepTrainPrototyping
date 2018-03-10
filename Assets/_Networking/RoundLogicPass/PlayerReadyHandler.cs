@@ -8,6 +8,10 @@ public class PlayerReadyHandler : NetworkBehaviour {
 
 	[SyncVar]
 	public string readyStatusString = "Unready";
+
+	[SyncVar (hook = "OnReadyCountChanged")]
+	public int crossClientReadyCount = 0;
+
 	public Text readyWorldText;
 	public Text readyButtonText;
 	public bool readyStatus = false;
@@ -37,55 +41,94 @@ public class PlayerReadyHandler : NetworkBehaviour {
 
 	void Update()
 	{
-		startingCountdownRef = NetworkedRoundManager.GetStartCountdown();
-		if (NetworkedRoundManager.AreAllPlayersReady())
-		{
-			readyCanvas.transform.GetChild(0).gameObject.SetActive(false);
-			readyWorldCanvas.enabled = false;
+		// startingCountdownRef = NetworkedRoundManager.GetStartCountdown();
+		// if (NetworkedRoundManager.AreAllPlayersReady())
+		// {
+		// 	readyCanvas.transform.GetChild(0).gameObject.SetActive(false);
+		// 	readyWorldCanvas.enabled = false;
 
-			if (startingCountdownRef >= 0)
-			{
-				countdownText.enabled = true;
-				countdownText.text = Mathf.CeilToInt(startingCountdownRef).ToString();
-			}
-			else if (startingCountdownRef >= -1f && startingCountdownRef < 0)
-			{
-				countdownText.text = "GO!";
-			}
-			else
-			{
-				readyCanvas.enabled = false;
-			}
-		}
+		// 	if (startingCountdownRef >= 0)
+		// 	{
+		// 		countdownText.enabled = true;
+		// 		countdownText.text = Mathf.CeilToInt(startingCountdownRef).ToString();
+		// 	}
+		// 	else if (startingCountdownRef >= -1f && startingCountdownRef < 0)
+		// 	{
+		// 		countdownText.text = "GO!";
+		// 	}
+		// 	else
+		// 	{
+		// 		countdownText.enabled = false;
+		// 		readyCanvas.enabled = false;
+		// 	}
+		// }
+
+		// if (NetworkedRoundManager.AreAllPlayersReady() && NetworkedRoundManager.GetRoundTimer() <= 0)
+		// {
+		// 	ResetPlayerRoundItems();
+		// }
 		
 	}
 
 	public void ToggleReady()
 	{
-		NetworkedRoundManager.NRM.UpdateGroupReadyCount();
-
 		readyStatus = !readyStatus;
+		crossClientReadyCount += readyStatus ? 1 : -1;
 
 		readyStatusString = readyStatus ? "Ready" : "Unready";
 
 		readyWorldText.text = readyStatusString;
 		readyButtonText.text = readyStatusString;
 
-		CmdToggleReady(readyStatusString);
+		CmdToggleReady(crossClientReadyCount, readyStatusString);
 	}
 
+	// These two methods also update the ready world canvas across clients.
+	// That canvas is currently disabled on the player prefab
 	[Command]
-	void CmdToggleReady(string statusString)
+	void CmdToggleReady(int count, string statusString)
 	{
+		crossClientReadyCount = count;
+
+		GameObject[] allPlayers = GameObject.FindGameObjectsWithTag("Player");
+		PlayerReadyHandler[] allCounts = new PlayerReadyHandler[allPlayers.Length];
+		for (int i = 0; i < allPlayers.Length; i++)
+		{
+			allCounts[i] = allPlayers[i].GetComponent<PlayerReadyHandler>();
+			allCounts[i].UpdateRemoteCopyCounts(crossClientReadyCount);
+		}
+
 		readyStatusString = statusString;
 		readyWorldText.text = readyStatusString;
 
-		RpcUpdateReadyStatus(readyStatusString);
+		RpcUpdateReadyStatus(crossClientReadyCount, readyStatusString);
 	}
 
 	[ClientRpc]
-	void RpcUpdateReadyStatus(string newStatus)
+	void RpcUpdateReadyStatus(int newCount, string newStatus)
 	{
+		crossClientReadyCount = newCount;
 		readyWorldText.text = newStatus;
+	}
+
+	public void UpdateRemoteCopyCounts(int newCount)
+	{
+		crossClientReadyCount = newCount;
+	}
+
+	void OnReadyCountChanged(int newCount)
+	{
+		crossClientReadyCount = newCount;
+	}
+
+	public void ResetPlayerRoundItems()
+	{
+		Debug.Log("Reset Method Call");
+		readyStatus = false;
+		readyStatusString = "Unready";
+		readyButtonText.text = readyStatusString;
+
+		readyCanvas.transform.GetChild(0).gameObject.SetActive(true);
+		readyCanvas.enabled = true;
 	}
 }

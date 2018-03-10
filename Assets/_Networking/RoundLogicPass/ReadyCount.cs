@@ -11,7 +11,7 @@ public class ReadyCount : NetworkBehaviour {
 
 	public static ReadyCount ReadyCountReference;
 
-	[SyncVar]
+	[SyncVar (hook = "OnReadyCountChanged")]
 	public int crossClientReadyCount = 0;
 	public bool countReadyStatus = false;
 
@@ -27,9 +27,9 @@ public class ReadyCount : NetworkBehaviour {
 
 	void Update ()
 	{
-		DebugPanel.Log("Ready Count:", "Round Logic", crossClientReadyCount);
+		// DebugPanel.Log("Ready Count:", "Round Logic", crossClientReadyCount);
 
-		if (crossClientReadyCount == 2)
+		if (crossClientReadyCount == 4)
 		{
 			//start round
 			Debug.Log("All Players Ready");
@@ -37,17 +37,28 @@ public class ReadyCount : NetworkBehaviour {
 
 		if (Input.GetKeyDown(KeyCode.R))
 		{
+
 			UpdateGroupReadyCount();
+			
 		}
 	}
 
  
+	public void UpdateRemoteCopyCounts(int newCount)
+	{
+		crossClientReadyCount = newCount;
+	}
+
 	public void UpdateGroupReadyCount()
 	{
-		Debug.Log("Count Update Attempt");
 		countReadyStatus = !countReadyStatus;
 
 		crossClientReadyCount += countReadyStatus ? 1 : -1;
+
+		
+
+		Debug.Log("Count (Local): " + crossClientReadyCount );
+
 		CmdToggleReady(crossClientReadyCount);
 	}
 
@@ -56,11 +67,29 @@ public class ReadyCount : NetworkBehaviour {
 	{
 		crossClientReadyCount = count;
 
+		GameObject[] allPlayers = GameObject.FindGameObjectsWithTag("Player");
+		ReadyCount[] allCounts = new ReadyCount[allPlayers.Length];
+		for (int i = 0; i < allPlayers.Length; i++)
+		{
+			allCounts[i] = allPlayers[i].GetComponent<ReadyCount>();
+			allCounts[i].UpdateRemoteCopyCounts(crossClientReadyCount);
+		}
+
+		Debug.Log("Count (Command): " + crossClientReadyCount );
+		Debug.Log("Arg (Command): " + count );
+
 		RpcUpdateReadyStatus(crossClientReadyCount);
 	}
 
 	[ClientRpc]
 	void RpcUpdateReadyStatus(int newCount)
+	{
+		crossClientReadyCount = newCount;
+		Debug.Log("Count (Rpc): " + crossClientReadyCount );
+		Debug.Log("Arg (Rpc): " + newCount );
+	}
+
+	void OnReadyCountChanged(int newCount)
 	{
 		crossClientReadyCount = newCount;
 	}

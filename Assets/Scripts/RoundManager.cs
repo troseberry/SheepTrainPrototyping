@@ -18,6 +18,8 @@ public class RoundManager : MonoBehaviour
 	public GameObject startRoundButton;
 	public Text countdownText;
 
+	public GameObject hostPlayer;
+
 	void Start () 
 	{
 		RoundManagerReference = this;	
@@ -25,12 +27,16 @@ public class RoundManager : MonoBehaviour
 	
 	void Update () 
 	{
+		if (hostPlayer == null)
+		{
+			hostPlayer = GameObject.FindGameObjectWithTag("Player");
+		}
+		if (hostPlayer != null) DebugPanel.Log("Ready Count:", "Round Logic", hostPlayer.GetComponent<PlayerReadyHandler>().crossClientReadyCount);
+
 		if (allPlayersReady) 
 		{
 			startingCountdown = Mathf.Clamp(startingCountdown -= Time.deltaTime, -2f, 5f);
 			
-
-			//moving this section
 			if (startingCountdown >= 0)
 			{
 				countdownText.enabled = true;
@@ -44,7 +50,6 @@ public class RoundManager : MonoBehaviour
 			{
 				countdownText.enabled = false;
 			}
-			//section end
 		}
 
 		if (startingCountdown <= 0 && allPlayersReady) 

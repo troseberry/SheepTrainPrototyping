@@ -17,11 +17,18 @@ public class OverriddenNetworkManager : NetworkManager
 	public override void OnStartClient(NetworkClient client)
 	{
 		discovery.showGUI = false;
+		
+        
 	}
 
 	public override void OnStopClient()
 	{
 		discovery.StopBroadcast();
 		discovery.showGUI = true;
+	}
+
+	void Update()
+	{
+		DebugPanel.Log("Players: ", "Network Manager", GameObject.FindGameObjectsWithTag("Player").Length);
 	}
 }
