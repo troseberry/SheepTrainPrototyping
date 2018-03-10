@@ -4,8 +4,9 @@ using UnityEngine.Networking;
 
 public class OverriddenNetworkManager : NetworkManager
 {
-
 	public NetworkDiscovery discovery;
+
+	private static int playerCount = 0;
 
 	public override void OnStartHost()
 	{
@@ -25,10 +26,20 @@ public class OverriddenNetworkManager : NetworkManager
 	{
 		discovery.StopBroadcast();
 		discovery.showGUI = true;
+
+		AdjustPlayerCount();
 	}
 
 	void Update()
 	{
-		DebugPanel.Log("Players: ", "Network Manager", GameObject.FindGameObjectsWithTag("Player").Length);
+		playerCount = GameObject.FindGameObjectsWithTag("Player").Length;
+		DebugPanel.Log("Players: ", "Network Manager", playerCount);
 	}
+
+	public static void AdjustPlayerCount()
+	{
+		playerCount = GameObject.FindGameObjectsWithTag("Player").Length;
+	}
+
+	public static int GetPlayerCount() { return playerCount; }
 }

@@ -41,32 +41,33 @@ public class PlayerReadyHandler : NetworkBehaviour {
 
 	void Update()
 	{
-		// startingCountdownRef = NetworkedRoundManager.GetStartCountdown();
-		// if (NetworkedRoundManager.AreAllPlayersReady())
-		// {
-		// 	readyCanvas.transform.GetChild(0).gameObject.SetActive(false);
-		// 	readyWorldCanvas.enabled = false;
+		startingCountdownRef = RoundManager.GetStartCountdown();
+		if (RoundManager.AreAllPlayersReady())
+		{
+			readyCanvas.transform.GetChild(0).gameObject.SetActive(false);
+			readyWorldCanvas.enabled = false;
 
-		// 	if (startingCountdownRef >= 0)
-		// 	{
-		// 		countdownText.enabled = true;
-		// 		countdownText.text = Mathf.CeilToInt(startingCountdownRef).ToString();
-		// 	}
-		// 	else if (startingCountdownRef >= -1f && startingCountdownRef < 0)
-		// 	{
-		// 		countdownText.text = "GO!";
-		// 	}
-		// 	else
-		// 	{
-		// 		countdownText.enabled = false;
-		// 		readyCanvas.enabled = false;
-		// 	}
-		// }
+			if (startingCountdownRef >= 0)
+			{
+				countdownText.enabled = true;
+				countdownText.text = Mathf.CeilToInt(startingCountdownRef).ToString();
+			}
+			else if (startingCountdownRef >= -1f && startingCountdownRef < 0)
+			{
+				countdownText.text = "GO!";
+			}
+			else
+			{
+				countdownText.enabled = false;
+				readyCanvas.enabled = false;
+			}
+		}
 
-		// if (NetworkedRoundManager.AreAllPlayersReady() && NetworkedRoundManager.GetRoundTimer() <= 0)
-		// {
-		// 	ResetPlayerRoundItems();
-		// }
+		if (RoundManager.GetRoundTimer() <= 0 || ChaosManager.ReachedMaxChaos())
+		{
+			crossClientReadyCount = 0;
+			ResetPlayerRoundItems();
+		}
 		
 	}
 
@@ -123,7 +124,6 @@ public class PlayerReadyHandler : NetworkBehaviour {
 
 	public void ResetPlayerRoundItems()
 	{
-		Debug.Log("Reset Method Call");
 		readyStatus = false;
 		readyStatusString = "Unready";
 		readyButtonText.text = readyStatusString;
