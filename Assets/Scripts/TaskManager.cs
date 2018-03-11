@@ -53,13 +53,13 @@ public class TaskManager : MonoBehaviour
 		if (!inactiveGameIndexes.Contains(gameIndex))
 		{
 			inactiveGameIndexes.Add(gameIndex);
-			Debug.Log(taskScripts[gameIndex].gameObject.name + " Added Back: " + gameIndex);
+			// Debug.Log(taskScripts[gameIndex].gameObject.name + " Added Back: " + gameIndex);
 
 			if (!CarHasActiveTasks(gameIndex)) MiniMap.HideNotification(Mathf.CeilToInt(gameIndex / 3));
 		}
 		else
 		{
-			Debug.Log("List already contains index: " + gameIndex);
+			// Debug.Log("List already contains index: " + gameIndex);
 		}
 	}
 
@@ -246,7 +246,7 @@ public class TaskManager : MonoBehaviour
 	//Try making an internal ienumerator to call the external one (from individual mini game scripts) so that the internal one can at least be interrupted properly
 	IEnumerator DeleteSpeedLevers()
 	{
-		Debug.Log("Speed Levers Deletion in " + deletionFrequency + " Seconds...");
+		// Debug.Log("Speed Levers Deletion in " + deletionFrequency + " Seconds...");
 
 		yield return new WaitForSeconds(deletionFrequency);
 
@@ -254,12 +254,12 @@ public class TaskManager : MonoBehaviour
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[0].SetGameInactive();
 		SetMiniGameStatusInactive(0);
 
-		Debug.Log("Deleted Speed Levers");
+		// Debug.Log("Deleted Speed Levers");
 	}
 
 	IEnumerator DeletePressureValve()
 	{
-		Debug.Log("Pressure Valve Deletion in " + deletionFrequency + " Seconds...");
+		// Debug.Log("Pressure Valve Deletion in " + deletionFrequency + " Seconds...");
 
 		yield return new WaitForSeconds(deletionFrequency);
 		
@@ -267,12 +267,12 @@ public class TaskManager : MonoBehaviour
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[1].SetGameInactive();
 		SetMiniGameStatusInactive(1);
 
-		Debug.Log("Deleted Pressure Valve");
+		// Debug.Log("Deleted Pressure Valve");
 	}
 
 	IEnumerator DeleteFlickFuel()
 	{
-		Debug.Log("Flick Fuel Deletion in " + deletionFrequency + " Seconds...");
+		// Debug.Log("Flick Fuel Deletion in " + deletionFrequency + " Seconds...");
 
 		yield return new WaitForSeconds(deletionFrequency);
 		
@@ -280,12 +280,12 @@ public class TaskManager : MonoBehaviour
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[2].SetGameInactive();
 		SetMiniGameStatusInactive(2);
 
-		Debug.Log("Deleted Flick Fuel");
+		// Debug.Log("Deleted Flick Fuel");
 	}
 
 	IEnumerator DeleteSoupFly()
 	{
-		Debug.Log("Soup Fly Deletion in " + deletionFrequency + " Seconds...");
+		// Debug.Log("Soup Fly Deletion in " + deletionFrequency + " Seconds...");
 
 		yield return new WaitForSeconds(deletionFrequency);
 		
@@ -293,12 +293,12 @@ public class TaskManager : MonoBehaviour
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[3].SetGameInactive();
 		SetMiniGameStatusInactive(3);
 
-		Debug.Log("Deleted Soup Fly");
+		// Debug.Log("Deleted Soup Fly");
 	}
 
 	IEnumerator DeleteClearTable()
 	{
-		Debug.Log("Clear Table Deletion in " + deletionFrequency + " Seconds...");
+		// Debug.Log("Clear Table Deletion in " + deletionFrequency + " Seconds...");
 
 		yield return new WaitForSeconds(deletionFrequency);
 		
@@ -306,12 +306,12 @@ public class TaskManager : MonoBehaviour
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[4].SetGameInactive();
 		SetMiniGameStatusInactive(4);
 
-		Debug.Log("Deleted Clear Table");
+		// Debug.Log("Deleted Clear Table");
 	}
 
 	IEnumerator DeleteServeTea()
 	{
-		Debug.Log("Serve Tea Deletion in " + deletionFrequency + " Seconds...");
+		// Debug.Log("Serve Tea Deletion in " + deletionFrequency + " Seconds...");
 
 		yield return new WaitForSeconds(deletionFrequency);
 		
@@ -319,12 +319,12 @@ public class TaskManager : MonoBehaviour
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[5].SetGameInactive();
 		SetMiniGameStatusInactive(5);
 
-		Debug.Log("Deleted Serve Tea");
+		// Debug.Log("Deleted Serve Tea");
 	}
 
 	IEnumerator DeleteWoolCuts()
 	{
-		Debug.Log("Wool Cuts Deletion in " + deletionFrequency + " Seconds...");
+		// Debug.Log("Wool Cuts Deletion in " + deletionFrequency + " Seconds...");
 
 		yield return new WaitForSeconds(deletionFrequency);
 		
@@ -332,12 +332,12 @@ public class TaskManager : MonoBehaviour
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[6].SetGameInactive();
 		SetMiniGameStatusInactive(6);
 
-		Debug.Log("Deleted Wool Cuts");
+		// Debug.Log("Deleted Wool Cuts");
 	}
 
 	IEnumerator DeleteMustacheRoll()
 	{
-		Debug.Log("Mustache Roll Deletion in " + deletionFrequency + " Seconds...");
+		// Debug.Log("Mustache Roll Deletion in " + deletionFrequency + " Seconds...");
 
 		yield return new WaitForSeconds(deletionFrequency);
 		
@@ -345,12 +345,12 @@ public class TaskManager : MonoBehaviour
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[7].SetGameInactive();
 		SetMiniGameStatusInactive(7);
 
-		Debug.Log("Deleted Mustache Roll");
+		// Debug.Log("Deleted Mustache Roll");
 	}
 
 	IEnumerator DeleteSweepWool()
 	{
-		Debug.Log("Sweep Wool Deletion in " + deletionFrequency + " Seconds...");
+		// Debug.Log("Sweep Wool Deletion in " + deletionFrequency + " Seconds...");
 
 		yield return new WaitForSeconds(deletionFrequency);
 		
@@ -358,12 +358,12 @@ public class TaskManager : MonoBehaviour
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[8].SetGameInactive();
 		SetMiniGameStatusInactive(8);
 
-		Debug.Log("Deleted Sweep Wool");
+		// Debug.Log("Deleted Sweep Wool");
 	}
 
 	IEnumerator DeleteSheepJump()
 	{
-		Debug.Log("Sheep Jump Deletion in " + deletionFrequency + " Seconds...");
+		// Debug.Log("Sheep Jump Deletion in " + deletionFrequency + " Seconds...");
 
 		yield return new WaitForSeconds(deletionFrequency);
 		
@@ -371,12 +371,12 @@ public class TaskManager : MonoBehaviour
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[9].SetGameInactive();
 		SetMiniGameStatusInactive(9);
 
-		Debug.Log("Deleted Sheep Jump");
+		// Debug.Log("Deleted Sheep Jump");
 	}
 
 	IEnumerator DeleteWakeGuests()
 	{
-		Debug.Log("Wake Guests Deletion in " + deletionFrequency + " Seconds...");
+		// Debug.Log("Wake Guests Deletion in " + deletionFrequency + " Seconds...");
 
 		yield return new WaitForSeconds(deletionFrequency);
 		
@@ -384,12 +384,12 @@ public class TaskManager : MonoBehaviour
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[10].SetGameInactive();
 		SetMiniGameStatusInactive(10);
 
-		Debug.Log("Deleted Wake Guests");
+		// Debug.Log("Deleted Wake Guests");
 	}
 
 	IEnumerator DeleteMakeBeds()
 	{
-		Debug.Log("Make Beds Deletion in " + deletionFrequency + " Seconds...");
+		// Debug.Log("Make Beds Deletion in " + deletionFrequency + " Seconds...");
 
 		yield return new WaitForSeconds(deletionFrequency);
 		
@@ -397,12 +397,12 @@ public class TaskManager : MonoBehaviour
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[11].SetGameInactive();
 		SetMiniGameStatusInactive(11);
 
-		Debug.Log("Deleted Make Beds");
+		// Debug.Log("Deleted Make Beds");
 	}
 
 	IEnumerator DeleteTakeInventory()
 	{
-		Debug.Log("Take Inventory Deletion in " + deletionFrequency + " Seconds...");
+		// Debug.Log("Take Inventory Deletion in " + deletionFrequency + " Seconds...");
 
 		yield return new WaitForSeconds(deletionFrequency);
 		
@@ -410,12 +410,12 @@ public class TaskManager : MonoBehaviour
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[12].SetGameInactive();
 		SetMiniGameStatusInactive(12);
 
-		Debug.Log("Deleted Take Inventory");
+		// Debug.Log("Deleted Take Inventory");
 	}
 
 	IEnumerator DeleteCheckTickets()
 	{
-		Debug.Log("Check Tickets Deletion in " + deletionFrequency + " Seconds...");
+		// Debug.Log("Check Tickets Deletion in " + deletionFrequency + " Seconds...");
 
 		yield return new WaitForSeconds(deletionFrequency);
 		
@@ -423,12 +423,12 @@ public class TaskManager : MonoBehaviour
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[13].SetGameInactive();
 		SetMiniGameStatusInactive(13);
 
-		Debug.Log("Deleted Check Tickets");
+		// Debug.Log("Deleted Check Tickets");
 	}
 
 	IEnumerator DeleteSaveSheep()
 	{
-		Debug.Log("Save Sheep Deletion in " + deletionFrequency + " Seconds...");
+		// Debug.Log("Save Sheep Deletion in " + deletionFrequency + " Seconds...");
 
 		yield return new WaitForSeconds(deletionFrequency);
 		
@@ -436,7 +436,7 @@ public class TaskManager : MonoBehaviour
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[14].SetGameInactive();
 		SetMiniGameStatusInactive(14);
 		
-		Debug.Log("Deleted Save Sheep");
+		// Debug.Log("Deleted Save Sheep");
 	}
 	#endregion
 

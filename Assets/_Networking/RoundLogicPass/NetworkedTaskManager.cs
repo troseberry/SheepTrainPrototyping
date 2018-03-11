@@ -34,10 +34,13 @@ public class NetworkedTaskManager : NetworkBehaviour
 		Debug.Log("Started Task Generation");
 	}
 
+	[Server]
 	public void GenerateIndex(List<int> inactiveGameIndexes)
 	{
+		Debug.Log("Serve Calls: ");
 		int chosenIndex = inactiveGameIndexes[Random.Range(0, inactiveGameIndexes.Count)];
 
+		generatedIndex = chosenIndex;
 		CmdGenerateIndex(chosenIndex);
 	}
 
@@ -52,6 +55,7 @@ public class NetworkedTaskManager : NetworkBehaviour
 			allPlayers[i].GetComponent<NetworkedTaskManager>().UpdateRemoteGeneratedIndex(generatedIndex);
 		}
 
+		Debug.Log("Generated Index (CMD): " + generatedIndex);
 		RpcUpdateGeneratedIndex(generatedIndex);
 	}
 
@@ -59,6 +63,7 @@ public class NetworkedTaskManager : NetworkBehaviour
 	void RpcUpdateGeneratedIndex(int newIndex)
 	{
 		generatedIndex = newIndex;
+		Debug.Log("Generated Index (RPC): " + newIndex);
 	}
 
 	void UpdateRemoteGeneratedIndex(int newIndex)
