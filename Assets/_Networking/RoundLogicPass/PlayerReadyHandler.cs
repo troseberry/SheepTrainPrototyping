@@ -56,17 +56,32 @@ public class PlayerReadyHandler : NetworkBehaviour {
 			{
 				countdownText.text = "GO!";
 			}
-			else
+			else if (startingCountdownRef >= -2f && startingCountdownRef < -1f)
 			{
 				countdownText.enabled = false;
 				readyCanvas.enabled = false;
 			}
 		}
 
+		if (startingCountdownRef <= -2f)
+			{
+				// crossClientReadyCount = 0;
+				// CmdToggleReady(0, "Unready");
+				Debug.Log("Ready Handler. Clear Ready by Toggle");
+				if (readyStatus) ToggleReset();
+			}
+
 		if (RoundManager.GetRoundTimer() <= 0 || ChaosManager.ReachedMaxChaos())
 		{
-			crossClientReadyCount = 0;
-			ResetPlayerRoundItems();
+			if (!readyCanvas.enabled)
+			{
+				Debug.Log("Reset Calls?");
+			
+				
+				// ToggleReady();
+				
+				ResetPlayerRoundItems();
+			}
 		}
 		
 	}
@@ -122,6 +137,19 @@ public class PlayerReadyHandler : NetworkBehaviour {
 		crossClientReadyCount = newCount;
 	}
 
+	public void ToggleReset()
+	{
+		readyStatus = false;
+		crossClientReadyCount = 0;
+
+		readyStatusString = "Unready";
+
+		readyWorldText.text = readyStatusString;
+		readyButtonText.text = readyStatusString;
+
+		CmdToggleReady(crossClientReadyCount, readyStatusString);
+	}
+
 	public void ResetPlayerRoundItems()
 	{
 		readyStatus = false;
@@ -130,5 +158,8 @@ public class PlayerReadyHandler : NetworkBehaviour {
 
 		readyCanvas.transform.GetChild(0).gameObject.SetActive(true);
 		readyCanvas.enabled = true;
+
+		Debug.Log("Ready Status: " + readyStatus);
+		Debug.Log("Ready String: " + readyStatusString);
 	}
 }

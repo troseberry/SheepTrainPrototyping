@@ -14,7 +14,8 @@ public class RoundManager : MonoBehaviour
 	public GameObject hostPlayer;
 
 	private static float startingCountdown = 5f;
-	private static float roundTimer = 90f;
+	private static float roundDuration = 90f;
+	private static float roundTimer;
 
 	private static bool roundHasStarted = false;
 	private static bool allPlayersReady = false;
@@ -23,7 +24,8 @@ public class RoundManager : MonoBehaviour
 
 	void Start () 
 	{
-		RoundManagerReference = this;	
+		RoundManagerReference = this;
+		roundTimer = roundDuration;	
 	}
 	
 	void Update () 
@@ -37,7 +39,7 @@ public class RoundManager : MonoBehaviour
 			readyCount = hostPlayer.GetComponent<PlayerReadyHandler>().crossClientReadyCount;
 		}
 
-		if (readyCount > 0 && readyCount == OverriddenNetworkManager.GetPlayerCount() && !allPlayersReady)
+		if (readyCount > 0 && readyCount == OverriddenNetworkManager.GetPlayerCount() && !allPlayersReady && !roundHasStarted)
 		{
 			StartRound();
 		}
@@ -48,19 +50,31 @@ public class RoundManager : MonoBehaviour
 			startingCountdown = Mathf.Clamp(startingCountdown -= Time.deltaTime, -2f, 5f);
 
 			 
-			if (startingCountdown <= 0) 
+			if (startingCountdown <= 0 && startingCountdown > -2f) 
 			{
 				if (!roundHasStarted)
 				{
 					TaskManager.StartTaskGeneration();
 					roundHasStarted = true;
+		
 				}
-				else if (roundHasStarted && (roundTimer <= 0 || ChaosManager.ReachedMaxChaos()))
-				{
-					EndRound();
-				}
-				roundTimer = Mathf.Clamp(roundTimer -= Time.deltaTime, 0f, 90f);
+				
 			}
+			else if (startingCountdown <= -2f)
+			{
+				allPlayersReady = false;
+				readyCount = 0;
+			}
+		}
+
+		if (roundHasStarted)
+		{
+			if (roundTimer <= 0 || ChaosManager.ReachedMaxChaos())
+			{
+				Debug.Log("Round Ended");
+				EndRound();
+			}
+			roundTimer = Mathf.Clamp(roundTimer -= Time.deltaTime, 0f, roundDuration);
 		}
 
 		TaskManager.CancelTasksDuringRound();
@@ -82,14 +96,14 @@ public class RoundManager : MonoBehaviour
 	{
 		// startRoundButton.SetActive(false);
 		ChaosManager.SetChaosValue(0);
-		roundTimer = 90f;
+		roundTimer = roundDuration;
 		allPlayersReady = true;
 	}
 
 	public void EndRound()
 	{
 		// startRoundButton.SetActive(true);
-		allPlayersReady = false;
+		// allPlayersReady = false;
 		readyCount = 0;	
 
 		TaskManager.CancelTasksAfterRound();
@@ -97,6 +111,7 @@ public class RoundManager : MonoBehaviour
 
 		roundHasStarted = false;
 		startingCountdown = 5f;
+		Debug.Log("Round Ended (Method): " + allPlayersReady);
 	}
 
 	public static float GetRoundTimer() { return roundTimer; }

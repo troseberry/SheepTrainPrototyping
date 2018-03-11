@@ -30,6 +30,8 @@ public class NetworkedPlayerBehavior : NetworkBehaviour
         GetComponent<PlayerReadyHandler>().enabled = true;
         readyCanvas.enabled = true;
 
+        GetComponent<PlayerAnimator>().enabled = true;
+
         // CmdSpawnGenElements();
 
     //    GameObject generalElements = (GameObject) Instantiate()
