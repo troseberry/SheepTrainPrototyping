@@ -85,7 +85,10 @@ public class TaskManager : MonoBehaviour
 	
 	void ChooseTask()
 	{
-		int chosenIndex = inactiveGameIndexes[Random.Range(0, inactiveGameIndexes.Count)];
+		// int chosenIndex = inactiveGameIndexes[Random.Range(0, inactiveGameIndexes.Count)];
+
+		NetworkedTaskManager.TaskManagerReference.GenerateIndex(inactiveGameIndexes);
+		int chosenIndex = NetworkedTaskManager.TaskManagerReference.GetGeneratedIndex();
 
 		Debug.Log("Chose: [" + chosenIndex + "] " + taskScripts[chosenIndex].gameObject.name);
 

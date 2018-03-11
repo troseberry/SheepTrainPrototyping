@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 114902028244249884}
   - component: {fileID: 114321649666896536}
   - component: {fileID: 114878263290146584}
+  - component: {fileID: 114776345565828754}
   m_Layer: 0
   m_Name: NW_Player
   m_TagString: Player
@@ -497,6 +498,18 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &114776345565828754
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1966822020133524}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62cf268d30d2f4fdbb934b1d66d0d9b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generatedIndex: 0
 --- !u!114 &114833862922439642
 MonoBehaviour:
   m_ObjectHideFlags: 1

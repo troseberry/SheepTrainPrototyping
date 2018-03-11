@@ -32,6 +32,8 @@ public class NetworkedPlayerBehavior : NetworkBehaviour
 
         GetComponent<PlayerAnimator>().enabled = true;
 
+        GetComponent<NetworkedTaskManager>().enabled = true;
+
         // CmdSpawnGenElements();
 
     //    GameObject generalElements = (GameObject) Instantiate()

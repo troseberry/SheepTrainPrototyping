@@ -65,9 +65,7 @@ public class PlayerReadyHandler : NetworkBehaviour {
 
 		if (startingCountdownRef <= -2f)
 			{
-				// crossClientReadyCount = 0;
-				// CmdToggleReady(0, "Unready");
-				Debug.Log("Ready Handler. Clear Ready by Toggle");
+				// Debug.Log("Ready Handler. Clear Ready by Toggle");
 				if (readyStatus) ToggleReset();
 			}
 
@@ -75,15 +73,10 @@ public class PlayerReadyHandler : NetworkBehaviour {
 		{
 			if (!readyCanvas.enabled)
 			{
-				Debug.Log("Reset Calls?");
-			
-				
-				// ToggleReady();
-				
+				// Debug.Log("Reset Calls?");
 				ResetPlayerRoundItems();
 			}
 		}
-		
 	}
 
 	public void ToggleReady()
@@ -159,7 +152,7 @@ public class PlayerReadyHandler : NetworkBehaviour {
 		readyCanvas.transform.GetChild(0).gameObject.SetActive(true);
 		readyCanvas.enabled = true;
 
-		Debug.Log("Ready Status: " + readyStatus);
-		Debug.Log("Ready String: " + readyStatusString);
+		// Debug.Log("Ready Status: " + readyStatus);
+		// Debug.Log("Ready String: " + readyStatusString);
 	}
 }

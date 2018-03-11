@@ -71,7 +71,7 @@ public class RoundManager : MonoBehaviour
 		{
 			if (roundTimer <= 0 || ChaosManager.ReachedMaxChaos())
 			{
-				Debug.Log("Round Ended");
+				// Debug.Log("Round Ended");
 				EndRound();
 			}
 			roundTimer = Mathf.Clamp(roundTimer -= Time.deltaTime, 0f, roundDuration);
@@ -104,14 +104,13 @@ public class RoundManager : MonoBehaviour
 	{
 		// startRoundButton.SetActive(true);
 		// allPlayersReady = false;
-		readyCount = 0;	
+		// readyCount = 0;	
 
 		TaskManager.CancelTasksAfterRound();
 		TaskManager.StopTaskGeneration();
 
 		roundHasStarted = false;
 		startingCountdown = 5f;
-		Debug.Log("Round Ended (Method): " + allPlayersReady);
 	}
 
 	public static float GetRoundTimer() { return roundTimer; }
