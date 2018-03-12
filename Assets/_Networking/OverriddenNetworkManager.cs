@@ -44,9 +44,9 @@ public class OverriddenNetworkManager : NetworkManager
 		discovery.showGUI = true;
 	}
 
-	[Command]
+	/*[Command]
 	public void StopServer()
 	{
 		//idk stop shit yo
-	}
+	}*/
 }

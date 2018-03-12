@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 114570345868789090}
   - component: {fileID: 114370497440331268}
   - component: {fileID: 114126274471856144}
+  - component: {fileID: 114069145700692608}
   m_Layer: 9
   m_Name: Player_Lobby
   m_TagString: Player
@@ -91,6 +92,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 4, y: 5}
   m_EdgeRadius: 0
+--- !u!114 &114069145700692608
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1702426715808084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 246975512, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLobbyGUI: 1
 --- !u!114 &114126274471856144
 MonoBehaviour:
   m_ObjectHideFlags: 1
