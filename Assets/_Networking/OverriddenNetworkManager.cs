@@ -42,4 +42,26 @@ public class OverriddenNetworkManager : NetworkManager
 	}
 
 	public static int GetPlayerCount() { return playerCount; }
+
+	// public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId)
+	// {
+	// 	// GameObject player = (GameObject)Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
+    //     // player.GetComponent<Player>().color = Color.red;
+    //     // NetworkServer.AddPlayerForConnection(conn, player, playerControllerId);
+
+	// 	Debug.Log("Player Number: " + playerCount);
+
+	// 	if (playerCount == 0)
+	// 	{
+	// 		GameObject generalPlayer = (GameObject) Instantiate(spawnPrefabs[0], transform.position, Quaternion.identity);
+	// 	}
+	// 	else if (playerCount == 1)
+	// 	{
+	// 		GameObject generalPlayer = (GameObject) Instantiate(spawnPrefabs[1], transform.position, Quaternion.identity);
+	// 	}
+	// 	else if (playerCount == 2)
+	// 	{
+	// 		GameObject generalPlayer = (GameObject) Instantiate(spawnPrefabs[2], transform.position, Quaternion.identity);
+	// 	}
+	// }
 }
