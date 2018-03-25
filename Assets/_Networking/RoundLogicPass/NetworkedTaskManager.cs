@@ -10,9 +10,6 @@ public class NetworkedTaskManager : NetworkBehaviour
 	[SyncVar (hook = "OnIndexGenerated")]
 	public int generatedIndex;
 
-	// private static List<int> inactiveGameIndexes = new List<int> {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14};
-	// private static List<int> activeGameIndexes = new List<int>();
-
 
 	void Start () 
 	{
@@ -37,7 +34,7 @@ public class NetworkedTaskManager : NetworkBehaviour
 	[Server]
 	public void GenerateIndex(List<int> inactiveGameIndexes)
 	{
-		Debug.Log("Serve Calls: ");
+		// Debug.Log("Server Calls: ");
 		int chosenIndex = inactiveGameIndexes[Random.Range(0, inactiveGameIndexes.Count)];
 
 		generatedIndex = chosenIndex;
@@ -55,7 +52,7 @@ public class NetworkedTaskManager : NetworkBehaviour
 			allPlayers[i].GetComponent<NetworkedTaskManager>().UpdateRemoteGeneratedIndex(generatedIndex);
 		}
 
-		Debug.Log("Generated Index (CMD): " + generatedIndex);
+		// Debug.Log("Generated Index (CMD): " + generatedIndex);
 		RpcUpdateGeneratedIndex(generatedIndex);
 	}
 
@@ -63,7 +60,7 @@ public class NetworkedTaskManager : NetworkBehaviour
 	void RpcUpdateGeneratedIndex(int newIndex)
 	{
 		generatedIndex = newIndex;
-		Debug.Log("Generated Index (RPC): " + newIndex);
+		// Debug.Log("Generated Index (RPC): " + newIndex);
 	}
 
 	void UpdateRemoteGeneratedIndex(int newIndex)

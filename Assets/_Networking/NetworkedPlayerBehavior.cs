@@ -33,6 +33,7 @@ public class NetworkedPlayerBehavior : NetworkBehaviour
         GetComponent<PlayerAnimator>().enabled = true;
 
         GetComponent<NetworkedTaskManager>().enabled = true;
+        GetComponent<NetworkedChaosManager>().enabled = true;
 
         // CmdSpawnGenElements();
 
@@ -100,5 +101,11 @@ public class NetworkedPlayerBehavior : NetworkBehaviour
     //    {
     //        genElements.transform.GetChild(1).Translate(0, -200f, 0);
     //    }
+    // }
+
+    // [Command]
+    // public void CmdSpawnMiniGameCanvas()
+    // {
+
     // }
 }

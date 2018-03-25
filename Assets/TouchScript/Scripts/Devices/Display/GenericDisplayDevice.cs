@@ -44,7 +44,7 @@ namespace TouchScript.Devices.Display
                 switch (Application.platform)
                 {
                     case RuntimePlatform.OSXEditor:
-                    case RuntimePlatform.OSXDashboardPlayer:
+                    //case RuntimePlatform.OSXDashboardPlayer:
                     case RuntimePlatform.OSXPlayer:
 #if !UNITY_5_4_OR_NEWER
                     case RuntimePlatform.WindowsWebPlayer:

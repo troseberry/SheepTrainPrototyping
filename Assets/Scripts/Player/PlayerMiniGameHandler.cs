@@ -60,7 +60,6 @@ public class PlayerMiniGameHandler : MonoBehaviour
 	{
         HandlerReference = this;
         
-
         currentGame = GameName.NONE;
 
         inGame = false;
@@ -108,7 +107,7 @@ public class PlayerMiniGameHandler : MonoBehaviour
             }
             formattedTimer = string.Format("{0:00.00}", timer % 60);
             taskTimerText.text = formattedTimer;
-        }	
+        }
 	}
 
     void StartGeneralTasks()

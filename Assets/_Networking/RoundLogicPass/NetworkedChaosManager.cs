@@ -1,22 +1,68 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
+using UnityEngine.UI;
 
-public class NetworkedChaosManager : MonoBehaviour 
+public class NetworkedChaosManager : NetworkBehaviour 
 {
-	private static int chaosValue = 0;
+	public static NetworkedChaosManager ChaosManagerReference;
+
+	[SyncVar (hook = "OnChaosValueChanged")]
+	public int chaosValue = 0;
 
 	void Start () 
 	{
-		
+		ChaosManagerReference = this;
 	}
 	
 	void Update () 
 	{
-		
+		// if (Input.GetKeyDown(KeyCode.Space))
+		// {
+		// 	ChaosManager.FailedTask();
+		// }
+
+		// if (Input.GetKeyDown(KeyCode.G))
+		// {
+		// 	ChaosManager.PassedTask();
+		// }
 	}
 
-	public static void SetChaosValue(int value) { chaosValue = value; }
+	public void UpdateChaosValue(int value)
+	{
+		chaosValue = value;
+		Debug.Log("Chaos: " + chaosValue);
+		CmdUpdateChaosValue(chaosValue);
+	}
 
-	public static bool ReachedMaxChaos() { return chaosValue >= 100; }
+	[Command]
+	void CmdUpdateChaosValue(int chaosNumber)
+	{
+		chaosValue = chaosNumber;
+		GameObject[] allPlayers = GameObject.FindGameObjectsWithTag("Player");
+		for (int i = 0; i < allPlayers.Length; i++)
+		{
+			allPlayers[i].GetComponent<NetworkedChaosManager>().UpdateRemoteChaosValue(chaosValue);
+		}
+		Debug.Log("Chaos (CMD): " + chaosValue);
+		RpcUpdateChaosValue(chaosValue);
+	}
+
+	[ClientRpc]
+	void RpcUpdateChaosValue(int newValue)
+	{
+		chaosValue = newValue;
+		Debug.Log("Chaos (RPC): " + chaosValue);
+	}
+
+	void UpdateRemoteChaosValue(int newValue)
+	{
+		chaosValue = newValue;
+	}
+
+	void OnChaosValueChanged(int newValue)
+	{
+		chaosValue = newValue;
+	}
 }

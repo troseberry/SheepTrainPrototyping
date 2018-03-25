@@ -60,7 +60,7 @@ public class NetworkedRoundManager : NetworkBehaviour
 				NetworkedTaskManager.StartTaskGeneration();
 				roundHasStarted = true;
 			}
-			else if (roundHasStarted && (roundTimer <= 0) || NetworkedChaosManager.ReachedMaxChaos())
+			else if (roundHasStarted && (roundTimer <= 0) || ChaosManager.ReachedMaxChaos())
 			{
 				if (isServer) RpcEndRound();
 			}
@@ -97,7 +97,7 @@ public class NetworkedRoundManager : NetworkBehaviour
 	{
 		Debug.Log("All Players Ready");
 		allPlayersReady = true;
-		NetworkedChaosManager.SetChaosValue(0);
+		ChaosManager.SetChaosValue(0);
 	}
 
 	void EndRound()

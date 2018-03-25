@@ -19,6 +19,7 @@ public class ChaosMeter : MonoBehaviour
 	
 	void Update () 
 	{
+		
 		if (RoundManager.GetRoundTimer() > 0)
 		{
 			nextSliderValue = (float) ChaosManager.GetChaosValue() / 100;
