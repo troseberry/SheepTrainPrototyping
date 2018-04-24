@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 114878263290146584}
   - component: {fileID: 114776345565828754}
   - component: {fileID: 114645527417321976}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: NW_Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -202,7 +202,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4, y: 5}
+  m_Size: {x: 2, y: 3.5}
   m_EdgeRadius: 0
 --- !u!95 &95357729358001556
 Animator:

@@ -135,7 +135,7 @@ public class PlayerMiniGameHandler : MonoBehaviour
             //         allPlayers[i].GetComponent<NetworkedChaosManager>().FailedTask();
             //     }
             // }
-            Debug.Log("execute failure call (after atempt)");
+            // Debug.Log("execute failure call (after atempt)");
             NetworkedChaosManager.ChaosManagerReference.FailedTask();
         }
 

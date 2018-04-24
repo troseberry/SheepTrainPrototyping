@@ -25,7 +25,7 @@ public class NetworkedPlayerBehavior : NetworkBehaviour
     {
         TransitionScreen.TransitionScreenReference.SetPlayerTarget(transform);
 
-        GetComponent<SpriteRenderer>().color = Color.red;
+        // GetComponent<SpriteRenderer>().color = Color.red;
 
         GetComponent<PlayerReadyHandler>().enabled = true;
         readyCanvas.enabled = true;

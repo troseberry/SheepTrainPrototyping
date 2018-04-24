@@ -8,6 +8,8 @@ public class OverriddenNetworkManager : NetworkManager
 
 	private static int playerCount = 0;
 
+	public GameObject[] playerOptions;
+
 	public override void OnStartHost()
 	{
 		discovery.Initialize();
@@ -64,4 +66,41 @@ public class OverriddenNetworkManager : NetworkManager
 	// 		GameObject generalPlayer = (GameObject) Instantiate(spawnPrefabs[2], transform.position, Quaternion.identity);
 	// 	}
 	// }
+
+	public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId)
+	{
+		if (playerOptions == null)
+		{
+			if (LogFilter.logError) { Debug.LogError("The Player Options Array is empty on the NetworkManager. Please setup a Player Options Array."); }
+			return;
+		}
+
+		for (int i = 0; i < playerOptions.Length; i++)
+		{
+			if (playerOptions[i].GetComponent<NetworkIdentity>() == null)
+			{
+				if (LogFilter.logError) { Debug.LogError("The Player Options at index " + i + " does not have a NetworkIdentity. Please add a NetworkIdentity to that player option."); }
+				return;
+			}
+		}
+
+		if (playerControllerId < conn.playerControllers.Count  && conn.playerControllers[playerControllerId].IsValid && conn.playerControllers[playerControllerId].gameObject != null)
+		{
+			if (LogFilter.logError) { Debug.LogError("There is already a player at that playerControllerId for this connections."); }
+			return;
+		}
+
+		GameObject player;
+		Transform startPos = GetStartPosition();
+		if (startPos != null)
+		{
+			player = (GameObject)Instantiate(playerOptions[playerCount], startPos.position, startPos.rotation);
+		}
+		else
+		{
+			player = (GameObject)Instantiate(playerOptions[playerCount], Vector3.zero, Quaternion.identity);
+		}
+
+		NetworkServer.AddPlayerForConnection(conn, player, playerControllerId);
+	}
 }
