@@ -69,7 +69,7 @@ public class PlayerReadyHandler : NetworkBehaviour {
 				if (readyStatus) ToggleReset();
 			}
 
-		if (RoundManager.GetRoundTimer() <= 0 || ChaosManager.ReachedMaxChaos())
+		if (RoundManager.GetRoundTimer() <= 0 || NetworkedChaosManager.ChaosManagerReference.ReachedMaxChaos())
 		{
 			if (!readyCanvas.enabled)
 			{
@@ -110,6 +110,7 @@ public class PlayerReadyHandler : NetworkBehaviour {
 		readyStatusString = statusString;
 		readyWorldText.text = readyStatusString;
 
+		// Debug.Log("Ready Count (CMD): " + crossClientReadyCount);
 		RpcUpdateReadyStatus(crossClientReadyCount, readyStatusString);
 	}
 
@@ -118,6 +119,7 @@ public class PlayerReadyHandler : NetworkBehaviour {
 	{
 		crossClientReadyCount = newCount;
 		readyWorldText.text = newStatus;
+		// Debug.Log("Ready Count (RPC): " + crossClientReadyCount);
 	}
 
 	public void UpdateRemoteCopyCounts(int newCount)

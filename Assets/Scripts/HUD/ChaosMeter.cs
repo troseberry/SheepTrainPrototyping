@@ -22,7 +22,7 @@ public class ChaosMeter : MonoBehaviour
 		
 		if (RoundManager.GetRoundTimer() > 0)
 		{
-			nextSliderValue = (float) ChaosManager.GetChaosValue() / 100;
+			nextSliderValue = (float) NetworkedChaosManager.ChaosManagerReference.GetChaosValue() / 100;
 			currentSliderValue = chaosMeterSlider.value;
 
 			if (nextSliderValue != currentSliderValue)

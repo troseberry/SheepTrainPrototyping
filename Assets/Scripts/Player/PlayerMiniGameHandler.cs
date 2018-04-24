@@ -122,11 +122,21 @@ public class PlayerMiniGameHandler : MonoBehaviour
 
         if (didWin)
         {
-            ChaosManager.PassedTask();
+            
+            NetworkedChaosManager.ChaosManagerReference.PassedTask();
         }
         else
         {
-            ChaosManager.FailedTask();
+            // GameObject[] allPlayers = GameObject.FindGameObjectsWithTag("Player");
+            // for (int i = 0; i < allPlayers.Length; i++)
+            // {
+            //     if (allPlayers[i].GetComponent<NetworkIdentity>().isLocalPlayer)
+            //     {
+            //         allPlayers[i].GetComponent<NetworkedChaosManager>().FailedTask();
+            //     }
+            // }
+            Debug.Log("execute failure call (after atempt)");
+            NetworkedChaosManager.ChaosManagerReference.FailedTask();
         }
 
 
@@ -140,14 +150,14 @@ public class PlayerMiniGameHandler : MonoBehaviour
             HandlerReference.failText.SetActive(true);
         }
         HandlerReference.Invoke("CloseMiniGame", 1.5f);
-        Debug.Log("Ending Game");
+        // Debug.Log("Ending Game");
     }
 
     public void CloseMiniGame()
     {
         PlayerAnimator.StopInteracting();
         
-        Debug.Log("Closing Game");
+        // Debug.Log("Closing Game");
         generalElements.SetActive(false);
         passText.SetActive(false);
         failText.SetActive(false);
@@ -185,7 +195,6 @@ public class PlayerMiniGameHandler : MonoBehaviour
 
                 inGame = true;
                 minigameScripts[gameIndex].isBeingPlayed = true;
-
             }
         }
     }

@@ -11,6 +11,9 @@ public class NetworkedChaosManager : NetworkBehaviour
 	[SyncVar (hook = "OnChaosValueChanged")]
 	public int chaosValue = 0;
 
+	private int failureValue = 20;
+	private int successValue = -5;
+
 	void Start () 
 	{
 		ChaosManagerReference = this;
@@ -28,6 +31,37 @@ public class NetworkedChaosManager : NetworkBehaviour
 		// 	ChaosManager.PassedTask();
 		// }
 	}
+
+	public void PassedTask()
+	{
+		chaosValue = Mathf.Clamp(chaosValue += successValue, 0, 100);
+		UpdateChaosValue(chaosValue);
+	}
+
+	public void FailedTask()
+	{
+		Debug.Log("Failed");
+		chaosValue = Mathf.Clamp(chaosValue += failureValue, 0, 100);
+		UpdateChaosValue(chaosValue);
+	}
+
+	public void ResetChaos()
+	{
+		chaosValue = 0;
+		UpdateChaosValue(chaosValue);
+	}
+
+	public void SetChaosValue(int value)
+	{
+		chaosValue = value;
+		UpdateChaosValue(chaosValue);
+	}
+
+	public int GetChaosValue() { return chaosValue; }
+
+	public bool ReachedMaxChaos() { return chaosValue >= 100; }
+
+
 
 	public void UpdateChaosValue(int value)
 	{

@@ -69,7 +69,7 @@ public class RoundManager : MonoBehaviour
 
 		if (roundHasStarted)
 		{
-			if (roundTimer <= 0 || ChaosManager.ReachedMaxChaos())
+			if (roundTimer <= 0 || NetworkedChaosManager.ChaosManagerReference.ReachedMaxChaos())
 			{
 				// Debug.Log("Round Ended");
 				EndRound();
@@ -95,7 +95,7 @@ public class RoundManager : MonoBehaviour
 	public void StartRound()
 	{
 		// startRoundButton.SetActive(false);
-		ChaosManager.SetChaosValue(0);
+		NetworkedChaosManager.ChaosManagerReference.SetChaosValue(0);
 		roundTimer = roundDuration;
 		allPlayersReady = true;
 	}
