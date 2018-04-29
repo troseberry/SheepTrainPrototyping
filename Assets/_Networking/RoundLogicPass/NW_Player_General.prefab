@@ -89,11 +89,12 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4155096301732798}
+  - component: {fileID: 114715919332469640}
   - component: {fileID: 212348013843973268}
   - component: {fileID: 95818020253835760}
+  - component: {fileID: 114712042424654754}
   - component: {fileID: 61181348003014084}
   - component: {fileID: 50277304218451776}
-  - component: {fileID: 114715919332469640}
   - component: {fileID: 114986995357738238}
   - component: {fileID: 114066400525131054}
   - component: {fileID: 114856057483286528}
@@ -455,6 +456,25 @@ MonoBehaviour:
   countdownText: {fileID: 114624415275474086}
   readyCanvas: {fileID: 223093735778519900}
   readyWorldCanvas: {fileID: 223058248849821878}
+--- !u!114 &114712042424654754
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1749095252600204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1590678366, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Animator: {fileID: 95818020253835760}
+  m_ParameterSendBits: 0
+  param0: 
+  param1: 
+  param2: 
+  param3: 
+  param4: 
+  param5: 
 --- !u!114 &114715919332469640
 MonoBehaviour:
   m_ObjectHideFlags: 1

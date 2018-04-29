@@ -13,7 +13,7 @@ public class NetworkedPlayerMovement : NetworkBehaviour
 	float verticalInput;
 	Vector2 moveVector;
 
-	private SpriteRenderer sheepSprite;
+	public SpriteRenderer sheepSprite;
 	private int previousFacingDirection = 1;
 	private int facingDirection = 1;
 
@@ -40,6 +40,7 @@ public class NetworkedPlayerMovement : NetworkBehaviour
 
 		movementDisabled = false;
 
+		// Need for point 'n click movement
 		pointerEvent = new PointerEventData(currentEventSystem);
 		currentPlayerPosition = playerTransform.position;
 		nextDestination = playerTransform.position;
@@ -55,27 +56,6 @@ public class NetworkedPlayerMovement : NetworkBehaviour
 		
 		horizontalInput = Input.GetAxisRaw("Horizontal");
 		verticalInput = Input.GetAxisRaw("Vertical");
-
-		// if (!movementDisabled)
-		// {
-		// 	if (horizontalInput > 0) 
-		// 	{
-		// 		playerTransform.Translate(Vector3.right * (4 * Time.deltaTime));
-		// 	} 
-		// 	else if (horizontalInput < 0) 
-		// 	{
-		// 		playerTransform.Translate(Vector3.left * (4 * Time.deltaTime));
-		// 	}
-			
-		// 	if (verticalInput > 0) 
-		// 	{
-		// 		playerTransform.Translate(Vector3.up * (4 * Time.deltaTime));
-		// 	} 
-		// 	else if (verticalInput < 0) 
-		// 	{
-		// 		playerTransform.Translate(Vector3.down * (4 * Time.deltaTime));
-		// 	}
-		// }
 
 		if (!movementDisabled)
 		{
@@ -93,11 +73,13 @@ public class NetworkedPlayerMovement : NetworkBehaviour
 			}
 
 			
-			if (FacingDirectionChanged())
-			{
-				Debug.Log("Changed Facing Direction");
-				sheepSprite.flipX = !sheepSprite.flipX;
-			}
+			// if (FacingDirectionChanged())
+			// {
+			// 	Debug.Log("Changed Facing Direction");
+			// 	sheepSprite.flipX = !sheepSprite.flipX;
+			// 	CmdProvideFlipToServer(true);
+			// }
+			Flip();
 		}
 
 		if (Input.GetMouseButtonDown(0))
@@ -115,10 +97,10 @@ public class NetworkedPlayerMovement : NetworkBehaviour
 		// }
 	}
 
-	void FlipPlayerSprite()
-	{
-		playerTransform.RotateAround(playerTransform.position, Vector3.up, 180f);
-	}
+	// void FlipPlayerSprite()
+	// {
+	// 	playerTransform.RotateAround(playerTransform.position, Vector3.up, 180f);
+	// }
 
 	bool FacingDirectionChanged()
 	{
@@ -128,5 +110,56 @@ public class NetworkedPlayerMovement : NetworkBehaviour
 			facingDirection = horizontalInput > 0 ? 1 : -1;
 		}
 		return facingDirection != previousFacingDirection;
+	}
+
+	[Command]
+	void CmdProvideFlipToServer(bool stateChanged)
+	{
+		Debug.Log("Client Check 0.5");
+		if (stateChanged)
+		{
+			Debug.Log("Client Check 1");
+			sheepSprite.flipX = !sheepSprite.flipX;
+
+			// GameObject[] allPlayers = GameObject.FindGameObjectsWithTag("Player");
+			// NetworkedPlayerMovement[] allCounts = new NetworkedPlayerMovement[allPlayers.Length];
+			// for (int i = 0; i < allPlayers.Length; i++)
+			// {
+			// 	allCounts[i] = allPlayers[i].GetComponent<NetworkedPlayerMovement>();
+			// 	allCounts[i].UpdateRemoteSpriteFlip();
+			// }
+			RpcSendFlipState(stateChanged);
+		}
+	}
+
+	[ClientRpc]
+	void RpcSendFlipState(bool stateChanged)
+	{
+		if (!isLocalPlayer) return;
+		
+		Debug.Log("Client Check 2");
+		if (stateChanged)
+		{
+			Debug.Log("Client Check 2.5");
+			sheepSprite.flipX = !sheepSprite.flipX;
+		}
+	}
+
+	[Client]
+	void Flip()
+	{
+		if (!isLocalPlayer) return;
+
+		if (FacingDirectionChanged()) 
+		{
+			Debug.Log("Client Check 0");
+			sheepSprite.flipX = !sheepSprite.flipX;
+			CmdProvideFlipToServer(true);
+		}
+	}
+
+	public void UpdateRemoteSpriteFlip()
+	{
+		sheepSprite.flipX = !sheepSprite.flipX;
 	}
 }

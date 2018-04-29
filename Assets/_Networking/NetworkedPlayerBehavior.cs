@@ -31,6 +31,10 @@ public class NetworkedPlayerBehavior : NetworkBehaviour
         readyCanvas.enabled = true;
 
         GetComponent<PlayerAnimator>().enabled = true;
+        for (int i = 0; i < GetComponent<Animator>().parameterCount; i++)
+        {
+            GetComponent<NetworkAnimator>().SetParameterAutoSend(i, true);
+        }
 
         GetComponent<NetworkedTaskManager>().enabled = true;
         GetComponent<NetworkedChaosManager>().enabled = true;
