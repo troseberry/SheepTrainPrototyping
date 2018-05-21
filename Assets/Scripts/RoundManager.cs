@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 
 //this should exist on the host/server. all playerminigamehandlers should edit this and be edited by this
 
@@ -111,6 +112,19 @@ public class RoundManager : MonoBehaviour
 
 		roundHasStarted = false;
 		startingCountdown = 5f;
+
+		Debug.Log("End Round Calls");
+		// GameObject[] allPlayers = GameObject.FindGameObjectsWithTag("Player");
+		// NetworkedPlayerMovement[] allMoveScripts = new NetworkedPlayerMovement[allPlayers.Length];
+		// for (int i = 0; i < allPlayers.Length; i++)
+		// {
+		// 	allMoveScripts[i] = allPlayers[i].GetComponent<NetworkedPlayerMovement>();
+		// 	if (allPlayers[i].GetComponent<NetworkIdentity>().localPlayerAuthority)
+		// 	{
+		// 		allMoveScripts[i].CallForCelebrate();
+		// 	}
+		// }
+		PlayerAnimator.Celebrate();
 	}
 
 	public static float GetRoundTimer() { return roundTimer; }

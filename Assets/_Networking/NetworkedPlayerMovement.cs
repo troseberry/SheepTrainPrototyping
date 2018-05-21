@@ -73,13 +73,13 @@ public class NetworkedPlayerMovement : NetworkBehaviour
 			}
 
 			
-			// if (FacingDirectionChanged())
-			// {
-			// 	Debug.Log("Changed Facing Direction");
-			// 	sheepSprite.flipX = !sheepSprite.flipX;
-			// 	CmdProvideFlipToServer(true);
-			// }
-			Flip();
+			if (FacingDirectionChanged())
+			{
+				Debug.Log("Changed Facing Direction");
+				sheepSprite.flipX = !sheepSprite.flipX;
+				// CmdProvideFlipToServer(true);
+			}
+			// Flip();
 		}
 
 		if (Input.GetMouseButtonDown(0))
@@ -102,6 +102,12 @@ public class NetworkedPlayerMovement : NetworkBehaviour
 	// 	playerTransform.RotateAround(playerTransform.position, Vector3.up, 180f);
 	// }
 
+	// public void CallForCelebrate()
+	// {
+	// 	Debug.Log("Call For Celebrate: " + gameObject.name);
+	// 	PlayerAnimator.Celebrate();
+	// }
+	
 	bool FacingDirectionChanged()
 	{
 		if (horizontalInput != 0)
