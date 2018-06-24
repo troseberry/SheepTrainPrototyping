@@ -62,7 +62,7 @@ namespace Prototype.NetworkLobby
             backButton.gameObject.SetActive(false);
             GetComponent<Canvas>().enabled = true;
 
-            DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(this.gameObject);
 
             SetServerInfo("Offline", "None");
         }
