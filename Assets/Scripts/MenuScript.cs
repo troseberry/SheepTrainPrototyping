@@ -139,8 +139,11 @@ public class MenuScript : NetworkBehaviour {
 		mainMenu.SetActive (false);
 	}
 
+    //Moved to OverriddenNetworkLobbyPlayer
     public void StartGame () {
-        Application.LoadLevel("MainGame");
+        //OverriddenNetworkLobbyPlayer.SendReadyToBeginMessage();
+        //gameObject.SendReadyToBeginMessage();
+        //Application.LoadLevel("MainGame");
     }
 
 	public void nextSymbol(int thisNumber) {
