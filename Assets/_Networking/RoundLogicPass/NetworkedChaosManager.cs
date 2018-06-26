@@ -40,7 +40,7 @@ public class NetworkedChaosManager : NetworkBehaviour
 
 	public void FailedTask()
 	{
-		Debug.Log("Failed");
+		// Debug.Log("Failed");
 		chaosValue = Mathf.Clamp(chaosValue += failureValue, 0, 100);
 		UpdateChaosValue(chaosValue);
 	}
@@ -66,7 +66,7 @@ public class NetworkedChaosManager : NetworkBehaviour
 	public void UpdateChaosValue(int value)
 	{
 		chaosValue = value;
-		Debug.Log("Chaos: " + chaosValue);
+		// Debug.Log("Chaos: " + chaosValue + " - " + name);
 		CmdUpdateChaosValue(chaosValue);
 	}
 
@@ -74,12 +74,12 @@ public class NetworkedChaosManager : NetworkBehaviour
 	void CmdUpdateChaosValue(int chaosNumber)
 	{
 		chaosValue = chaosNumber;
-		GameObject[] allPlayers = GameObject.FindGameObjectsWithTag("Player");
-		for (int i = 0; i < allPlayers.Length; i++)
-		{
-			allPlayers[i].GetComponent<NetworkedChaosManager>().UpdateRemoteChaosValue(chaosValue);
-		}
-		Debug.Log("Chaos (CMD): " + chaosValue);
+		// GameObject[] allPlayers = GameObject.FindGameObjectsWithTag("Player");
+		// for (int i = 0; i < allPlayers.Length; i++)
+		// {
+		// 	allPlayers[i].GetComponent<NetworkedChaosManager>().UpdateRemoteChaosValue(chaosValue);
+		// }
+		// Debug.Log("Chaos (CMD): " + chaosValue + " - " + name);
 		RpcUpdateChaosValue(chaosValue);
 	}
 
@@ -87,7 +87,7 @@ public class NetworkedChaosManager : NetworkBehaviour
 	void RpcUpdateChaosValue(int newValue)
 	{
 		chaosValue = newValue;
-		Debug.Log("Chaos (RPC): " + chaosValue);
+		// Debug.Log("Chaos (RPC): " + chaosValue + " - " + name);
 	}
 
 	void UpdateRemoteChaosValue(int newValue)

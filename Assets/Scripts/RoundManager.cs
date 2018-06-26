@@ -124,7 +124,7 @@ public class RoundManager : MonoBehaviour
 		// 		allMoveScripts[i].CallForCelebrate();
 		// 	}
 		// }
-		PlayerAnimator.Celebrate();
+		// PlayerAnimator.Celebrate();
 	}
 
 	public static float GetRoundTimer() { return roundTimer; }

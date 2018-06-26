@@ -10,8 +10,8 @@ public class TaskManager : MonoBehaviour
 	private static List<int> inactiveGameIndexes = new List<int> {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14};
 	private static List<int> activeGameIndexes = new List<int>();
 	
-	public static float generationFrequency = 5f;
-	public static float deletionFrequency = 8f;
+	public static float generationFrequency = 10f;
+	public static float deletionFrequency = 20f;
 
 	void Start () 
 	{
@@ -254,7 +254,7 @@ public class TaskManager : MonoBehaviour
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[0].SetGameInactive();
 		SetMiniGameStatusInactive(0);
 
-		Debug.Log("Deleted Speed Levers");
+		// Debug.Log("Deleted Speed Levers");
 	}
 
 	IEnumerator DeletePressureValve()
@@ -267,7 +267,7 @@ public class TaskManager : MonoBehaviour
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[1].SetGameInactive();
 		SetMiniGameStatusInactive(1);
 
-		Debug.Log("Deleted Pressure Valve");
+		// Debug.Log("Deleted Pressure Valve");
 	}
 
 	IEnumerator DeleteFlickFuel()
@@ -280,7 +280,7 @@ public class TaskManager : MonoBehaviour
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[2].SetGameInactive();
 		SetMiniGameStatusInactive(2);
 
-		Debug.Log("Deleted Flick Fuel");
+		// Debug.Log("Deleted Flick Fuel");
 	}
 
 	IEnumerator DeleteSoupFly()
@@ -293,7 +293,7 @@ public class TaskManager : MonoBehaviour
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[3].SetGameInactive();
 		SetMiniGameStatusInactive(3);
 
-		Debug.Log("Deleted Soup Fly");
+		// Debug.Log("Deleted Soup Fly");
 	}
 
 	IEnumerator DeleteClearTable()
@@ -306,7 +306,7 @@ public class TaskManager : MonoBehaviour
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[4].SetGameInactive();
 		SetMiniGameStatusInactive(4);
 
-		Debug.Log("Deleted Clear Table");
+		// Debug.Log("Deleted Clear Table");
 	}
 
 	IEnumerator DeleteServeTea()
@@ -319,7 +319,7 @@ public class TaskManager : MonoBehaviour
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[5].SetGameInactive();
 		SetMiniGameStatusInactive(5);
 
-		Debug.Log("Deleted Serve Tea");
+		// Debug.Log("Deleted Serve Tea");
 	}
 
 	IEnumerator DeleteWoolCuts()
@@ -332,7 +332,7 @@ public class TaskManager : MonoBehaviour
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[6].SetGameInactive();
 		SetMiniGameStatusInactive(6);
 
-		Debug.Log("Deleted Wool Cuts");
+		// Debug.Log("Deleted Wool Cuts");
 	}
 
 	IEnumerator DeleteMustacheRoll()
@@ -345,7 +345,7 @@ public class TaskManager : MonoBehaviour
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[7].SetGameInactive();
 		SetMiniGameStatusInactive(7);
 
-		Debug.Log("Deleted Mustache Roll");
+		// Debug.Log("Deleted Mustache Roll");
 	}
 
 	IEnumerator DeleteSweepWool()
@@ -358,7 +358,7 @@ public class TaskManager : MonoBehaviour
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[8].SetGameInactive();
 		SetMiniGameStatusInactive(8);
 
-		Debug.Log("Deleted Sweep Wool");
+		// Debug.Log("Deleted Sweep Wool");
 	}
 
 	IEnumerator DeleteSheepJump()
@@ -371,7 +371,7 @@ public class TaskManager : MonoBehaviour
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[9].SetGameInactive();
 		SetMiniGameStatusInactive(9);
 
-		Debug.Log("Deleted Sheep Jump");
+		// Debug.Log("Deleted Sheep Jump");
 	}
 
 	IEnumerator DeleteWakeGuests()
@@ -384,7 +384,7 @@ public class TaskManager : MonoBehaviour
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[10].SetGameInactive();
 		SetMiniGameStatusInactive(10);
 
-		Debug.Log("Deleted Wake Guests");
+		// Debug.Log("Deleted Wake Guests");
 	}
 
 	IEnumerator DeleteMakeBeds()
@@ -397,7 +397,7 @@ public class TaskManager : MonoBehaviour
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[11].SetGameInactive();
 		SetMiniGameStatusInactive(11);
 
-		Debug.Log("Deleted Make Beds");
+		// Debug.Log("Deleted Make Beds");
 	}
 
 	IEnumerator DeleteTakeInventory()
@@ -410,7 +410,7 @@ public class TaskManager : MonoBehaviour
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[12].SetGameInactive();
 		SetMiniGameStatusInactive(12);
 
-		Debug.Log("Deleted Take Inventory");
+		// Debug.Log("Deleted Take Inventory");
 	}
 
 	IEnumerator DeleteCheckTickets()
@@ -423,7 +423,7 @@ public class TaskManager : MonoBehaviour
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[13].SetGameInactive();
 		SetMiniGameStatusInactive(13);
 
-		Debug.Log("Deleted Check Tickets");
+		// Debug.Log("Deleted Check Tickets");
 	}
 
 	IEnumerator DeleteSaveSheep()
@@ -436,7 +436,7 @@ public class TaskManager : MonoBehaviour
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[14].SetGameInactive();
 		SetMiniGameStatusInactive(14);
 		
-		Debug.Log("Deleted Save Sheep");
+		// Debug.Log("Deleted Save Sheep");
 	}
 	#endregion
 
