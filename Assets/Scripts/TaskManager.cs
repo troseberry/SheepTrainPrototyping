@@ -10,8 +10,8 @@ public class TaskManager : MonoBehaviour
 	private static List<int> inactiveGameIndexes = new List<int> {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14};
 	private static List<int> activeGameIndexes = new List<int>();
 	
-	public static float generationFrequency = 10f;
-	public static float deletionFrequency = 20f;
+	public static float generationFrequency = 5f;
+	public static float deletionFrequency = 8f;
 
 	void Start () 
 	{
@@ -114,6 +114,11 @@ public class TaskManager : MonoBehaviour
 
 	public static void CancelTasksAfterRound()
 	{
+		// Instead of only setting the active ones inactive, go
+		// ahead an set all the taks inactive. 
+		// Running into weird issue where some tasks aren't being
+		// deactivated after round
+
 		//Doesn't handle closing games that are open for players
 		for (int i = 0; i < activeGameIndexes.Count; i++)
 		{
