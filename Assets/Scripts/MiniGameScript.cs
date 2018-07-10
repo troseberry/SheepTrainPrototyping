@@ -13,8 +13,9 @@ public class MiniGameScript : MonoBehaviour
 	public virtual float GetTimeLimit() {return 0f;}
 	public virtual void ResetGame(){}
 
+	public TaskDeletionTimer deletionTimerUI;
 
-	public int gameIndex;
+	public int gameIndex;		// this is assigned in the PlayerMiniGameHandler
 
 	public bool isActive = false;
 	public bool isBeingPlayed = false;
@@ -32,6 +33,9 @@ public class MiniGameScript : MonoBehaviour
 		isActive = true;
 		awaitingDeletion = true;
 
+		deletionTimerUI.gameObject.SetActive(true);
+		deletionTimerUI.StartTimerCoroutine(deletionTimer);
+
 		if (activeImage) activeImage.enabled = true;
 		if (inactiveImage) inactiveImage.enabled = false;
 	}
@@ -40,6 +44,9 @@ public class MiniGameScript : MonoBehaviour
 	{
 		isBeingPlayed = true;
 		awaitingDeletion = false;
+
+		// deletionTimerUI.gameObject.SetActive(false);
+		// Debug.Log("Game Busy");
 	}
 
 	public void SetGameInactive()
@@ -48,7 +55,11 @@ public class MiniGameScript : MonoBehaviour
 		isBeingPlayed = false;
 		awaitingDeletion = false;
 
+		deletionTimerUI.gameObject.SetActive(false);
+
 		if (activeImage) activeImage.enabled = false;
 		if (inactiveImage) inactiveImage.enabled = true;
 	}
+
+	public void SetDeletionTime(float time) { deletionTimer = time; }
 }

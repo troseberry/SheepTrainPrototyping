@@ -90,9 +90,12 @@ public class TaskManager : MonoBehaviour
 		NetworkedTaskManager.TaskManagerReference.GenerateIndex(inactiveGameIndexes);
 		int chosenIndex = NetworkedTaskManager.TaskManagerReference.GetGeneratedIndex();
 
+
 		// Debug.Log("Chose: [" + chosenIndex + "] " + taskScripts[chosenIndex].gameObject.name);
 
+		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[chosenIndex].SetDeletionTime(deletionFrequency);
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[chosenIndex].SetGameActive();
+
 		InitiateDeletion(chosenIndex);
 		MiniMap.DisplayNotification(Mathf.CeilToInt(chosenIndex / 3));
 
