@@ -37,7 +37,6 @@ public class NetworkedPlayerBehavior : NetworkBehaviour
         }
 
         GetComponent<NetworkedTaskManager>().enabled = true;
-        GetComponent<NetworkedChaosManager>().enabled = true;
 
         // CmdSpawnGenElements();
 

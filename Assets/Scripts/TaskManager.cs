@@ -258,7 +258,7 @@ public class TaskManager : MonoBehaviour
 
 		yield return new WaitForSeconds(deletionFrequency);
 
-		NetworkedChaosManager.ChaosManagerReference.FailedTask();
+		NetworkedChaosManager.ChaosManagerReference.MissedTaskOnServer();
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[0].SetGameInactive();
 		SetMiniGameStatusInactive(0);
 
@@ -271,7 +271,7 @@ public class TaskManager : MonoBehaviour
 
 		yield return new WaitForSeconds(deletionFrequency);
 		
-		NetworkedChaosManager.ChaosManagerReference.FailedTask();
+		NetworkedChaosManager.ChaosManagerReference.MissedTaskOnServer();
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[1].SetGameInactive();
 		SetMiniGameStatusInactive(1);
 
@@ -284,7 +284,7 @@ public class TaskManager : MonoBehaviour
 
 		yield return new WaitForSeconds(deletionFrequency);
 		
-		NetworkedChaosManager.ChaosManagerReference.FailedTask();
+		NetworkedChaosManager.ChaosManagerReference.MissedTaskOnServer();
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[2].SetGameInactive();
 		SetMiniGameStatusInactive(2);
 
@@ -297,7 +297,7 @@ public class TaskManager : MonoBehaviour
 
 		yield return new WaitForSeconds(deletionFrequency);
 		
-		NetworkedChaosManager.ChaosManagerReference.FailedTask();
+		NetworkedChaosManager.ChaosManagerReference.MissedTaskOnServer();
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[3].SetGameInactive();
 		SetMiniGameStatusInactive(3);
 
@@ -310,7 +310,7 @@ public class TaskManager : MonoBehaviour
 
 		yield return new WaitForSeconds(deletionFrequency);
 		
-		NetworkedChaosManager.ChaosManagerReference.FailedTask();
+		NetworkedChaosManager.ChaosManagerReference.MissedTaskOnServer();
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[4].SetGameInactive();
 		SetMiniGameStatusInactive(4);
 
@@ -323,7 +323,7 @@ public class TaskManager : MonoBehaviour
 
 		yield return new WaitForSeconds(deletionFrequency);
 		
-		NetworkedChaosManager.ChaosManagerReference.FailedTask();
+		NetworkedChaosManager.ChaosManagerReference.MissedTaskOnServer();
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[5].SetGameInactive();
 		SetMiniGameStatusInactive(5);
 
@@ -336,7 +336,7 @@ public class TaskManager : MonoBehaviour
 
 		yield return new WaitForSeconds(deletionFrequency);
 		
-		NetworkedChaosManager.ChaosManagerReference.FailedTask();
+		NetworkedChaosManager.ChaosManagerReference.MissedTaskOnServer();
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[6].SetGameInactive();
 		SetMiniGameStatusInactive(6);
 
@@ -349,7 +349,7 @@ public class TaskManager : MonoBehaviour
 
 		yield return new WaitForSeconds(deletionFrequency);
 		
-		NetworkedChaosManager.ChaosManagerReference.FailedTask();
+		NetworkedChaosManager.ChaosManagerReference.MissedTaskOnServer();
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[7].SetGameInactive();
 		SetMiniGameStatusInactive(7);
 
@@ -362,7 +362,7 @@ public class TaskManager : MonoBehaviour
 
 		yield return new WaitForSeconds(deletionFrequency);
 		
-		NetworkedChaosManager.ChaosManagerReference.FailedTask();
+		NetworkedChaosManager.ChaosManagerReference.MissedTaskOnServer();
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[8].SetGameInactive();
 		SetMiniGameStatusInactive(8);
 
@@ -375,7 +375,7 @@ public class TaskManager : MonoBehaviour
 
 		yield return new WaitForSeconds(deletionFrequency);
 		
-		NetworkedChaosManager.ChaosManagerReference.FailedTask();
+		NetworkedChaosManager.ChaosManagerReference.MissedTaskOnServer();
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[9].SetGameInactive();
 		SetMiniGameStatusInactive(9);
 
@@ -388,7 +388,7 @@ public class TaskManager : MonoBehaviour
 
 		yield return new WaitForSeconds(deletionFrequency);
 		
-		NetworkedChaosManager.ChaosManagerReference.FailedTask();
+		NetworkedChaosManager.ChaosManagerReference.MissedTaskOnServer();
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[10].SetGameInactive();
 		SetMiniGameStatusInactive(10);
 
@@ -401,7 +401,7 @@ public class TaskManager : MonoBehaviour
 
 		yield return new WaitForSeconds(deletionFrequency);
 		
-		NetworkedChaosManager.ChaosManagerReference.FailedTask();
+		NetworkedChaosManager.ChaosManagerReference.MissedTaskOnServer();
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[11].SetGameInactive();
 		SetMiniGameStatusInactive(11);
 
@@ -414,7 +414,7 @@ public class TaskManager : MonoBehaviour
 
 		yield return new WaitForSeconds(deletionFrequency);
 		
-		NetworkedChaosManager.ChaosManagerReference.FailedTask();
+		NetworkedChaosManager.ChaosManagerReference.MissedTaskOnServer();
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[12].SetGameInactive();
 		SetMiniGameStatusInactive(12);
 
@@ -427,7 +427,7 @@ public class TaskManager : MonoBehaviour
 
 		yield return new WaitForSeconds(deletionFrequency);
 		
-		NetworkedChaosManager.ChaosManagerReference.FailedTask();
+		NetworkedChaosManager.ChaosManagerReference.MissedTaskOnServer();
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[13].SetGameInactive();
 		SetMiniGameStatusInactive(13);
 
@@ -440,7 +440,7 @@ public class TaskManager : MonoBehaviour
 
 		yield return new WaitForSeconds(deletionFrequency);
 		
-		NetworkedChaosManager.ChaosManagerReference.FailedTask();
+		NetworkedChaosManager.ChaosManagerReference.MissedTaskOnServer();
 		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[14].SetGameInactive();
 		SetMiniGameStatusInactive(14);
 		

@@ -8,7 +8,6 @@ public class NetworkedChaosManager : NetworkBehaviour
 {
 	public static NetworkedChaosManager ChaosManagerReference;
 
-	[SyncVar (hook = "OnChaosValueChanged")]
 	public int chaosValue = 0;
 
 	private int failureValue = 20;
@@ -21,15 +20,15 @@ public class NetworkedChaosManager : NetworkBehaviour
 	
 	void Update () 
 	{
-		// if (Input.GetKeyDown(KeyCode.Space))
-		// {
-		// 	ChaosManager.FailedTask();
-		// }
+		if (Input.GetKeyDown(KeyCode.Space))
+		{
+			FailedTask();
+		}
 
-		// if (Input.GetKeyDown(KeyCode.G))
-		// {
-		// 	ChaosManager.PassedTask();
-		// }
+		if (Input.GetKeyDown(KeyCode.G))
+		{
+			PassedTask();
+		}
 	}
 
 	public void PassedTask()
@@ -40,7 +39,6 @@ public class NetworkedChaosManager : NetworkBehaviour
 
 	public void FailedTask()
 	{
-		// Debug.Log("Failed");
 		chaosValue = Mathf.Clamp(chaosValue += failureValue, 0, 100);
 		UpdateChaosValue(chaosValue);
 	}
@@ -70,15 +68,18 @@ public class NetworkedChaosManager : NetworkBehaviour
 		CmdUpdateChaosValue(chaosValue);
 	}
 
+	[Server]
+	public void MissedTaskOnServer()
+	{
+		chaosValue = Mathf.Clamp(chaosValue += failureValue, 0, 100);
+		// Debug.Log("Chaos (SRV): " + chaosValue + " - " + name);
+		UpdateChaosValue(chaosValue);
+	}
+
 	[Command]
 	void CmdUpdateChaosValue(int chaosNumber)
 	{
 		chaosValue = chaosNumber;
-		// GameObject[] allPlayers = GameObject.FindGameObjectsWithTag("Player");
-		// for (int i = 0; i < allPlayers.Length; i++)
-		// {
-		// 	allPlayers[i].GetComponent<NetworkedChaosManager>().UpdateRemoteChaosValue(chaosValue);
-		// }
 		// Debug.Log("Chaos (CMD): " + chaosValue + " - " + name);
 		RpcUpdateChaosValue(chaosValue);
 	}
@@ -88,15 +89,5 @@ public class NetworkedChaosManager : NetworkBehaviour
 	{
 		chaosValue = newValue;
 		// Debug.Log("Chaos (RPC): " + chaosValue + " - " + name);
-	}
-
-	void UpdateRemoteChaosValue(int newValue)
-	{
-		chaosValue = newValue;
-	}
-
-	void OnChaosValueChanged(int newValue)
-	{
-		chaosValue = newValue;
 	}
 }
