@@ -36,7 +36,7 @@ public class NetworkedPlayerBehavior : NetworkBehaviour
             GetComponent<NetworkAnimator>().SetParameterAutoSend(i, true);
         }
 
-        GetComponent<NetworkedTaskManager>().enabled = true;
+        // GetComponent<NetworkedTaskManager>().enabled = true;
 
         // CmdSpawnGenElements();
 

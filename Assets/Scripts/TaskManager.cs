@@ -8,14 +8,55 @@ public class TaskManager : MonoBehaviour
 	
 	private static MiniGameScript[] taskScripts;
 	private static List<int> inactiveGameIndexes = new List<int> {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14};
+	// private static List<int> inactiveGameIndexes = new List<int> {0, 1, 2};
 	private static List<int> activeGameIndexes = new List<int>();
 	
 	public static float generationFrequency = 5f;
 	public static float deletionFrequency = 8f;
 
+	//Boiler
+    public GameObject speedLeversGame, pressureValveGame, flickFuelGame;
+
+    //Dining
+    public GameObject soupFlyGame, clearTableGame, serveTeaGame;
+
+    //Salon
+    public GameObject woolCutsGame, mustacheRollGame, sweepWoolGame;
+
+    //Sleeper
+    public GameObject sheepJumpGame, wakeGuestsGame, makeBedsGame;
+
+    //Caboose
+    public GameObject takeInventoryGame, checkTicketsGame, saveSheepGame;
+
+	private GameObject[] minigamesArray;
+    private MiniGameScript[] minigameScripts;
+
+
+	public List<int> GetInactiveGameIndexes() { return inactiveGameIndexes; }
+	public List<int> GetActiveGameIndexes() { return activeGameIndexes; }
+
 	void Start () 
 	{
 		TaskManagerReference = this;
+
+		minigamesArray = new GameObject[]
+        {
+            speedLeversGame, pressureValveGame, flickFuelGame,
+            soupFlyGame, clearTableGame, serveTeaGame,
+            woolCutsGame, mustacheRollGame, sweepWoolGame,
+            sheepJumpGame, wakeGuestsGame, makeBedsGame,
+            takeInventoryGame, checkTicketsGame, saveSheepGame
+        };
+
+		minigameScripts = new MiniGameScript[]
+        {
+            speedLeversGame.GetComponent<MiniGameScript>(), pressureValveGame.GetComponent<MiniGameScript>(), flickFuelGame.GetComponent<MiniGameScript>(),
+            soupFlyGame.GetComponent<MiniGameScript>(), clearTableGame.GetComponent<MiniGameScript>(), serveTeaGame.GetComponent<MiniGameScript>(),
+            woolCutsGame.GetComponent<MiniGameScript>(), mustacheRollGame.GetComponent<MiniGameScript>(), sweepWoolGame.GetComponent<MiniGameScript>(),
+            sheepJumpGame.GetComponent<MiniGameScript>(), wakeGuestsGame.GetComponent<MiniGameScript>(), makeBedsGame.GetComponent<MiniGameScript>(),
+            takeInventoryGame.GetComponent<MiniGameScript>(), checkTicketsGame.GetComponent<MiniGameScript>(), saveSheepGame.GetComponent<MiniGameScript>()
+        };
 	}
 	
 	void Update () 
@@ -23,24 +64,24 @@ public class TaskManager : MonoBehaviour
 		#region DEBUG
 		DebugPanel.Log("Inactive Count: ", "Round Logic", inactiveGameIndexes.Count);
 
-		string inactive = "";
-		for (int j = 0; j < inactiveGameIndexes.Count; j ++)
-		{
-			inactive += (inactiveGameIndexes[j] + ", ");
-		}
-		DebugPanel.Log("Inactive List: ", "Round Logic", inactive);
+		// string inactive = "";
+		// for (int j = 0; j < inactiveGameIndexes.Count; j ++)
+		// {
+		// 	inactive += (inactiveGameIndexes[j] + ", ");
+		// }
+		// DebugPanel.Log("Inactive List: ", "Round Logic", inactive);
 
-		string active = "";
-		for (int l = 0; l < activeGameIndexes.Count; l ++)
-		{
-			active += (activeGameIndexes[l] + ", ");
-		}
-		DebugPanel.Log("Active List: ", "Round Logic", active);
+		// string active = "";
+		// for (int l = 0; l < activeGameIndexes.Count; l ++)
+		// {
+		// 	active += (activeGameIndexes[l] + ", ");
+		// }
+		// DebugPanel.Log("Active List: ", "Round Logic", active);
 
-		for (int k = 0; k < taskScripts.Length; k++)
-		{
-			DebugPanel.Log(taskScripts[k].gameObject.name, "Mini Game Scripts", " Status: [A]" + taskScripts[k].isActive + " [BP]" + taskScripts[k].isBeingPlayed + " [AD]: " + taskScripts[k].awaitingDeletion);
-		}
+		// for (int k = 0; k < taskScripts.Length; k++)
+		// {
+		// 	DebugPanel.Log(taskScripts[k].gameObject.name, "Mini Game Scripts", " Status: [A]" + taskScripts[k].isActive + " [BP]" + taskScripts[k].isBeingPlayed + " [AD]: " + taskScripts[k].awaitingDeletion);
+		// }
 		#endregion
 	}
 
@@ -85,16 +126,14 @@ public class TaskManager : MonoBehaviour
 	
 	void ChooseTask()
 	{
-		// int chosenIndex = inactiveGameIndexes[Random.Range(0, inactiveGameIndexes.Count)];
+		// Can't generate here directly because even though TaskManager is not networked, each client has their own instance of it,
+		// meaning Random.Range will generate different numbers for each
 
 		NetworkedTaskManager.TaskManagerReference.GenerateIndex(inactiveGameIndexes);
 		int chosenIndex = NetworkedTaskManager.TaskManagerReference.GetGeneratedIndex();
 
-
-		// Debug.Log("Chose: [" + chosenIndex + "] " + taskScripts[chosenIndex].gameObject.name);
-
-		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[chosenIndex].SetDeletionTime(deletionFrequency);
-		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[chosenIndex].SetGameActive();
+		minigameScripts[chosenIndex].SetDeletionTime(deletionFrequency);
+		minigameScripts[chosenIndex].SetGameActive();
 
 		InitiateDeletion(chosenIndex);
 		MiniMap.DisplayNotification(Mathf.CeilToInt(chosenIndex / 3));
@@ -118,7 +157,7 @@ public class TaskManager : MonoBehaviour
 	public static void CancelTasksAfterRound()
 	{
 		// Instead of only setting the active ones inactive, go
-		// ahead an set all the taks inactive. 
+		// ahead and set all the taks inactive. 
 		// Running into weird issue where some tasks aren't being
 		// deactivated after round
 
@@ -259,7 +298,8 @@ public class TaskManager : MonoBehaviour
 		yield return new WaitForSeconds(deletionFrequency);
 
 		NetworkedChaosManager.ChaosManagerReference.MissedTaskOnServer();
-		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[0].SetGameInactive();
+		// PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[0].SetGameInactive();
+		minigameScripts[0].SetGameInactive();
 		SetMiniGameStatusInactive(0);
 
 		// Debug.Log("Deleted Speed Levers");
@@ -272,7 +312,8 @@ public class TaskManager : MonoBehaviour
 		yield return new WaitForSeconds(deletionFrequency);
 		
 		NetworkedChaosManager.ChaosManagerReference.MissedTaskOnServer();
-		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[1].SetGameInactive();
+		// PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[1].SetGameInactive();
+		minigameScripts[1].SetGameInactive();
 		SetMiniGameStatusInactive(1);
 
 		// Debug.Log("Deleted Pressure Valve");
@@ -285,7 +326,8 @@ public class TaskManager : MonoBehaviour
 		yield return new WaitForSeconds(deletionFrequency);
 		
 		NetworkedChaosManager.ChaosManagerReference.MissedTaskOnServer();
-		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[2].SetGameInactive();
+		// PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[2].SetGameInactive();
+		minigameScripts[2].SetGameInactive();
 		SetMiniGameStatusInactive(2);
 
 		// Debug.Log("Deleted Flick Fuel");
@@ -298,7 +340,8 @@ public class TaskManager : MonoBehaviour
 		yield return new WaitForSeconds(deletionFrequency);
 		
 		NetworkedChaosManager.ChaosManagerReference.MissedTaskOnServer();
-		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[3].SetGameInactive();
+		// PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[3].SetGameInactive();
+		minigameScripts[3].SetGameInactive();
 		SetMiniGameStatusInactive(3);
 
 		// Debug.Log("Deleted Soup Fly");
@@ -311,7 +354,8 @@ public class TaskManager : MonoBehaviour
 		yield return new WaitForSeconds(deletionFrequency);
 		
 		NetworkedChaosManager.ChaosManagerReference.MissedTaskOnServer();
-		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[4].SetGameInactive();
+		// PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[4].SetGameInactive();
+		minigameScripts[4].SetGameInactive();
 		SetMiniGameStatusInactive(4);
 
 		// Debug.Log("Deleted Clear Table");
@@ -324,7 +368,8 @@ public class TaskManager : MonoBehaviour
 		yield return new WaitForSeconds(deletionFrequency);
 		
 		NetworkedChaosManager.ChaosManagerReference.MissedTaskOnServer();
-		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[5].SetGameInactive();
+		// PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[5].SetGameInactive();
+		minigameScripts[5].SetGameInactive();
 		SetMiniGameStatusInactive(5);
 
 		// Debug.Log("Deleted Serve Tea");
@@ -337,7 +382,8 @@ public class TaskManager : MonoBehaviour
 		yield return new WaitForSeconds(deletionFrequency);
 		
 		NetworkedChaosManager.ChaosManagerReference.MissedTaskOnServer();
-		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[6].SetGameInactive();
+		// PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[6].SetGameInactive();
+		minigameScripts[6].SetGameInactive();
 		SetMiniGameStatusInactive(6);
 
 		// Debug.Log("Deleted Wool Cuts");
@@ -350,7 +396,8 @@ public class TaskManager : MonoBehaviour
 		yield return new WaitForSeconds(deletionFrequency);
 		
 		NetworkedChaosManager.ChaosManagerReference.MissedTaskOnServer();
-		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[7].SetGameInactive();
+		// PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[7].SetGameInactive();
+		minigameScripts[7].SetGameInactive();
 		SetMiniGameStatusInactive(7);
 
 		// Debug.Log("Deleted Mustache Roll");
@@ -363,7 +410,8 @@ public class TaskManager : MonoBehaviour
 		yield return new WaitForSeconds(deletionFrequency);
 		
 		NetworkedChaosManager.ChaosManagerReference.MissedTaskOnServer();
-		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[8].SetGameInactive();
+		// PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[8].SetGameInactive();
+		minigameScripts[8].SetGameInactive();
 		SetMiniGameStatusInactive(8);
 
 		// Debug.Log("Deleted Sweep Wool");
@@ -376,7 +424,8 @@ public class TaskManager : MonoBehaviour
 		yield return new WaitForSeconds(deletionFrequency);
 		
 		NetworkedChaosManager.ChaosManagerReference.MissedTaskOnServer();
-		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[9].SetGameInactive();
+		// PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[9].SetGameInactive();
+		minigameScripts[9].SetGameInactive();
 		SetMiniGameStatusInactive(9);
 
 		// Debug.Log("Deleted Sheep Jump");
@@ -389,7 +438,8 @@ public class TaskManager : MonoBehaviour
 		yield return new WaitForSeconds(deletionFrequency);
 		
 		NetworkedChaosManager.ChaosManagerReference.MissedTaskOnServer();
-		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[10].SetGameInactive();
+		// PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[10].SetGameInactive();
+		minigameScripts[10].SetGameInactive();
 		SetMiniGameStatusInactive(10);
 
 		// Debug.Log("Deleted Wake Guests");
@@ -402,7 +452,8 @@ public class TaskManager : MonoBehaviour
 		yield return new WaitForSeconds(deletionFrequency);
 		
 		NetworkedChaosManager.ChaosManagerReference.MissedTaskOnServer();
-		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[11].SetGameInactive();
+		// PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[11].SetGameInactive();
+		minigameScripts[11].SetGameInactive();
 		SetMiniGameStatusInactive(11);
 
 		// Debug.Log("Deleted Make Beds");
@@ -415,7 +466,8 @@ public class TaskManager : MonoBehaviour
 		yield return new WaitForSeconds(deletionFrequency);
 		
 		NetworkedChaosManager.ChaosManagerReference.MissedTaskOnServer();
-		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[12].SetGameInactive();
+		// PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[12].SetGameInactive();
+		minigameScripts[12].SetGameInactive();
 		SetMiniGameStatusInactive(12);
 
 		// Debug.Log("Deleted Take Inventory");
@@ -428,7 +480,8 @@ public class TaskManager : MonoBehaviour
 		yield return new WaitForSeconds(deletionFrequency);
 		
 		NetworkedChaosManager.ChaosManagerReference.MissedTaskOnServer();
-		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[13].SetGameInactive();
+		// PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[13].SetGameInactive();
+		minigameScripts[13].SetGameInactive();
 		SetMiniGameStatusInactive(13);
 
 		// Debug.Log("Deleted Check Tickets");
@@ -441,7 +494,8 @@ public class TaskManager : MonoBehaviour
 		yield return new WaitForSeconds(deletionFrequency);
 		
 		NetworkedChaosManager.ChaosManagerReference.MissedTaskOnServer();
-		PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[14].SetGameInactive();
+		// PlayerMiniGameHandler.HandlerReference.GetMiniGameScripts()[14].SetGameInactive();
+		minigameScripts[14].SetGameInactive();
 		SetMiniGameStatusInactive(14);
 		
 		// Debug.Log("Deleted Save Sheep");
